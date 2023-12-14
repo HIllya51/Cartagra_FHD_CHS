@@ -24,7 +24,7 @@ project(patch)
 
 include_directories(.)
 include_directories(lib)
-add_library(patch MODULE patch.cpp  lib/InlineHook.c lib/LDasm.c)  
+add_library(patch MODULE patch.cpp uitext.cpp tolongtexts.cpp erroruitext.cpp)  
 
 target_link_libraries(patch )
 

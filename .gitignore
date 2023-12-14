@@ -3,5 +3,6 @@
 patch/build
 SCRIPT_FHD/SCRIPT_FHD_transed
 trans.json
-font/2.png
-font/1.png
+font/*.png
+*.ttc
+*.ttf

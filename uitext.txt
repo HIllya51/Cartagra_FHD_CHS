@@ -1,0 +1,1425 @@
+3FC5E0|セーブしない
+3FC5E0|不保存
+
+3FC5F8|セーブする
+3FC5F8|保存
+
+3FC608|ゲームを終了しますか？
+3FC608|要结束游戏吗？
+
+3FC630|Are you sure you wish to quit the game?
+3FC630|Are you sure you wish to quit the game?
+
+3FC658|X$A@
+3FC658|X$A@
+
+3FC5D4|Cancel
+3FC5D4|Cancel
+
+3FC560|$A1セーブしていないデータがあります。＄$A1ゲーム終了前にクイックセーブしますか？
+3FC560|$A1您有尚未保存的数据。＄$A1要在游戏结束前进行快速保存吗？
+
+3FF528|メッセージ送りで停止する
+3FF528|下一条对白时停止语音
+
+3FF550|选项位置
+3FF550|选项位置
+
+3FF560|跳过对白时停止配音
+3FF560|跳过对白时停止配音
+
+3FF580|Stop on New Message
+3FF580|Stop on New Message
+
+3FF598|      No Stops      
+3FF598|      No Stops      
+
+3FF5B0|　　 停止しない 　　
+3FF5B0|　　 不停止　　
+
+3FF5D0|Voice
+3FF5D0|Voice
+
+3FF5D8|　　　不停止　　　
+3FF5D8|　　　不停止　　　
+
+3FF5F4|オフ
+3FF5F4|关
+
+3FF600|　ダイアログのデフォルトボタン　
+3FF600|　对话框的默认按钮　
+
+3FF638|終了時クイックセーブ
+3FF638|结束游戏时快速保存
+
+3FF658|オン
+3FF658|开
+
+3FF660|Voice: If you select No Stops, sound will continue to play even if you send a message during voice playback.(It stops if there is sound on the next message.)
+3FF660|Voice: If you select No Stops, sound will continue to play even if you send a message during voice playback.(It stops if there is sound on the next message.)
+
+3FF700|【音声再生】「停止しない」にすると、音声再生中にメッセージを送っても音声が流れ続けます。（次のメッセージに音声がある場合は停止します）
+3FF700|【播放角色语音】如果选择“不停止”，跳过对白时配音会继续播放。（如果下一段对白有配音则会停止前一段）
+
+3FF7D0|【自動スリープ】「無効化する」にすると、オートモード・ムービーなどの自動進行＄イベント・MUSIC鑑賞画面（音楽再生中）では、自動スリープに入らなくなります。
+3FF7D0|【自动休眠】如果设为“无效”，在自动模式下、游戏自动进行时（如播放动画时等）和音乐鉴赏中（音乐播放时），将不会自动休眠。
+
+3FF8C0|【播放角色语音】如果选择“不停止”，跳过对白时配音会继续播放。（如果下一段对白有配音则会停止前一段）
+3FF8C0|【播放角色语音】如果选择“不停止”，跳过对白时配音会继续播放。（如果下一段对白有配音则会停止前一段）
+
+3FF960|【自动休眠】如果设为“无效”，在自动模式下、游戏自动进行时（如播放动画时等）和音乐鉴赏中（音乐播放时），将不会自动休眠。
+3FF960|【自动休眠】如果设为“无效”，在自动模式下、游戏自动进行时（如播放动画时等）和音乐鉴赏中（音乐播放时），将不会自动休眠。
+
+3FFA20|Auto﹣Sleep: Selecting Disable will disable auto-sleep during Auto Mode and cutscenes for things like auto game progression and Music Player (during music playback).
+3FFA20|Auto﹣Sleep: Selecting Disable will disable auto-sleep during Auto Mode and cutscenes for things like auto game progression and Music Player (during music playback).
+
+3FFAC8|テキスト
+3FFAC8|文本
+
+3FFAE0|【終了時クイックセーブ】ゲーム終了時、セーブしていないデータがある場合にクイックセーブを実行します。
+3FFAE0|【结束游戏时快速保存】游戏结束时，如果存在未保存的数据，则会进行快速保存。
+
+3FFB78|Mincho
+3FFB78|Mincho
+
+3FFB80|　明朝　
+3FFB80|　黑体　
+
+3FFB90|Gothic1
+3FFB90|Gothic1
+
+3FFB98|　ゴシック　
+3FFB98|　宋体　
+
+3FFBB0|Gothic2
+3FFBB0|Gothic2
+
+3FFBB8|　丸ゴシック　
+3FFBB8|　微软雅黑　
+
+3FFBD0|Gothic3
+3FFBD0|Gothic3
+
+3FFBD8|　太丸ゴシック　
+3FFBD8|　思源黑体　
+
+3FFBF4|Modern
+3FFBF4|Modern
+
+3FFC00|　モダン　
+3FFC00|　幼圆　
+
+3FFC10|Font
+3FFC10|Font
+
+3FFC18|フォント
+3FFC18|字体
+
+3FFC28|遅い
+3FFC28|慢
+
+3FFC30|字体
+3FFC30|字体
+
+3FFC38|慢
+3FFC38|慢
+
+3FFC3C|Slow
+3FFC3C|Slow
+
+3FFC44|Fast
+3FFC44|Fast
+
+3FFC4C|速い
+3FFC4C|快
+
+3FFC58|文字表示速度
+3FFC58|文字表示速度
+
+3FFC6C|快
+3FFC6C|快
+
+3FFC70|文字速度
+3FFC70|文字速度
+
+3FFC80|Text Speed
+3FFC80|Text Speed
+
+3FFC90|0 sec/char
+3FFC90|0 sec/char
+
+3FFCA0|0秒/文字
+3FFCA0|0秒/文字
+
+3FFCB0|0.2秒/文字
+3FFCB0|0.2秒/文字
+
+3FFCC0|0秒/字
+3FFCC0|0秒/字
+
+3FFCD0|0.2秒/字
+3FFCD0|0.2秒/字
+
+3FFCE0|0.1 sec/char
+3FFCE0|0.1 sec/char
+
+3FFCF0|按字数翻页
+3FFCF0|按字数翻页
+
+3FFD00|Wait Time Per Character
+3FFD00|Wait Time Per Character
+
+3FFD18|0 sec
+3FFD18|0 sec
+
+3FFD20|0秒
+3FFD20|0秒
+
+3FFD28|1 sec
+3FFD28|1 sec
+
+3FFD30|1秒
+3FFD30|1秒
+
+3FFD38|2 sec
+3FFD38|2 sec
+
+3FFD40|2秒
+3FFD40|2秒
+
+3FFD48|3 sec
+3FFD48|3 sec
+
+3FFD50|3秒
+3FFD50|3秒
+
+3FFD58|Base Wait Time
+3FFD58|Base Wait Time
+
+3FFD68|オート固定待機時間
+3FFD68|固定等待时间
+
+3FFD88|固定等待时间
+3FFD88|固定等待时间
+
+3FFD9C|Solid
+3FFD9C|Solid
+
+3FFDA8|不透明
+3FFDA8|不透明
+
+3FFDB4|Clear
+3FFDB4|Clear
+
+3FFDBC|透明
+3FFDBC|透明
+
+3FFDC8|Window Transparency
+3FFDC8|Window Transparency
+
+3FFDE0|ウィンドウ透明度
+3FFDE0|窗口透明度
+
+3FFE00|　オフ　
+3FFE00|　关　
+
+3FFE10|窗口透明度
+3FFE10|窗口透明度
+
+3FFE20|選択肢のみオン
+3FFE20|仅对选项有效
+
+3FFE38|关
+3FFE38|关
+
+3FFE40|仅对选项有效
+3FFE40|仅对选项有效
+
+3FFE58|Only Choices
+3FFE58|Only Choices
+
+3FFE68|On
+3FFE68|On
+
+3FFE70|　オン　
+3FFE70|　开　
+
+3FFE80|Previously Read Text
+3FFE80|Previously Read Text
+
+3FFE98|开
+3FFE98|开
+
+3FFEA0|Color of
+3FFEA0|Color of
+
+3FFEB0|既読の色表示
+3FFEB0|已读内容颜色
+
+3FFEC4|緑
+3FFEC4|绿
+
+3FFEC8|已读内容颜色标记
+3FFEC8|已读内容颜色标记
+
+3FFEE4|绿
+3FFEE4|绿
+
+3FFEE8|Green
+3FFEE8|Green
+
+3FFEF0|Blue
+3FFEF0|Blue
+
+3FFEF8|青
+3FFEF8|蓝
+
+3FFEFC|紫
+3FFEFC|紫
+
+3FFF00|蓝
+3FFF00|蓝
+
+3FFF04|赤
+3FFF04|红
+
+3FFF08|Purple
+3FFF08|Purple
+
+3FFF10|红
+3FFF10|红
+
+3FFF14|Red
+3FFF14|Red
+
+3FFF18|Color
+3FFF18|Color
+
+3FFF20|既読色
+3FFF20|已读颜色
+
+3FFF30|【オート文字数待機時間】オートモードの時、全メッセージが表示されてから、次のメッセージに進むまでの待ち時間を、メッセージの文字数に合わせて設定できます。
+3FFF30|【按字数翻页】自动模式开启时，可按每一页的文字数，设定切换到下一页的等待时间。所设定的时间将从该页完全显示后开始计时。
+
+400018|显示颜色
+400018|显示颜色
+
+400030|【按字数翻页】自动模式开启时，可按每一页的文字数，设定切换到下一页的等待时间。所设定的时间将从该页完全显示后开始计时。
+400030|【按字数翻页】自动模式开启时，可按每一页的文字数，设定切换到下一页的等待时间。所设定的时间将从该页完全显示后开始计时。
+
+4000F0|Wait Time Per Character: In Auto Mode, this sets the wait time until the next message is displayed based on the number of characters in text.
+4000F0|Wait Time Per Character: In Auto Mode, this sets the wait time until the next message is displayed based on the number of characters in text.
+
+400180|Base Wait Time: You can set a Base Wait Time to add to＄❝Wait Time Per Character❞.
+400180|Base Wait Time: You can set a Base Wait Time to add to＄❝Wait Time Per Character❞.
+
+4001E0|【オート固定待機時間】「文字数待機時間」に追加する固定的な待ち時間を設定できます。
+4001E0|【固定等待时间】可设置固定的等待时间，将叠加在“按字数翻页”的时间上。
+
+400260|サウンド
+400260|声音
+
+400270|【固定等待时间】可设置固定的等待时间，将叠加在“按字数翻页”的时间上。
+400270|【固定等待时间】可设置固定的等待时间，将叠加在“按字数翻页”的时间上。
+
+4002E0|Master Volume
+4002E0|Master Volume
+
+4002F0|マスター音量
+4002F0|整体音量
+
+400304|音声
+400304|音乐
+
+400310|整体音量
+400310|整体音量
+
+400320|音乐
+400320|音乐
+
+400328|语音
+400328|语音
+
+400330|SFX
+400330|SFX
+
+400338|効果音
+400338|效果音
+
+400348|システム音
+400348|系统音
+
+400358|效果音
+400358|效果音
+
+400368|系统音
+400368|系统音
+
+400378|System Sounds
+400378|System Sounds
+
+400388|女性キャラクター
+400388|女性角色
+
+4003A8|キャラクター別音声
+4003A8|角色声音
+
+4003C8|上月由良
+4003C8|上月由良
+
+4003D8|男性キャラクター
+4003D8|男性角色
+
+4003F8|PARTS/VOICE_PT
+4003F8|PARTS/VOICE_PT
+
+400408|？？？
+400408|？？？
+
+400418|押している間
+400418|长按中持续
+
+400430|キーボード
+400430|键盘快捷键
+
+400440|长按中持续
+400440|长按中持续
+
+400450|While Pressed
+400450|While Pressed
+
+400460|Start/Stop
+400460|Start/Stop
+
+400470|開始／解除
+400470|开始／结束
+
+400480|Cキー(早送り)
+400480|C键(快进)
+
+400498|开始／结束
+400498|开始／结束
+
+4004A8|バックログ
+4004A8|历史文本
+
+4004B8|Zキー(早戻し)
+4004B8|Z键(快退)
+
+4004D0|Page Upキー
+4004D0|Page Up键
+
+4004E0|方向キー上
+4004E0|方向上键
+
+4004F0|Sキー
+4004F0|S键
+
+4004F8|クイックセーブ
+4004F8|快速保存
+
+400510|Lキー
+400510|L键
+
+400518|クイックロード
+400518|快速读取
+
+400530|システムメニュー
+400530|系统菜单
+
+400550|マウス
+400550|鼠标
+
+400560|右ボタン
+400560|右键功能
+
+400570|ウィンドウ非表示
+400570|隐藏对话框
+
+400590|　なし　
+400590|　无　
+
+3FE774|なし
+3FE774|无
+ 
+3D3EE8|閉じる
+3D3EE8|关闭
+
+4005A0|ホイールボタン
+4005A0|滚轮点击
+
+4005B8|ホイール上方向
+4005B8|滚轮上滑
+
+4005D0| １つ戻し 
+4005D0|回退一句
+
+4005E0|ホイール下方向
+4005E0|滚轮下滑
+
+4005F8|１つ送り
+4005F8|前进一句
+
+400608|戻る／進むボタン
+400608|后退／前进按钮
+
+400628|ジャンプとページ切り替え
+400628|跳转和页面切换
+
+400650|ダイアログと選択肢
+400650|对话框和选项
+
+40066C|あり
+40066C|有
+
+400680|【ジェスチャー】左ボタンを押しながら、ゲーム画面上でマウスポインターを動かすと「タッチ」と同じ操作ができます。
+400680|【手势】按住左键的同时，在游戏屏幕上移动鼠标指针可以进行与「触摸」相同的操作。
+
+400728|ポインターの自動移動
+400728|鼠标指针自动移动
+
+400748|タッチ
+400748|触摸
+
+400760|【Gesture】If you set it to ❝On❞, you can use the same gesture as the touch operation such as flick with the mouse.
+400760|【Gesture】If you set it to ❝On❞, you can use the same gesture as the touch operation such as flick with the mouse.
+
+4007DC|←
+4007DC|←
+
+4007E0|→
+4007E0|→
+
+4007E8|早戻し
+4007E8|快退
+
+4007F8|早送り
+4007F8|快进
+
+400804|快退
+400804|快退
+
+40080C|Rewind
+40080C|Rewind
+
+400818|Jump (Forward)
+400818|Jump (Forward)
+
+400828|ジャンプ（送り）
+400828|跳转（前进）
+
+400848|ジャンプ（戻し）
+400848|跳转（后退）
+
+400868|跳转（前进）
+400868|跳转（前进）
+
+400880|跳转（后退）
+400880|跳转（后退）
+
+400898|Jump (Backward)
+400898|Jump (Backward)
+
+4008B0|Drag in the message window to Skip.＄Auto skip by swiping (stop by tapping).
+4008B0|Drag in the message window to Skip.＄Auto skip by swiping (stop by tapping).
+
+400900|メッセージウィンドウ内でドラッグすると早送り。＄フリックすると自動早送り（タップで解除）。
+400900|在对话框内拖动可以快进，滑动则变为自动快进（点击可解除）。
+
+400990|メッセージウィンドウ内でドラッグすると早戻し。＄フリックすると自動早戻し（タップで解除）。
+400990|在对话框内拖动可以快退，滑动则变为自动快退（点击可解除）。
+
+400A20|在对话框内拖动可以快进，滑动则变为自动快进（点击可解除）。
+400A20|在对话框内拖动可以快进，滑动则变为自动快进（点击可解除）。
+
+400A80|在对话框内拖动可以快退，滑动则变为自动快退（点击可解除）。
+400A80|在对话框内拖动可以快退，滑动则变为自动快退（点击可解除）。
+
+400AE0|Drag in the message window to Rewind.＄Auto rewind by swiping (stop by tapping).
+400AE0|Drag in the message window to Rewind.＄Auto rewind by swiping (stop by tapping).
+
+400B30|Swipe outside the message window jumps to next choice/chapter, or the end of previously read text.
+400B30|Swipe outside the message window jumps to next choice/chapter, or the end of previously read text.
+
+400BA0|メッセージウィンドウ外でフリックすると「次の選択肢／チャプター」もしくは「既読部分の最後」までジャンプ。
+400BA0|在对话框外滑动可以跳至“下一选项/章节”或“已读内容的末尾”。
+
+400C40|メッセージウィンドウ外でフリックすると「直前の選択肢／チャプター」までジャンプ。
+400C40|在对话框外滑动可以跳至已读“上一选项/章节”或“已读内容的末尾”。
+
+400CC0|在对话框外滑动可以跳至“下一选项/章节”或“已读内容的末尾”。
+400CC0|在对话框外滑动可以跳至“下一选项/章节”或“已读内容的末尾”。
+
+400D20|在对话框外滑动可以跳至已读“上一选项/章节”或“已读内容的末尾”。
+400D20|在对话框外滑动可以跳至已读“上一选项/章节”或“已读内容的末尾”。
+
+400D90|Swipe outside the message window to jump to previous choice/chapter.
+400D90|Swipe outside the message window to jump to previous choice/chapter.
+
+400DE0|Swipe outside the message window to jump to the start of the next chapter or the end of previously read text.
+400DE0|Swipe outside the message window to jump to the start of the next chapter or the end of previously read text.
+
+400E50|メッセージウィンドウ外でフリックすると「次のチャプター」もしくは「既読部分の最後」までジャンプ。
+400E50|在对话框外滑动可以跳至“下一章节”或“已读内容的末尾”。
+
+400EF0|メッセージウィンドウ外でフリックすると「直前のチャプター」までジャンプ。
+400EF0|在对话框外滑动可以跳至已读“上一章节”。
+
+400F60|在对话框外滑动可以跳至“下一章节”或“已读内容的末尾”。
+400F60|在对话框外滑动可以跳至“下一章节”或“已读内容的末尾”。
+
+400FB8|在对话框外滑动可以跳至已读“上一章节”。
+400FB8|在对话框外滑动可以跳至已读“上一章节”。
+
+401000|Swipe outside the message window to jump to the previous chapter.
+401000|Swipe outside the message window to jump to the previous chapter.
+
+401050|Swipe outside the message window to jump to the start of the next choice or to the latest previously read message.
+401050|Swipe outside the message window to jump to the start of the next choice or to the latest previously read message.
+
+4010D0|メッセージウィンドウ外でフリックすると「次の選択肢」もしくは「既読部分の最後」までジャンプ。
+4010D0|在对话框外滑动可以跳至“下一选项“已读内容的末尾”。
+
+401160|メッセージウィンドウ外でフリックすると「直前の選択肢」までジャンプ。
+401160|在对话框外滑动可以跳至已读“上一选项”。
+
+4011D0|在对话框外滑动可以跳至“下一选项“已读内容的末尾”。
+4011D0|在对话框外滑动可以跳至“下一选项“已读内容的末尾”。
+
+401220|在对话框外滑动可以跳至已读“上一选项”。
+401220|在对话框外滑动可以跳至已读“上一选项”。
+
+401260|Swipe outside the message window to jump to the previous choice.
+401260|Swipe outside the message window to jump to the previous choice.
+
+4012A8|ウィンドウ
+4012A8|窗口模式
+
+4012B8|システム
+4012B8|系统
+
+4012C8|画面モード
+4012C8|画面模式
+
+4012D8|フルスクリーン
+4012D8|全屏模式
+
+4012F0|50%
+4012F0|50%
+
+4012F4|自動
+4012F4|自动
+
+4012FC|100%
+4012FC|100%
+
+401304|66%
+401304|66%
+
+401308|150%
+401308|150%
+
+401310|133%
+401310|133%
+
+401318|266%
+401318|266%
+
+401320|200%
+401320|200%
+
+401328|ウィンドウサイズ
+401328|窗口尺寸
+
+401344|300%
+401344|300%
+
+401350|低解像度
+401350|低画质
+
+401360|標準
+401360|标准
+
+401368|DirectSound
+401368|DirectSound
+
+401378|ムービー画質
+401378|视频画质
+
+401390|【サウンドAPI】設定の変更は次回起動時に有効になります。
+401390|【声音API】更改设定后将在下次启动时生效。
+
+4013E4|WASAPI
+4013E4|WASAPI
+
+4013F0|【スクリーンショットをファイルに保存】F12キーでゲームのスクリーンショットがファイルに保存されます。＄保存先はインストールフォルダー内の「screenshot」です。
+4013F0|【将屏幕截图保存到文件】通过F12键可以将游戏的屏幕截图保存到文件中。＄保存位置在安装文件夹内的「screenshot」文件夹中。
+
+4014E0|Changes to the sound API settings will not take effect until the game is restarted.
+4014E0|Changes to the sound API settings will not take effect until the game is restarted.
+
+3FF510|選択肢の位置
+3FF510|选项位置
+
+3FF4F8|Position of Choices
+3FF4F8|Position of Choices
+
+3FF4EC|中央
+3FF4EC|中央
+
+3FF4E4|Center
+3FF4E4|Center
+
+3FF4DC|Bottom
+3FF4DC|Bottom
+
+3FF4D4|下部
+3FF4D4|下部
+
+3FF4CC|快进
+3FF4CC|快进
+
+3FF4C8|下
+3FF4C8|下
+
+3FF4B8|スキップ
+3FF4B8|跳过内容
+
+3FF4B0|Skip
+3FF4B0|Skip
+
+3FF4AC|All
+3FF4AC|All
+
+3FF4A4|全部
+3FF4A4|全部
+
+3FF490|仅限已读内容
+3FF490|仅限已读内容
+
+3FF480|すべて
+3FF480|全部
+
+3FF470|既読のみ
+3FF470|仅限已读
+
+3FF458|Previously Read Only
+3FF458|Previously Read Only
+
+3FF438|スクリーンショット
+3FF438|屏幕截图
+
+3FF42C|基本
+3FF42C|基础设定
+
+3FF418|ジェスチャー
+3FF418|手势
+
+3FF408|サウンドAPI
+3FF408|声音API
+
+3FF400|Yellow
+3FF400|Yellow
+
+3FF3E0|オート文字数待機時間
+3FF3E0|按字数翻页
+
+3FF3D4|橘子
+3FF3D4|橘子
+
+3FF3D0|黄
+3FF3D0|黄
+
+3FF3CC|橙
+3FF3CC|橙
+
+3FF3C4|Orange
+3FF3C4|Orange
+
+3FF3B0|自動スリープ
+3FF3B0|自动休眠
+
+3FF3A0|セーブ
+3FF3A0|保存
+
+3FF390|野次馬a
+3FF390|群众a
+
+3FF380|野次馬b
+3FF380|群众b
+
+3FF378|信者2
+3FF378|信徒2
+
+3FF36C|男3
+3FF36C|男3
+
+3FF364|刑事
+3FF364|刑警
+
+3FF35C|信者
+3FF35C|信徒
+
+3FF350|警察官a
+3FF350|警官a
+
+3FF340|警察官b
+3FF340|警官b
+
+3FF330|板長さん
+3FF330|板长先生
+
+3FF320|警察官
+3FF320|警官
+
+3FF310|ジョルジョ
+3FF310|乔治
+
+3FF300|警備員
+3FF300|警卫员
+
+3FF2F4|子供
+3FF2F4|孩子
+
+3FF2EC|親父
+3FF2EC|父亲
+
+3FF2E8|男
+3FF2E8|男
+
+3FF2D8|チンピラ
+3FF2D8|不良
+
+3FF2CC|番頭
+3FF2CC|掌柜
+
+3FF2C4|男爵
+3FF2C4|男爵
+
+3FF2BC|赤尾
+3FF2BC|赤尾
+
+3FF2A8|アルフレッド
+3FF2A8|阿尔弗雷德
+
+3FF298|八木沼了一
+3FF298|八木沼了一
+
+3FF288|上月慶一郎
+3FF288|上月庆一郎
+
+3FF278|有島一磨
+3FF278|有岛一磨
+
+3FF268|赤尾生馬
+3FF268|赤尾生马
+
+3FF260|由良
+3FF260|由良
+
+3FF250|高城秋五
+3FF250|高城秋五
+
+3FF248|少女
+3FF248|少女
+
+3FF240|雨雀
+3FF240|雨雀
+
+3FF230|シスター
+3FF230|修女
+
+3FF224|男2
+3FF224|男2
+
+3FF21C|良子
+3FF21C|良子
+
+3FF218|桜
+3FF218|樱
+
+3FF208|おばさんa
+3FF208|阿姨a
+
+3FF1F8|おばさんb
+3FF1F8|阿姨b
+
+3FF1EC|侍女
+3FF1EC|侍女
+
+3FF1E0|看護婦
+3FF1E0|护士
+
+3FF1D8|小雪
+3FF1D8|小雪
+
+3FF1D4|芹
+3FF1D4|芹
+
+3FF1CC|乙羽
+3FF1CC|乙羽
+
+3FF1C0|深水薫
+3FF1C0|深水薰
+
+3FF1B0|綾崎楼子
+3FF1B0|绫崎楼子
+
+3FF1A8|凛
+3FF1A8|凛
+
+3FF198|祠草時子
+3FF198|祠草时子
+
+3FF188|蒼木冬史
+3FF188|苍木冬史
+
+3FF180|初音
+3FF180|初音
+
+3FF170|高城七七
+3FF170|高城七七
+
+3FF160|task::Help
+3FF160|task::Help
+
+3FF150|上月和菜
+3FF150|上月和菜
+
+3FE770|OK
+3FE770|OK1
+
+3D4F88|上書きしますか？
+3D4F88|是否覆盖？
+
+3D4FA8|Are you sure you wish to overwrite data?
+3D4FA8|Are you sure you wish to overwrite data?
+
+3D4FD8|是否覆盖？
+3D4FD8|是否覆盖？
+
+3D4FE8|$A1セーブ中です。
+3D4FE8|$A1正在保存。
+
+3D5008|$A1Data save in progress...
+3D5008|$A1Data save in progress...
+
+3D5028|$A1正在保存。
+3D5028|$A1正在保存。
+
+3D5040|$A1システムデータをセーブ中です。
+3D5040|$A1正在保存系统文件。
+
+3D5078|$A1System data save in progress...
+3D5078|$A1System data save in progress...
+
+3D50A0|$A1正在保存系统文件。
+3D50A0|$A1正在保存系统文件。
+
+3D50C0|$A1クリア情報（システムデータ）をセーブ中です。
+3D50C0|$A1正在保存通关存档（系统文件）。
+
+3D5108|$A1Clear data (system data) save in progress...
+3D5108|$A1Clear data (system data) save in progress...
+
+3D5138|$A1正在保存通关存档（系统文件）。
+3D5138|$A1正在保存通关存档（系统文件）。
+
+3D5170|$A1セーブ中です。＄$S001 ＄
+3D5170|$A1正在保存。＄$S001 ＄
+
+3D51A0|$A1セーブ中は本体の電源を切らないでください。
+3D51A0|$A1请不要关闭电源。
+
+3D51E8|$A1Data save in progress...＄$S001 ＄
+3D51E8|$A1Data save in progress...＄$S001 ＄
+
+3D5210|$A1正在保存。＄$S001 ＄
+3D5210|$A1正在保存。＄$S001 ＄
+
+3D5230|$A1请不要关闭电源。
+3D5230|$A1请不要关闭电源。
+
+3D5250|$A1システムデータをセーブ中です。＄$S001 ＄
+3D5250|$A1システムデータをセーブ中です。＄$S001 ＄
+
+3D5290|$A1System data save in progress...＄$S001 ＄
+3D5290|$A1正在保存系统文件。＄$S001 ＄
+
+3D52C0|$A1正在保存系统文件。＄$S001 ＄
+3D52C0|$A1正在保存系统文件。＄$S001 ＄
+
+3D52F0|$A1クリア情報（システムデータ）をセーブ中です。＄$S001 ＄
+3D52F0|$A1正在保存通关存档（系统文件）。＄$S001 ＄
+
+3D5340|$A1Clear data (system data) save in progress...＄$S001 ＄
+3D5340|$A1Clear data (system data) save in progress...＄$S001 ＄
+
+3D5378|$A1正在保存通关存档（系统文件）。＄$S001 ＄
+3D5378|$A1正在保存通关存档（系统文件）。＄$S001 ＄
+
+3D53B8|セーブが完了しました。
+3D53B8|已保存。
+
+3D53E0|Save completed.
+3D53E0|Save completed.
+
+3D53F0|已保存。
+3D53F0|已保存。
+
+3D5400|削除しますか？
+3D5400|是否删除？
+
+3D5418|Are you sure you wish to delete this save data?
+3D5418|Are you sure you wish to delete this save data?
+
+3D5448|是否删除？
+3D5448|是否删除？
+
+3D5458|削除できません。
+3D5458|无法删除。
+
+3D5478|This cannot be deleted.
+3D5478|This cannot be deleted.
+
+3D5490|无法删除。
+3D5490|无法删除。
+
+3D54A0|メニューへ戻りますか？
+3D54A0|是否返回菜单？
+
+3D54C8|Return to the menu?
+3D54C8|Return to the menu?
+
+3D54E0|是否返回菜单？
+3D54E0|是否返回菜单？
+
+3D54F8|タイトル画面に戻りますか？
+3D54F8|是否返回标题画面？
+
+3D5520|Return to the title screen?
+3D5520|Return to the title screen?
+
+3D5540|是否返回标题画面？
+3D5540|是否返回标题画面？
+
+3D5560|このページを初期設定に戻しますか？
+3D5560|是否将当前页面的设置恢复默认值？
+
+3D5598|Would you like to restore this page to the default settings?
+3D5598|Would you like to restore this page to the default settings?
+
+3D55D8|是否将当前页面的设置恢复默认值？
+3D55D8|是否将当前页面的设置恢复默认值？
+
+3D5610|フォント切り替え中...
+3D5610|正在更换字体……
+
+3D5630|Switching fonts...
+3D5630|Switching fonts...
+
+3D5648|正在更换字体……
+3D5648|正在更换字体……
+
+3D5668|次の選択肢へジャンプしますか？
+3D5668|是否跳至下一选项？
+
+3D5698|Do you wish to jump to the next choice?
+3D5698|Do you wish to jump to the next choice?
+
+3D56C0|是否跳至下一选项？
+3D56C0|是否跳至下一选项？
+
+3D56E0|次のチャプターへジャンプしますか？
+3D56E0|是否跳至下一章节？
+
+3D5718|Do you wish to jump to the next chapter?
+3D5718|Do you wish to jump to the next chapter?
+
+3D5748|是否跳至下一章节？
+3D5748|是否跳至下一章节？
+
+3D5770|次の選択肢またはチャプターまでジャンプしますか？
+3D5770|是否跳至下一选项或章节？
+
+3D57C0|Do you wish to jump to the next choice or chapter?
+3D57C0|Do you wish to jump to the next choice or chapter?
+
+3D57F8|是否跳至下一选项或章节？
+3D57F8|是否跳至下一选项或章节？
+
+3D5820|次の選択肢へジャンプ...
+3D5820|跳至下一选项……
+
+3D5848|Jumping to the next choice ...
+3D5848|Jumping to the next choice ...
+
+3D5868|跳至下一选项……
+3D5868|跳至下一选项……
+
+3D5888|次のチャプターへジャンプ...
+3D5888|跳至下一章节……
+
+3D58B0|＿＿Jumping...＿＿
+3D58B0|＿＿Jumping...＿＿
+
+3D58C8|＿＿ジャンプ中...＿＿
+3D58C8|＿＿跳过中＿＿
+
+3D58F0|$A1未読のテキストがあるため、＄その位置でジャンプを停止しました。
+3D58F0|$A1此处有未读的内容，＄因此暂停跳转。
+
+3D5950|Stopped here because of unread text.
+3D5950|Stopped here because of unread text.
+
+3D5978|此处有未读的内容，因此暂停跳转。
+3D5978|此处有未读的内容，因此暂停跳转。
+
+3D59B0|1つ前の選択肢にジャンプしますか？
+3D59B0|是否跳至上一选项？
+
+3D59E8|Do you wish to jump to the previous choice?
+3D59E8|Do you wish to jump to the previous choice?
+
+3D5A18|是否跳至上一选项？
+3D5A18|是否跳至上一选项？
+
+3D5A38|このチャプターの先頭にジャンプしますか？
+3D5A38|是否跳至本章节的开头？
+
+3D5A78|Do you wish to jump to the beginning of this chapter?
+3D5A78|Do you wish to jump to the beginning of this chapter?
+
+3D5AB0|是否跳至本章节的开头？
+3D5AB0|是否跳至本章节的开头？
+
+3D5AD8|1つ前のチャプターにジャンプしますか？
+3D5AD8|是否跳至上一章节？
+
+3D5B10|Do you wish to jump to the previous chapter?
+3D5B10|Do you wish to jump to the previous chapter?
+
+3D5B40|是否跳至上一章节？
+3D5B40|是否跳至上一章节？
+
+3D5B60|ゲームの先頭にジャンプしますか？
+3D5B60|是否跳至游戏开头？
+
+3D5B98|Do you wish to jump to the beginning of the game?
+3D5B98|Do you wish to jump to the beginning of the game?
+
+3D5BD0|是否跳至游戏开头？
+3D5BD0|是否跳至游戏开头？
+
+3D5BF0|关闭 
+3D5BF0|关闭 
+
+3D5BF8|戻る
+3D5BF8|返回
+
+3D5C00|Back
+3D5C00|Back
+
+3D5C08|返回 
+3D5C08|返回 
+
+3D5C10|リンクに進む
+3D5C10|前往页面
+
+3D5C28|Go to link
+3D5C28|Go to link
+
+3D5C38|前往页面
+3D5C38|前往页面
+
+3D5C48|戻る 
+3D5C48|戻る 
+
+3D5C50| 削除 
+3D5C50| 删除 
+
+3D5C5C|Delete
+3D5C5C|Delete
+
+3D5C68| 删除 
+3D5C68| 删除 
+
+3D5C78|最新へ
+3D5C78|到最新
+
+3D5C84|Latest
+3D5C84|Latest
+
+3D5C90|跳至最近一次的存档
+3D5C90|跳至最近一次的存档
+
+3D5CB0|初期設定に戻す
+3D5CB0|恢复默认设置
+
+3D5CC8|Defaults
+3D5CC8|Defaults
+
+3D5CD8|恢复默认设置
+3D5CD8|恢复默认设置
+
+3D5CF0|サンプルボイス再生
+3D5CF0|播放语音样本
+
+3D5D10|Sample Voice
+3D5D10|Sample Voice
+
+3D5D20|播放语音样本
+3D5D20|播放语音样本
+
+3D5D38|基本操作説明
+3D5D38|基本操作説明
+
+3D5D50|Controls
+3D5D50|Controls
+
+3D5D60|基本操作说明
+3D5D60|基本操作说明
+
+3D5D78|切り替え言語一覧
+3D5D78|语言选项一览
+
+3D5D98|Languages
+3D5D98|Languages
+
+3D5DA8|语言选项一览
+3D5DA8|语言选项一览
+
+3D5DC0|ボイス再生
+3D5DC0|播放角色语音
+
+3D5DD0|Play Voice
+3D5DD0|Play Voice
+
+3D5DE0|播放角色语音
+3D5DE0|播放角色语音
+
+3D5DF8|ジャンプ
+3D5DF8|跳转
+
+3D5E08|Jump
+3D5E08|Jump
+
+3D5E10|跳转
+3D5E10|跳转
+
+3D5E18|BGM変更
+3D5E18|更改BGM
+
+3D5E28|Select Music
+3D5E28|Select Music
+
+3D5E38|更改音乐
+3D5E38|更改音乐
+
+3D5E48|テキストプレビュー。
+3D5E48|文字预览。
+
+3D5E68|Text preview.
+3D5E68|Text preview.
+
+3D5E78|文字预览。
+3D5E78|文字预览。
+
+3D5E90|$A1言語切り替えで使用する言語にチェックを入れてください。
+3D5E90|$A1请勾选要使用的语言。
+
+3D5EE8|$A1Please select the languages you would like to use.
+3D5EE8|$A1Please select the languages you would like to use.
+
+3D5F20|$A1请勾选要使用的语言。
+3D5F20|$A1请勾选要使用的语言。
+
+3D5F50|サウンドAPIはゲームをいったん終了し、再度開始すると切り替わります。
+3D5F50|声音API将在游戏结束后重新启动时切换。
+
+3D5FC0|Changes to Sound API settings will be applied after exiting and restarting the game.
+3D5FC0|Changes to Sound API settings will be applied after exiting and restarting the game.
+
+3D6018|文字表示速度などの設定が反映されます。
+3D6018|此文反映了文字速度等的设置结果。
+
+3D6058|Settings such as text speed are reflected.
+3D6058|Settings such as text speed are reflected.
+
+3D6088|此文反映了文字速度等的设置结果。
+3D6088|此文反映了文字速度等的设置结果。
+
+3D60C0|$A1用語がありません。
+3D60C0|$A1术语不存在。
+
+3D60E0|There are no keywords.
+3D60E0|There are no keywords.
+
+3D60F8|Next
+3D60F8|Next
+
+3D6100|DEBUG_CONSOLE
+3D6100|DEBUG_CONSOLE
+
+3D6111|0
+3D6111|0
+
+3D6114| 
+3D6114| 
+
+3D6118|!
+3D6118|!
+
+3D611C|?
+3D611C|?
+
+3D4F78|是否保存？
+3D4F78|是否保存？
+
+3D4F60|Do you wish to save?
+3D4F60|Do you wish to save?
+
+3D4F40|セーブしますか？
+3D4F40|是否保存？
+
+3D4F10|读取发生错误，文件可能已损坏。
+3D4F10|读取发生错误，文件可能已损坏。
+
+3D4ED8|A reading error occurred.＄The file may be corrupted.
+3D4ED8|A reading error occurred.＄The file may be corrupted.
+
+3D4E70|読み込みエラーが発生しました。＄ファイルが壊れている可能性があります。
+3D4E70|读取发生错误，文件可能已损坏。
+
+3D4E48|存档文件已损坏，无法读取。
+3D4E48|存档文件已损坏，无法读取。
+
+3D4E10|The saved data is corrupted and cannot be loaded.
+3D4E10|The saved data is corrupted and cannot be loaded.
+
+3D4DC0|セーブデータが破損しているため、ロードできません。
+3D4DC0|存档文件已损坏，无法读取。
+
+3D4DA8|是否读取？
+3D4DA8|是否读取？
+
+3D4D88|Do you wish to load this save?
+3D4D88|Do you wish to load this save?
+
+3D4D68|ロードしますか？
+3D4D68|是否读取？
+
+3D4D48|System data is being saved.
+3D4D48|System data is being saved.
+
+3D4D18|システムデータをセーブ中です。
+3D4D18|正在保存系统文件。
+
+3D4CB0|セーブ中は、記録メディアを抜いたり、本体の電源を切らないでください。
+3D4CB0|正在保存，请不要拔出存储介质或关闭电源。
+
+3D4C90|请不要关闭电源。
+3D4C90|请不要关闭电源。
+
+3D4C68|$A1正在进行快速保存。＄$A1
+3D4C68|$A1正在进行快速保存。＄$A1
+
+3D4C38|$A1Do not turn the console off while saving.
+3D4C38|$A1Do not turn the console off while saving.
+
+3D4C10|$A1Quick data save in progress... ＄
+3D4C10|$A1Quick data save in progress... ＄
+
+3D4BD0|セーブ中は本体の電源を切らないでください。
+3D4BD0|保存时请勿关闭主机电源。
+
+3D4B98|$A1クイックセーブ中です。$S001 ＄＄
+3D4B98|$A1正在快速保存。$S001 ＄＄
+
+3D4B8C|$S038
+3D4B8C|$S038
+
+3D4B84|$S024
+3D4B84|$S024
+
+3D4B68|Quick save is in progress.
+3D4B68|Quick save is in progress.
+
+3D4B40|$A1クイックセーブ中です。
+3D4B40|$A1正在快速保存。
+
+3D4B18|是否要跳转到选定的对话？
+3D4B18|是否要跳转到选定的对话？
+
+3D4AE8|Would you like to jump to the selected message?
+3D4AE8|Would you like to jump to the selected message?
+
+3D4AA8|選択したメッセージにジャンプしますか？
+3D4AA8|是否要跳转到选定的对话？
+
+3D4A88|无法进行快速读取。
+3D4A88|无法进行快速读取。
+
+3D4A68|Quick load cannot be used.
+3D4A68|Quick load cannot be used.
+
+3D4A30|クイックロードは使用できません。
+3D4A30|无法进行快速读取。
+
+3D4A10|无法进行快速保存。
+3D4A10|无法进行快速保存。
+
+3D49F0|Quick save cannot be used.
+3D49F0|Quick save cannot be used.
+
+3D49B8|クイックセーブは使用できません。
+3D49B8|无法进行快速保存。
+
+3D4998|快速保存数据不存在。
+3D4998|快速保存数据不存在。
+
+3D4978|Quick save data does not exist.
+3D4978|Quick save data does not exist.
+
+3D4940|クイックセーブデータがありません。
+3D4940|快速保存数据不存在。
+
+3D4910|通关存档（系统文件）已保存。
+3D4910|通关存档（系统文件）已保存。
+
+3D48E8|Clear data (system data) was saved.
+3D48E8|Clear data (system data) was saved.
+
+3D48A0|クリア情報（システムデータ）をセーブしました。
+3D48A0|通关存档（系统文件）已保存。
+
+3D4894|Close
+3D4894|Close
+
+3D4890|否
+3D4890|否
+
+3D488C|No
+3D488C|No
+
+3D4880|いいえ
+3D4880|否
+
+3D487C|是
+3D487C|是
+
+3D4878|Yes
+3D4878|Yes
+
+3D4870|はい
+3D4870|是
+
+3D4860|简体中文
+3D4860|简体中文
+
+3D4858|English
+3D4858|English
+
+3D4848|日本語
+3D4848|日本語
+

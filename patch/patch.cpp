@@ -2,13 +2,17 @@
 #include<vector>
 #include<string>
 #include<fstream> 
-#include<InlineHook.h> 
+#include<unordered_map>
+#include<regex>
 #include<nlohmann/json.hpp>
 #include<fstream>
 #include"lib/Detours-4.0.1/include/detours.h"
 #pragma comment(lib,"C:/Users/wcy/Documents/GitHub/Cartagra_FHD_CHS/patch/lib/Detours-4.0.1/lib.X64/detours.lib")
-std::ifstream transf("trans.json"); 
-nlohmann::json trans = nlohmann::json::parse(transf);
+//std::ifstream transf("trans.json"); 
+//nlohmann::json trans = nlohmann::json::parse(transf);
+extern std::unordered_map<std::wstring,std::wstring>trans;
+extern std::vector<std::pair<int,const char*>>uitexts;
+extern std::unordered_map<std::wstring,std::wstring>erroruitext;
 auto CreateWindowExW_s=CreateWindowExW;
 typedef HWND (*CreateWindowExWt)(
     _In_ DWORD dwExStyle,
@@ -41,7 +45,7 @@ CreateWindowExWh(
         auto hwnd=CreateWindowExW_s(dwExStyle,lpClassName,lpWindowName,dwStyle,X,Y,nWidth,nHeight,hWndParent,hMenu,hInstance,lpParam);
         //std::thread([hwnd](){
           //  Sleep(3000);
-        SetWindowTextW(hwnd,L"恋狱～月狂病～《REBIRTH FHD SIZE EDITION》  https://github.com/HIllya51制作");
+        SetWindowTextW(hwnd,L"恋狱～月狂病～《REBIRTH FHD SIZE EDITION》");
         //}).detach();
         return hwnd;
     }
@@ -68,16 +72,7 @@ HANDLE  WINAPI   CreateFileWh(
 
         return CreateFile_save(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
     }
-void patchstring(){
-    auto addr=0x3FCE28+(uint64_t)GetModuleHandle(0);
-    strcpy((char*)addr, "SYSFONT_CHS.PAK");
-    addr=0x3F2288+(uint64_t)GetModuleHandle(0);
-    strcpy((char*)addr, "FONT_CHS.PAK");
-    addr=0x3F2298+(uint64_t)GetModuleHandle(0);
-    strcpy((char*)addr, "FONT_V_CHS.PAK");
-    addr=0x3D4408+(uint64_t)GetModuleHandle(0);
-    strcpy((char*)addr, "SCRIPT_CHS.PAK");
-}
+
 std::wstring StringToWideString(const std::string& text, UINT encoding)
     {
         std::vector<wchar_t> buffer(text.size() + 1);
@@ -127,9 +122,19 @@ __int64 __fastcall sub_1401012C0(__int64 a1, __int64 a2, int a3){
         return sub_1401012C0_s(a1,a2,a3);
     auto sps=strSplit(std::wstring((LPCWSTR)a2),L"$d");
     for(auto &s:sps){
-        auto ja=WideStringToString(s);
-        if(trans.find(ja)!=trans.end()){
-            s=StringToWideString(trans[ja],65001);
+         
+        if(trans.find(s)!=trans.end()){
+            s=trans[s];
+        }
+        else if(erroruitext.find(s)!=erroruitext.end()){ 
+            s=erroruitext[s];
+        }
+        else{
+            auto _s=std::regex_replace(s, std::wregex(L"@【(.+?)】@"), L"@$1@");
+            
+            if(trans.find(_s)!=trans.end()){
+                s=trans[_s];
+            } 
         }
     }
     std::wstring _;
@@ -168,6 +173,48 @@ void loadlr(){
 	WrtieConfigFileMap(&beta);
      
     LoadLibraryW(L".\\LRHookx64.dll");
+}
+auto modulebase=(uint64_t)GetModuleHandle(0); 
+void patchstring(){
+    
+    auto addr=0x3FCE28+modulebase;
+    strcpy((char*)addr, "SYSFONT_CHS.PAK");
+    addr=0x3F2288+modulebase;
+    strcpy((char*)addr, "FONT_CHS.PAK");
+    addr=0x3F2298+modulebase;
+    strcpy((char*)addr, "FONT_V_CHS.PAK");
+    addr=0x3D4408+modulebase; 
+    strcpy((char*)addr, "SCRIPT_CHS.PAK");
+    
+    // addr=0x3FD830+modulebase;
+    // strcpy((char*)addr,  u8"恋狱～月狂病～《REBIRTH FHD SIZE EDITION》");
+
+    for(auto _pair:uitexts){
+        auto addr=_pair.first+modulebase;
+        
+        //MessageBoxW(0,StringToWideString((char*)addr,65001).c_str(),StringToWideString((char*) _pair.second,65001).c_str(),0);
+        // bool include0=false;
+        // bool endnot0=false;
+        // for(int i=0;i<strlen(_pair.second);i++){
+        //     if(((char*)addr)[i]==0){
+        //         include0=true;
+        //     }
+        //     else{
+        //         if(include0){
+        //             endnot0=true;
+        //         }
+        //     }
+        // }
+        // if(endnot0){
+             
+        //     wchar_t xx[100]; 
+        //     MessageBoxW(0,xx,StringToWideString((char*) _pair.second,65001).c_str(),0);
+ 
+        // }
+        // else
+            strcpy((char*)addr, _pair.second);
+        
+    }
 }
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
