@@ -81,6 +81,7 @@
         "valarray": "cpp",
         "codecvt": "cpp",
         "string_view": "cpp",
-        "xthread": "cpp"
+        "xthread": "cpp",
+        "queue": "cpp"
     }
 }
