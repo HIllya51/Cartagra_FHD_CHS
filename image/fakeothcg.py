@@ -99,6 +99,7 @@ def getdatas(bs):
         index_offset += 4; 
     names=[]
     newcz={}
+    newczdata=b''
     if flags&2!=0:
         names_offset = c_uint.from_buffer_copy(bs[index_offset - 4:index_offset]).value;
         for i in range(count):
@@ -120,19 +121,25 @@ def getdatas(bs):
             _add=block_size-Size%block_size
             Size+=_add
         offset2size[hex(Offset)]=hex(Size)
-        if os.path.exists(r'C:\InnocentGrey\カルタグラ FHD\CHSPAK\OTHCG\\'+names[i]):
-            newcz[hex(Offset)]=names[i]
-    return offsets,offset2size,newcz
+        if os.path.exists(r'C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG_NEW\\'+names[i]):
+            
+            with open(r'C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG_NEW\\'+names[i],'rb') as ff:
+                _data=ff.read()
+            newcz[hex(Offset)]=[hex(len(newczdata)),hex(len(_data))]
+            newczdata+=_data
+    return offsets,offset2size,newcz,newczdata
 with open(r'C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG.PAK','rb') as ff:
     othcgbs=ff.read()  
-oldfileoffset,oldfilesize,_=getdatas(othcgbs)        
-newfileoffset,newfilesize,newcz=getdatas(memnewothcgbs)    
+oldfileoffset,oldfilesize,_,_=getdatas(othcgbs)        
+newfileoffset,newfilesize,newcz,newczdata=getdatas(memnewothcgbs)  
+with open(r'C:\InnocentGrey\カルタグラ FHD\CHSPAK\OTHCG.IMG','wb')  as ff:
+    ff.write(newczdata)
 pakoffsetnew2old={}
 for i in range(len(newfileoffset)):
     pakoffsetnew2old[newfileoffset[i]]=oldfileoffset[i]
-print('std::unordered_map<int,std::wstring>newcz={',file=pf)
+print('std::unordered_map<int,std::pair<int,int>>newcz={',file=pf)
 for k in newcz:
-    print('{',k,',L"'+newcz[k]+'"},',file=pf)
+    print('{',k,',{'+newcz[k][0]+','+newcz[k][1]+'} },',file=pf)
 print('};',file=pf)
 
 print('std::unordered_map<int,int>pakoffsetnew2old={',file=pf)

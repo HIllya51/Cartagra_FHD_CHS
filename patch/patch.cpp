@@ -256,18 +256,15 @@ std::vector<char> readfile(const wchar_t* fname) {
 }
   
 std::vector<char>newczhead;
-extern std::unordered_map<int,std::wstring>newcz;
-std::unordered_map<std::wstring,std::vector<char>>newcz_data;
+extern std::unordered_map<int,std::pair<int,int>>newcz;
+std::vector<char>newcz_data;
 extern std::unordered_map<int,int>pakoffsetnew2old;
 extern std::unordered_map<int,int>oldfilesize;
 extern std::unordered_map<int,int>newfilesize;
 void preloadnewcz(){ 
     
     newczhead=std::move(readfile(L".\\CHSPAK\\OTHCG.DAT"));
-    
-    for(auto &fn:newcz){ 
-        newcz_data.insert(std::make_pair(fn.second,std::move(readfile((std::wstring(L".\\CHSPAK\\OTHCG\\")+fn.second).c_str()))));
-    }
+    newcz_data=std::move(readfile(L".\\CHSPAK\\OTHCG.IMG"));
      
 }
  
@@ -299,10 +296,8 @@ ReadFileH(
             //AppendLog(LR"(C:\InnocentGrey\カルタグラ FHD\1.txt)",WideStringToString(output,65001));
                 while(nNumberOfBytesToRead){    //会一次读取多张
                     if(newcz.find(cur)!=newcz.end()){
-                        auto &czf=newcz[cur];
-                        auto &czdata=newcz_data[czf];
-                        _size=czdata.size();
-                        memcpy(lpBuffer,czdata.data(),_size); 
+                        auto [czoff,czsize]=newcz[cur]; 
+                        memcpy(lpBuffer,newcz_data.data()+czoff,czsize); 
                         _size=newfilesize[cur];
              
             // wsprintf(output,L"%s %x %x %x %x %s\n",filepath,GetFilePointer(hFile),cur,  nNumberOfBytesToRead ,_size,czf.c_str() );
