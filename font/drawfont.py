@@ -54,6 +54,9 @@ for _font_file,_fontname in [('simsun.ttc','ゴシック'),('simhei.ttf','明朝
                 img = Image.fromarray(cv2.cvtColor( pic, cv2.COLOR_BGRA2RGBA))
                 draw = ImageDraw.Draw(img)
                 for i in range(len(chars)):
+                    pic1 = np.zeros((size, size, 4), dtype=np.uint8)
+                    charimg=Image.fromarray(cv2.cvtColor( pic1, cv2.COLOR_BGRA2RGBA))
+                    draw = ImageDraw.Draw(charimg)
                     y = i // 100
                     x = i % 100
                     if i==0:
@@ -63,8 +66,8 @@ for _font_file,_fontname in [('simsun.ttc','ゴシック'),('simhei.ttf','明朝
                     
                 # draw.text((x * size, y * size-14), char, (255, 255, 255), font=fontStyle)
                     #一些中文字体会有14个像素的向下偏移
-                    draw.text((x * size, y * size+diff), char, (255, 255, 255), font=fontStyle)
-                 
+                    draw.text((0,0+diff), char, (255, 255, 255), font=fontStyle)
+                    img.paste(charimg,(x * size, y * size ))
                 img.save(f'{fontname}.png') 
 
                 # img=Image.open('1.png') 
@@ -74,16 +77,14 @@ for _font_file,_fontname in [('simsun.ttc','ゴシック'),('simhei.ttf','明朝
                 # h,w,c=img.shape
                 # cv2.imwrite('2.png',img )
             
-                if _type==1:
-                    #即使输出gothic源也必须用明朝，否则闪退，原因不明
-                    #似乎和字体也有关系？（用楷体就会崩）
-                    os.system(rf'.\LuckSystem.exe image import -i {fontname}.png -s "C:\InnocentGrey\カルタグラ FHD\files\FONT\明朝{f}" -o "C:\InnocentGrey\カルタグラ FHD\files\FONT_NEW\{fontname}{f}"')
+                if _type==1: 
+                    os.system(rf'..\image\CZXImage-main\ConsoleApplication1\x64\Release\CZXImage.exe "C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG\03b" {fontname}.png  "C:\InnocentGrey\カルタグラ FHD\files\FONT_NEW\{fontname}{f}"')
                 elif _type==2:
-                    os.system(rf'.\LuckSystem.exe image import -i {fontname}.png -s "C:\InnocentGrey\カルタグラ FHD\files\SYSFONT\システム_明朝{f}" -o "C:\InnocentGrey\カルタグラ FHD\files\SYSFONT_NEW\システム_明朝{f}"')
+                    os.system(rf'..\image\CZXImage-main\ConsoleApplication1\x64\Release\CZXImage.exe "C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG\03b" {fontname}.png  "C:\InnocentGrey\カルタグラ FHD\files\SYSFONT_NEW\システム_明朝{f}"')
                 elif _type==3:
-                    os.system(rf'.\LuckSystem.exe image import -i {fontname}.png -s "C:\InnocentGrey\カルタグラ FHD\files\FONT_V\明朝{f}v" -o "C:\InnocentGrey\カルタグラ FHD\files\FONT_V_NEW\{fontname}{f}v"')
+                    os.system(rf'..\image\CZXImage-main\ConsoleApplication1\x64\Release\CZXImage.exe "C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG\03b" {fontname}.png  "C:\InnocentGrey\カルタグラ FHD\files\FONT_V_NEW\{fontname}{f}v"')
                 elif _type==4:
-                    os.system(rf'.\LuckSystem.exe image import -i {fontname}.png -s "C:\InnocentGrey\カルタグラ FHD\files\SYSFONT\システム_ゴシック{f}" -o "C:\InnocentGrey\カルタグラ FHD\files\SYSFONT_NEW\システム_ゴシック{f}"')
+                    os.system(rf'..\image\CZXImage-main\ConsoleApplication1\x64\Release\CZXImage.exe "C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG\03b" {fontname}.png  "C:\InnocentGrey\カルタグラ FHD\files\SYSFONT_NEW\システム_ゴシック{f}"')
                 
     t=threading.Thread(target=xx,args=(_font_file,_fontname))
     ts.append(t)
