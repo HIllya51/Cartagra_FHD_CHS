@@ -10,9 +10,10 @@
 #include<fstream>
 #include"lib/Detours-4.0.1/include/detours.h"
 #pragma comment(lib,"Shlwapi.lib")
+#pragma comment(lib,"Gdiplus.lib")
 #pragma comment(lib,"C:/Users/wcy/Documents/GitHub/Cartagra_FHD_CHS/patch/lib/Detours-4.0.1/lib.X64/detours.lib")
-//std::ifstream transf("trans.json"); 
-//nlohmann::json trans = nlohmann::json::parse(transf);
+#include"../desktop-overlay-lyric-f2e45f0bc335c9bb30cd24640d0539d002b51833/lyric/lyric.h"
+#pragma comment(lib,"C:/Users/wcy/Documents/GitHub/Cartagra_FHD_CHS/patch/desktop-overlay-lyric-f2e45f0bc335c9bb30cd24640d0539d002b51833/x64/Release/lyric.lib")
 extern std::unordered_map<std::wstring,std::wstring>trans;
 extern std::vector<std::pair<int,const char*>>uitexts;
 extern std::unordered_map<std::wstring,std::wstring>erroruitext;
@@ -31,8 +32,9 @@ typedef HWND (*CreateWindowExWt)(
     _In_opt_ HINSTANCE hInstance,
     _In_opt_ LPVOID lpParam);
 #include<thread>
-HWND
-CreateWindowExWh(
+bool once=true;
+HWND g_hwnd;
+HWND CreateWindowExWh(
     _In_ DWORD dwExStyle,
     _In_opt_ LPCWSTR lpClassName,
     _In_opt_ LPCWSTR lpWindowName,
@@ -45,12 +47,16 @@ CreateWindowExWh(
     _In_opt_ HMENU hMenu,
     _In_opt_ HINSTANCE hInstance,
     _In_opt_ LPVOID lpParam){
-        auto hwnd=CreateWindowExW_s(dwExStyle,lpClassName,lpWindowName,dwStyle,X,Y,nWidth,nHeight,hWndParent,hMenu,hInstance,lpParam);
-        //std::thread([hwnd](){
-          //  Sleep(3000);
-        SetWindowTextW(hwnd,L"恋狱～月狂病～《REBIRTH FHD SIZE EDITION》");
-        //}).detach();
-        return hwnd;
+        if(once){
+            once=false;
+            g_hwnd=CreateWindowExW_s(dwExStyle,lpClassName,lpWindowName,dwStyle,X,Y,nWidth,nHeight,hWndParent,hMenu,hInstance,lpParam);
+            SetWindowTextW(g_hwnd,L"恋狱～月狂病～《REBIRTH FHD SIZE EDITION》");
+            return g_hwnd;
+        }
+        else{
+            return CreateWindowExW_s(dwExStyle,lpClassName,lpWindowName,dwStyle,X,Y,nWidth,nHeight,hWndParent,hMenu,hInstance,lpParam);
+        }
+       
     }
 __declspec(dllexport) void dumy() {}
 bool endWith(const std::wstring& s,const std::wstring& s2) {
@@ -267,10 +273,15 @@ void preloadnewcz(){
     newcz_data=std::move(readfile(L".\\CHSPAK\\OTHCG.IMG"));
      
 }
- 
+
+bool FileExists(const std::wstring& filename)
+{
+    std::ifstream file(filename);
+    return file.good();
+}
+HLRC g_lrc=0;
 auto ReadFiles=ReadFile;
-BOOL 
-ReadFileH(
+BOOL ReadFileH(
     _In_ HANDLE hFile,
     LPVOID lpBuffer,
     _In_ DWORD nNumberOfBytesToRead,
@@ -326,9 +337,57 @@ ReadFileH(
             // AppendLog(LR"(C:\InnocentGrey\カルタグラ FHD\1.txt)",WideStringToString(output,65001));
             // return ReadFiles(hFile,lpBuffer,nNumberOfBytesToRead,lpNumberOfBytesRead,lpOverlapped);
         }
+        else if(pendWith(filepath,L"SYSCG.PAK")){
+            auto cur=GetFilePointer(hFile);
+            if(cur==0x800 && FileExists(L".\\CHSPAK\\THANKS.png")){
+                 
+                auto t = std::thread([] {
+                    g_lrc = CreateLyric();
+                    SetLyricParent(g_lrc, g_hwnd);
+                    LyricShow(g_lrc);
+                    RECT rect;
+                    GetWindowRect(g_hwnd,&rect);
+                    SetLyricPosition(g_lrc,0, 0, rect.right-rect.left, rect.bottom-rect.top);
+                    LyricUpdate(g_lrc);
+                    MSG msg;
+                    while (GetMessage(&msg, nullptr, 0, 0))
+                    {
+                        TranslateMessage(&msg);
+                        DispatchMessage(&msg);
+                    }
+                    });
+
+                t.detach();
+                SECURITY_DESCRIPTOR sd;
+                InitializeSecurityDescriptor(&(sd),1); 
+                SetSecurityDescriptorDacl(&(sd), 1, 0, 0);
+                SECURITY_ATTRIBUTES allacc; 
+                allacc.nLength=sizeof(allacc);
+                allacc.bInheritHandle=0;
+                allacc.lpSecurityDescriptor=&(sd);
+                auto event=CreateEventW(&allacc,0,0, L"LIANYUYUEKUANGBING_SHOW_THANKS");
+                WaitForSingleObject(event,INFINITE);
+                CloseHandle(event);
+            } 
+            
+            return ReadFiles(hFile,lpBuffer,nNumberOfBytesToRead,lpNumberOfBytesRead,lpOverlapped);
+        }
         else{
             return ReadFiles(hFile,lpBuffer,nNumberOfBytesToRead,lpNumberOfBytesRead,lpOverlapped);
         } 
+} 
+typedef LRESULT (*sub_7FF76F282760t)(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+auto sub_7FF76F282760=(sub_7FF76F282760t)(0x252760+(uint64_t)GetModuleHandle(0));
+
+LRESULT sub_7FF76F282760H(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
+    if(g_lrc ){ 
+        if(uMsg==WM_CLOSE ||uMsg==WM_KEYDOWN){ 
+            auto _hwnd=getlyrichwnd(g_lrc);
+            if(_hwnd)
+            SendMessage(_hwnd,uMsg,wParam,lParam);
+        }
+    }
+    return sub_7FF76F282760(hwnd,uMsg,wParam,lParam);
 } 
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
@@ -342,8 +401,9 @@ BOOL APIENTRY DllMain( HMODULE hModule,
         //loadlr();
 		DetourTransactionBegin();
         DetourUpdateThread(GetCurrentThread()); 
+        DetourAttach(&(PVOID&)sub_7FF76F282760, sub_7FF76F282760H); 
         DetourAttach(&(PVOID&)CreateWindowExW_s, CreateWindowExWh); 
-        DetourAttach(&(PVOID&)sub_1401012C0_s, sub_1401012C0); 
+        DetourAttach(&(PVOID&)sub_1401012C0_s, sub_1401012C0);
         //DetourAttach(&(PVOID&)pathfileexits,PathFileExistsWH); 
         //DetourAttach(&(PVOID&)CreateFile_save, CreateFileWh); 
         DetourAttach(&(PVOID&)ReadFiles, ReadFileH); 

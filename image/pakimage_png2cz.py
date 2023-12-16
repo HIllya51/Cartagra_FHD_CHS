@@ -6,7 +6,7 @@ for _dir in ['OTHCG','PARTS','SYSCG']:
         #pngimagepath=os.path.join(_path,imagepath)
         czimagepath=os.path.join(_path, imagepath[:-4])
         outputczpath=os.path.join(_path+'_NEW', imagepath[:-4])
-        if os.path.getmtime(outputczpath)>os.path.getmtime(pngimagepath):
+        if os.path.exists(outputczpath) and  os.path.getmtime(outputczpath)>os.path.getmtime(pngimagepath):
             continue
         with open(czimagepath,'rb') as ff:
             magic=ff.read(3).decode()
@@ -18,5 +18,5 @@ for _dir in ['OTHCG','PARTS','SYSCG']:
         else: #测试可以全都打成CZ4格式的
             print(czimagepath,magic )
             os.system(rf'.\CZXImage-main\ConsoleApplication1\x64\Release\CZXImage.exe "C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG\03b" "{pngimagepath}" "{outputczpath}"')
-        if _dir=='OTHCG':
-            shutil.copy(outputczpath, os.path.join(r'C:\InnocentGrey\カルタグラ FHD\CHSPAK\OTHCG', imagepath[:-4]))
+        # if _dir=='OTHCG':
+        #     shutil.copy(outputczpath, os.path.join(r'C:\InnocentGrey\カルタグラ FHD\CHSPAK\OTHCG', imagepath[:-4]))

@@ -22,20 +22,20 @@ for _font_file,_fontname in [('simsun.ttc','ゴシック'),('simhei.ttf','明朝
             for f in sizes:
                 size=int(f)+1
                 
-                _addition={
-                    13:4,
-                    17:4,
-                    34:0,
-                    41:4,
-                    42:0,
-                    16:0,
-                    26:0,
-                    28:0,
-                    31:4,
-                    33:4,
-                    37:4
-                }
-                imageW=size*100+_addition[size]
+                # _addition={
+                #     13:4,
+                #     17:4,
+                #     34:0,
+                #     41:4,
+                #     42:0,
+                #     16:0,
+                #     26:0,
+                #     28:0,
+                #     31:4,
+                #     33:4,
+                #     37:4
+                # }
+                imageW=size*100#+_addition[size]
 
                 imageH=size * int(math.ceil((len(chars))/100.0))
                 print(imageW,imageH)
@@ -44,8 +44,8 @@ for _font_file,_fontname in [('simsun.ttc','ゴシック'),('simhei.ttf','明朝
                     diff=-0.31*size
                 elif font_file=='msyh.ttc':
                     diff=-0.24*size
-                elif font_file=='simhei.ttf':
-                    diff=-0.05*size
+                # elif font_file=='simhei.ttf':
+                #     diff=-0.05*size
                 else:
                     diff=0
                 fontStyle = ImageFont.truetype(

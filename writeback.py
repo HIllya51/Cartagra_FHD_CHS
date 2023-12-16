@@ -68,7 +68,7 @@ for f in os.listdir('SCRIPT_FHD/text'):
                  
                 mymap[_1[i]]=_2[i]
                 cnt+=1
-                print('{L"'+_1[i].replace('\n','\\n')+'",L"'+_2[i].replace('\n','\\n')+'"},',file=pf)
+                print('{L"'+_1[i].replace('\n','\\n')+'",L"'+_2[i].replace('\\','\\\\').replace('\n','\\n')+'"},',file=pf)
     with open('SCRIPT_FHD/SCRIPT_FHD_transed/'+f,'wb') as ff:
         ff.write(bytes(cankao))
 # with open(r'C:\InnocentGrey\カルタグラ FHD\trans.json','w',encoding='utf8') as ff:

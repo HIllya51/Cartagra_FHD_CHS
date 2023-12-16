@@ -26,9 +26,7 @@ for _type in  [2,4,1,3]:
             for f in os.listdir('../SCRIPT_FHD/text'):
                 with open('../SCRIPT_FHD/text/'+f,'r',encoding='utf8') as ff:
                     newtexts=ff.read().split('\n') 
-                for i in range(len(newtexts)):
-                    if i%3!=1:continue
-                    chars=chars.union(set(''.join(newtexts))) 
+                chars=chars.union(set(''.join(newtexts))) 
         elif _type==2:
             chars=set()
             with open(r'infosys41_string_sort_utf-8.txt','r',encoding='utf-8-sig') as ff:
@@ -39,9 +37,7 @@ for _type in  [2,4,1,3]:
                 
                 with open('../SCRIPT_FHD/text/'+f,'r',encoding='utf8') as ff:
                     newtexts=ff.read().split('\n') 
-                for i in range(len(newtexts)):
-                    if i%3!=1:continue
-                    chars=chars.union(set(''.join(newtexts))) 
+                chars=chars.union(set(''.join(newtexts))) 
         elif _type==3:
             with open(r'info40v_string_sort_utf-8.txt','r',encoding='utf-8-sig') as ff:
                 origin=ff.read()
@@ -53,9 +49,7 @@ for _type in  [2,4,1,3]:
  
             with open('../uitext.txt','r',encoding='utf8') as ff:
                 newtexts=ff.read().split('\n') 
-            for i in range(len(newtexts)):
-                if i%3!=1:continue
-                chars=chars.union(set(''.join(newtexts)))
+            chars=chars.union(set(''.join(newtexts)))
         origin=list(origin) 
     
         chars=sorted(chars)
