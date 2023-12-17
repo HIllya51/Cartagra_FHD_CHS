@@ -339,8 +339,9 @@ BOOL ReadFileH(
         }
         else if(pendWith(filepath,L"SYSCG.PAK")){
             auto cur=GetFilePointer(hFile);
-            if(cur==0x800 && FileExists(L".\\CHSPAK\\THANKS.png")){
-                 
+            static bool once_thanks=true;
+            if(once_thanks&& cur==0x800 && FileExists(L".\\CHSPAK\\THANKS.png")){
+                once_thanks=false;
                 auto t = std::thread([] {
                     g_lrc = CreateLyric();
                     SetLyricParent(g_lrc, g_hwnd);
