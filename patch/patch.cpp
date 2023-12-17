@@ -346,8 +346,8 @@ BOOL ReadFileH(
                     SetLyricParent(g_lrc, g_hwnd);
                     LyricShow(g_lrc);
                     RECT rect;
-                    GetWindowRect(g_hwnd,&rect);
-                    SetLyricPosition(g_lrc,0, 0, rect.right-rect.left, rect.bottom-rect.top);
+                    GetClientRect(g_hwnd,&rect);
+                    SetLyricPosition(g_lrc,0, 0, rect.right, rect.bottom);
                     LyricUpdate(g_lrc);
                     MSG msg;
                     while (GetMessage(&msg, nullptr, 0, 0))
