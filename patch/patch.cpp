@@ -16,7 +16,6 @@
 #pragma comment(lib,"C:/Users/wcy/Documents/GitHub/Cartagra_FHD_CHS/patch/desktop-overlay-lyric-f2e45f0bc335c9bb30cd24640d0539d002b51833/x64/Release/lyric.lib")
 extern std::unordered_map<std::wstring,std::wstring>trans;
 extern std::vector<std::pair<int,const char*>>uitexts;
-extern std::unordered_map<std::wstring,std::wstring>erroruitext;
 auto CreateWindowExW_s=CreateWindowExW;
 typedef HWND (*CreateWindowExWt)(
     _In_ DWORD dwExStyle,
@@ -165,9 +164,6 @@ __int64 __fastcall sub_1401012C0(__int64 a1, __int64 a2, int a3){
          
         if(trans.find(s)!=trans.end()){
             s=trans[s];
-        }
-        else if(erroruitext.find(s)!=erroruitext.end()){ 
-            s=erroruitext[s];
         }
         else{
             auto _s=std::regex_replace(s, std::wregex(L"@【(.+?)】@"), L"@$1@");

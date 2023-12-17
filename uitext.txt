@@ -10,11 +10,8 @@
 3FC630|Are you sure you wish to quit the game?
 3FC630|Are you sure you wish to quit the game?
 
-3FC658|X$A@
-3FC658|X$A@
-
 3FC5D4|Cancel
-3FC5D4|Cancel
+3FC5D4|取消
 
 3FC560|$A1セーブしていないデータがあります。＄$A1ゲーム終了前にクイックセーブしますか？
 3FC560|$A1您有尚未保存的数据。＄$A1要在游戏结束前进行快速保存吗？
@@ -887,7 +884,7 @@
 3FF150|上月和菜
 
 3FE770|OK
-3FE770|OK1
+3FE770|确定
 
 3D4F88|上書きしますか？
 3D4F88|是否覆盖？
@@ -1423,3 +1420,5 @@
 3D4848|日本語
 3D4848|日本語
 
+3FD980|音声再生
+3FD980|语音播放

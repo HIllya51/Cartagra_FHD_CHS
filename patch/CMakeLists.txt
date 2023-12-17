@@ -25,7 +25,7 @@ project(patch)
 include_directories(.)
 include_directories(lib)
 add_subdirectory(lib/minhook)
-add_library(CHSpatch MODULE patch.cpp uitext.cpp tolongtexts.cpp erroruitext.cpp othcg.cpp)  
+add_library(CHSpatch MODULE patch.cpp uitext.cpp tolongtexts.cpp othcg.cpp)  
 
 target_link_libraries(CHSpatch minhook)
 
