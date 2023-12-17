@@ -25,7 +25,10 @@ for _type in  [2,4,1,3]:
 
             for f in os.listdir('../SCRIPT_FHD/text'):
                 with open('../SCRIPT_FHD/text/'+f,'r',encoding='utf8') as ff:
-                    newtexts=ff.read().split('\n') 
+                    newtexts=ff.read()
+                if len(newtexts) and newtexts[0]=='\ufeff':newtexts=newtexts[1:]
+                newtexts=newtexts.split('\n')
+                newtexts=[newtexts[i] if i%3==1 else '' for i in range(len(newtexts))]
                 chars=chars.union(set(''.join(newtexts))) 
         elif _type==2:
             chars=set()
@@ -36,7 +39,10 @@ for _type in  [2,4,1,3]:
                 if f!='0000-op1':continue
                 
                 with open('../SCRIPT_FHD/text/'+f,'r',encoding='utf8') as ff:
-                    newtexts=ff.read().split('\n') 
+                    newtexts=ff.read()
+                if len(newtexts) and newtexts[0]=='\ufeff':newtexts=newtexts[1:]
+                newtexts=newtexts.split('\n')
+                newtexts=[newtexts[i] if i%3==1 else '' for i in range(len(newtexts))]
                 chars=chars.union(set(''.join(newtexts))) 
         elif _type==3:
             with open(r'info40v_string_sort_utf-8.txt','r',encoding='utf-8-sig') as ff:
