@@ -3,19 +3,19 @@ for __type in [1,2,3,4]:
     if __type==1:
         path=r'C:\InnocentGrey\カルタグラ FHD\files\SCRIPT.PAK'
         packPAKpath=r'C:\Users\wcy\Documents\GitHub\Cartagra_FHD_CHS\SCRIPT_FHD/SCRIPT_FHD_transed'
-        newPAKpath=r'C:\InnocentGrey\カルタグラ FHD\files\SCRIPT_CHS.PAK'
+        newPAKpath=r'C:\InnocentGrey\カルタグラ FHD\CHSPAK\SCRIPT.PAK'
     elif __type==2:
         path=r'C:\InnocentGrey\カルタグラ FHD\files\FONT.PAK'
         packPAKpath=r'C:\InnocentGrey\カルタグラ FHD\files\FONT_NEW'
-        newPAKpath=r'C:\InnocentGrey\カルタグラ FHD\files\FONT_CHS.PAK'
+        newPAKpath=r'C:\InnocentGrey\カルタグラ FHD\CHSPAK\FONT.PAK'
     elif __type==4:
         path=r'C:\InnocentGrey\カルタグラ FHD\files\FONT_V.PAK'
         packPAKpath=r'C:\InnocentGrey\カルタグラ FHD\files\FONT_V_NEW'
-        newPAKpath=r'C:\InnocentGrey\カルタグラ FHD\files\FONT_V_CHS.PAK'
+        newPAKpath=r'C:\InnocentGrey\カルタグラ FHD\CHSPAK\FONT_V.PAK'
     elif __type==3:
         path=r'C:\InnocentGrey\カルタグラ FHD\files\SYSFONT.PAK'
         packPAKpath=r'C:\InnocentGrey\カルタグラ FHD\files\SYSFONT_NEW'
-        newPAKpath=r'C:\InnocentGrey\カルタグラ FHD\files\SYSFONT_CHS.PAK'
+        newPAKpath=r'C:\InnocentGrey\カルタグラ FHD\CHSPAK\SYSFONT.PAK'
 
     with open(path,'rb') as ff:
         bs=ff.read() 
@@ -51,7 +51,7 @@ for __type in [1,2,3,4]:
         Offset=c_uint.from_buffer_copy(bs[index_offset:index_offset+4]).value* block_size;
         Size=c_uint.from_buffer_copy(bs[index_offset+4:index_offset+8]).value
         
-        print(i,names[i],hex(Offset),hex(Offset+Size),Offset%block_size, Size%block_size ) 
+        print(i,names[i],hex(Offset),hex(Size),hex(Offset+Size),Offset%block_size, Size%block_size ) 
         #size%4不为0时，填充0
         # with open('unpack/'+names[i],'wb') as ff:
         #     ff.write(bs[Offset:Offset+Size]) 
@@ -59,7 +59,8 @@ for __type in [1,2,3,4]:
         with open(packPAKpath+'/'+names[i],'rb') as ff:
             fbs=ff.read()
         
-        _size=len(fbs)
+        save_size=_size=len(fbs)
+
         if (_size%block_size)!=0:
             _add=block_size-_size%block_size
             _size+=_add
@@ -67,7 +68,7 @@ for __type in [1,2,3,4]:
         #bs[index_offset+4:index_offset+8]= 
         #print(hex(index_offset))
         for j in range(4):
-            bslist[index_offset+4+j]=_size.to_bytes(4,'little')[j]
+            bslist[index_offset+4+j]=save_size.to_bytes(4,'little')[j]
     
         for j in range(4):
             bslist[index_offset+0+j]=first_offset.to_bytes(4,'little')[j]

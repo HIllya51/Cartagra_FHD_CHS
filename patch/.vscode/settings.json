@@ -78,6 +78,10 @@
         "numeric": "cpp",
         "ranges": "cpp",
         "span": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "codecvt": "cpp",
+        "string_view": "cpp",
+        "xthread": "cpp",
+        "queue": "cpp"
     }
 }
