@@ -229,6 +229,16 @@ void patchstring(){
             strcpy((char*)addr, _pair.second);
         
     }
+
+    auto addr=0x3FE778+modulebase;
+    strcpy((char*)addr, u8"无");
+    addr=0x1AB66+modulebase;
+    DWORD old,_;
+    VirtualProtect( (LPVOID) addr, 7, PAGE_EXECUTE_READWRITE, &old);
+    *(int*)(addr+3)=*(int*)(addr+3)+4;
+    addr=0x2A2770+modulebase;
+    VirtualProtect( (LPVOID) addr, 7, PAGE_EXECUTE_READWRITE, &old);
+    *(int*)(addr+3)=*(int*)(addr+3)+4;
 }
 
 
