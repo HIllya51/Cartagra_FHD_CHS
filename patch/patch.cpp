@@ -229,16 +229,31 @@ void patchstring(){
             strcpy((char*)addr, _pair.second);
         
     }
-
-    auto addr=0x3FE778+modulebase;
-    strcpy((char*)addr, u8"无");
-    addr=0x1AB66+modulebase;
+ 
+    auto addr=0x1AB66+modulebase;  //なし
     DWORD old,_;
     VirtualProtect( (LPVOID) addr, 7, PAGE_EXECUTE_READWRITE, &old);
     *(int*)(addr+3)=*(int*)(addr+3)+4;
     addr=0x2A2770+modulebase;
     VirtualProtect( (LPVOID) addr, 7, PAGE_EXECUTE_READWRITE, &old);
     *(int*)(addr+3)=*(int*)(addr+3)+4;
+
+    
+    addr=0x29EA13+modulebase;   //下部
+    VirtualProtect( (LPVOID) addr, 7, PAGE_EXECUTE_READWRITE, &old);
+    *(int*)(addr+3)=*(int*)(addr+3)+0x3FF4D4-0x3FF4C8;
+
+    addr=0x2A0B92+modulebase;   //既読の色表示
+    VirtualProtect( (LPVOID) addr, 7, PAGE_EXECUTE_READWRITE, &old);
+    *(int*)(addr+3)=*(int*)(addr+3)+0x3FFEC8-0x3FFEB0;
+
+    addr=0x29E82F+modulebase;   //既読のみ
+    VirtualProtect( (LPVOID) addr, 7, PAGE_EXECUTE_READWRITE, &old);
+    *(int*)(addr+3)=*(int*)(addr+3)+0x3FF490-0x3FF470;
+    
+    addr=0x2A1261+modulebase;   //既読色
+    VirtualProtect( (LPVOID) addr, 7, PAGE_EXECUTE_READWRITE, &old);
+    *(int*)(addr+3)=*(int*)(addr+3)+0x400030-0x3FFF20;
 }
 
 

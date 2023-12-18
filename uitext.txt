@@ -251,12 +251,12 @@
 3FFEA0|Color of
 
 3FFEB0|既読の色表示
-3FFEB0|已读内容颜色
+3FFEB0|
 
 3FFEC4|緑
 3FFEC4|绿
 
-3FFEC8|已读内容颜色标记
+3FFEC8|已读内容颜色标记-既読の色表示
 3FFEC8|已读内容颜色标记
 
 3FFEE4|绿
@@ -293,7 +293,7 @@
 3FFF18|Color
 
 3FFF20|既読色
-3FFF20|已读颜色
+3FFF20|
 
 3FFF30|【オート文字数待機時間】オートモードの時、全メッセージが表示されてから、次のメッセージに進むまでの待ち時間を、メッセージの文字数に合わせて設定できます。
 3FFF30|【按字数翻页】自动模式开启时，可按每一页的文字数，设定切换到下一页的等待时间。所设定的时间将从该页完全显示后开始计时。
@@ -301,8 +301,8 @@
 400018|显示颜色
 400018|显示颜色
 
-400030|【按字数翻页】自动模式开启时，可按每一页的文字数，设定切换到下一页的等待时间。所设定的时间将从该页完全显示后开始计时。
-400030|【按字数翻页】自动模式开启时，可按每一页的文字数，设定切换到下一页的等待时间。所设定的时间将从该页完全显示后开始计时。
+400030|【按字数翻页】自动模式开启时，可按每一页的文字数，设定切换到下一页的等待时间。所设定的时间将从该页完全显示后开始计时。-既読色
+400030|已读内容颜色
 
 4000F0|Wait Time Per Character: In Auto Mode, this sets the wait time until the next message is displayed based on the number of characters in text.
 4000F0|Wait Time Per Character: In Auto Mode, this sets the wait time until the next message is displayed based on the number of characters in text.
@@ -437,8 +437,11 @@
 400590|　无　
 
 3FE774|なし
-3FE774|无
- 
+3FE774|
+
+3FE778|
+3FE778|无
+
 3D3EE8|閉じる
 3D3EE8|关闭
 
@@ -670,14 +673,14 @@
 3FF4DC|Bottom
 3FF4DC|Bottom
 
-3FF4D4|下部
+3FF4D4|下部-下
 3FF4D4|下部
 
 3FF4CC|快进
 3FF4CC|快进
 
 3FF4C8|下
-3FF4C8|下
+3FF4C8|
 
 3FF4B8|スキップ
 3FF4B8|跳过内容
@@ -691,14 +694,14 @@
 3FF4A4|全部
 3FF4A4|全部
 
-3FF490|仅限已读内容
+3FF490|仅限已读内容-既読のみ
 3FF490|仅限已读内容
 
 3FF480|すべて
 3FF480|全部
 
 3FF470|既読のみ
-3FF470|仅限已读
+3FF470|
 
 3FF458|Previously Read Only
 3FF458|Previously Read Only
