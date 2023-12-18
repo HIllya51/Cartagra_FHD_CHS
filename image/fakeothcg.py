@@ -121,12 +121,17 @@ def getdatas(bs):
             _add=block_size-Size%block_size
             Size+=_add
         offset2size[hex(Offset)]=hex(Size)
-        if os.path.exists(r'C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG_NEW\\'+names[i]):
-            
-            with open(r'C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG_NEW\\'+names[i],'rb') as ff:
-                _data=ff.read()
-            newcz[hex(Offset)]=[hex(len(newczdata)),hex(len(_data))]
-            newczdata+=_data
+        fnames=[
+            r'C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG_NEW\\'+names[i],
+            r'C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG_NEW\\'+names[i]+'.cz',
+        ]
+        for _fn in fnames:
+            if os.path.exists(_fn):
+                with open(_fn,'rb') as ff:
+                    _data=ff.read() 
+                newcz[hex(Offset)]=[hex(len(newczdata)),hex(len(_data))]
+                newczdata+=_data
+                break            
     return offsets,offset2size,newcz,newczdata
 with open(r'C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG.PAK','rb') as ff:
     othcgbs=ff.read()  
