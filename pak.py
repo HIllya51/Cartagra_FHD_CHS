@@ -1,5 +1,5 @@
 #__type=3
-for __type in [1,2,3,4]:
+for __type in [1,2,3,4,5]:
     if __type==1:
         path=r'C:\InnocentGrey\カルタグラ FHD\files\SCRIPT.PAK'
         packPAKpath=r'C:\Users\wcy\Documents\GitHub\Cartagra_FHD_CHS\SCRIPT_FHD/SCRIPT_FHD_transed'
@@ -16,7 +16,10 @@ for __type in [1,2,3,4]:
         path=r'C:\InnocentGrey\カルタグラ FHD\files\SYSFONT.PAK'
         packPAKpath=r'C:\InnocentGrey\カルタグラ FHD\files\SYSFONT_NEW'
         newPAKpath=r'C:\InnocentGrey\カルタグラ FHD\CHSPAK\SYSFONT.PAK'
-
+    elif __type==5:
+        path=r'C:\InnocentGrey\カルタグラ FHD\files\PARAM.PAK'
+        packPAKpath=r'C:\InnocentGrey\カルタグラ FHD\files\PARAM_NEW'
+        newPAKpath=r'C:\InnocentGrey\カルタグラ FHD\CHSPAK\PARAM.PAK'
     with open(path,'rb') as ff:
         bs=ff.read() 
     
