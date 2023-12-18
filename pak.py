@@ -17,6 +17,7 @@ for __type in [1,2,3,4,5]:
         packPAKpath=r'C:\InnocentGrey\カルタグラ FHD\files\SYSFONT_NEW'
         newPAKpath=r'C:\InnocentGrey\カルタグラ FHD\CHSPAK\SYSFONT.PAK'
     elif __type==5:
+        continue
         path=r'C:\InnocentGrey\カルタグラ FHD\files\PARAM.PAK'
         packPAKpath=r'C:\InnocentGrey\カルタグラ FHD\files\PARAM_NEW'
         newPAKpath=r'C:\InnocentGrey\カルタグラ FHD\CHSPAK\PARAM.PAK'

@@ -137,7 +137,7 @@ HANDLE  WINAPI   CreateFileWh(
         GetCurrentDirectoryW(MAX_PATH,current);
         auto redirects={
             //L"OTHCG.PAK",
-            L"PARAM.PAK",
+            //L"PARAM.PAK",
             L"PARTS.PAK",L"SYSCG.PAK",
             L"FONT.PAK",L"FONT_V.PAK",L"SYSFONT.PAK",L"SCRIPT.PAK" 
         }; 

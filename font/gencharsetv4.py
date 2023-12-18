@@ -106,8 +106,9 @@ for _type in  [2,4,1,3]:
         while len(newcharset)<len(origin):
             newcharset+=' '  
             if _type==4:
-                if len(newcharset)==len(origin)-1:
-                    newcharset+='删'
+                badchars='删时绫薰岛马庆 其苍'   #load界面“削除”找不到在哪替换；角色声音不能改名字，改了没法调音量
+                if len(newcharset)==len(origin)-len(badchars):
+                    newcharset+=badchars
         #print(_type,len(newcharset))
     with open(f'newcharset{_type}.txt','w',encoding='utf-8-sig') as ff:
         ff.write(''.join(newcharset))
@@ -140,8 +141,9 @@ for _type in  [2,4,1,3]:
         for i in range(2+len(basic), len(infos)-1):
             line=infos[i].split('\t')
             #print(i,newcharset[i-2])
-            if _type==4 and i==len(infos)-2:
-                char='削'
+            badchars='削時綾薫島馬慶のそ蒼'
+            if _type==4 and i>=len(infos)-len(badchars)-1:
+                char=badchars[i-(len(infos)-len(badchars)-1)]
             else:
                 char=remap_charset2[newcharset[i-2]]
             line[1]=char

@@ -15,6 +15,7 @@ for i in range(len(lines)):
     _addr=int(addr,16)
     trans=lines[i][7:]
     origin=lines[i-1][7:]
+    if len(origin) and origin[-1]=='-':continue
     # if _addr>=0x3FF150 and _addr<=0x3FF390:
     #     #print(origin)
     #     continue
