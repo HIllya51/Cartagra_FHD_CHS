@@ -255,6 +255,10 @@ void patchstring(){
     addr=0x2A1261+modulebase;   //既読色
     VirtualProtect( (LPVOID) addr, 7, PAGE_EXECUTE_READWRITE, &old);
     *(int*)(addr+3)=*(int*)(addr+3)+0x400030-0x3FFF20;
+
+    addr=0x3370A+modulebase;   //最新へ
+    VirtualProtect( (LPVOID) addr, 7, PAGE_EXECUTE_READWRITE, &old);
+    *(int*)(addr+3)=*(int*)(addr+3)+0x3D5C90-0x3D5C78;
 }
 
 

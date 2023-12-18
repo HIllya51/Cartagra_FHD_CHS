@@ -105,6 +105,9 @@ for _type in  [2,4,1,3]:
         #print(_type,len(onlyinoriginsetsave),len(newcharset),len(origin),len(originset))
         while len(newcharset)<len(origin):
             newcharset+=' '  
+            if _type==4:
+                if len(newcharset)==len(origin)-1:
+                    newcharset+='删'
         #print(_type,len(newcharset))
     with open(f'newcharset{_type}.txt','w',encoding='utf-8-sig') as ff:
         ff.write(''.join(newcharset))
@@ -137,7 +140,10 @@ for _type in  [2,4,1,3]:
         for i in range(2+len(basic), len(infos)-1):
             line=infos[i].split('\t')
             #print(i,newcharset[i-2])
-            char=remap_charset2[newcharset[i-2]]
+            if _type==4 and i==len(infos)-2:
+                char='削'
+            else:
+                char=remap_charset2[newcharset[i-2]]
             line[1]=char
             line[2]=ord(char).to_bytes(2,'little').hex().upper()
             line[3]='0000'

@@ -111,6 +111,8 @@ while idx<len(bs):
         textidx+=1
     else:
         target=target+blocklength.to_bytes(2,'little')+mid+b'\x00\x00\x00\x00' 
-
+    if textidx==2:
+        target=target+bs[idx:]
+        break
 with open('SCRIPT_FHD/SCRIPT_FHD_transed/_varstr','wb') as ff:
     ff.write(target)
