@@ -7,7 +7,7 @@
 #include<regex>
 #include<nlohmann/json.hpp>
 #include"lib/minhook/include/MinHook.h"
-#include<fstream>
+#include<filesystem>
 #include"lib/Detours-4.0.1/include/detours.h"
 #pragma comment(lib,"Shlwapi.lib")
 #pragma comment(lib,"Gdiplus.lib")
@@ -181,36 +181,7 @@ __int64 __fastcall sub_1401012C0(__int64 a1, __int64 a2, int a3){
         _+=sps[i];
     } 
     return sub_1401012C0_s(a1,(__int64)_.c_str(),a3);
-}
-struct LRProfile
-{
-	UINT CodePage;
-	UINT LCID;
-	long Bias;
-	int HookIME;
-	int HookLCID;
-};
-int WrtieConfigFileMap(LRProfile* profile)
-{
-	SetEnvironmentVariableW(L"LRCodePage", (LPCWSTR)&profile->CodePage);
-	SetEnvironmentVariableW(L"LRLCID", (LPCWSTR)&profile->LCID);
-	SetEnvironmentVariableW(L"LRBIAS", (LPCWSTR)&profile->Bias);
-	SetEnvironmentVariableW(L"LRHookIME", (LPCWSTR)&profile->HookIME);
-	SetEnvironmentVariableW(L"LRHookLCID", (LPCWSTR)&profile->HookLCID);
-	return 0;
-}
-void loadlr(){
-    LRProfile beta;
-	beta.CodePage = 932;
-	beta.LCID = 0x0411;
-	beta.Bias = 540; // Bias will become negative in HookGetTimeZoneInformation
-	beta.HookIME = false;
-	beta.HookLCID = true;
-
-	WrtieConfigFileMap(&beta);
-     
-    LoadLibraryW(L".\\LRHookx64.dll");
-}
+} 
 auto modulebase=(uint64_t)GetModuleHandle(0); 
 void patchstring(){
     
@@ -299,12 +270,7 @@ void preloadnewcz(){
     newcz_data=std::move(readfile(L".\\CHSPAK\\OTHCG.IMG"));
      
 }
-
-bool FileExists(const std::wstring& filename)
-{
-    std::ifstream file(filename);
-    return file.good();
-}
+ 
 HLRC g_lrc=0;
 auto ReadFiles=ReadFile;
 BOOL ReadFileH(
@@ -366,7 +332,7 @@ BOOL ReadFileH(
         else if(pendWith(filepath,L"SYSCG.PAK")){
             auto cur=GetFilePointer(hFile);
             static bool once_thanks=true;
-            if(once_thanks&& cur==0x800 && FileExists(L".\\CHSPAK\\THANKS.png")){
+            if(once_thanks&& cur==0x800 && std::filesystem::exists(L".\\CHSPAK\\THANKS.png")){
                 once_thanks=false;
                 auto t = std::thread([] {
                     g_lrc = CreateLyric();
@@ -416,6 +382,13 @@ LRESULT sub_7FF76F282760H(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
     }
     return sub_7FF76F282760(hwnd,uMsg,wParam,lParam);
 } 
+auto OriginalGetUserDefaultUILanguage=GetUserDefaultUILanguage;
+LANGID WINAPI HookGetUserDefaultUILanguage(void) { 
+    //void __fastcall sub_7FF741994040(__int64 a1)
+    //……
+    //*(_DWORD *)(a1 + 160) = GetUserDefaultUILanguage() != 1041;
+    return 1041 ;
+}
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
                        LPVOID lpReserved
@@ -425,7 +398,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     {
     case DLL_PROCESS_ATTACH: { 
         patchstring();preloadnewcz();
-        //loadlr();
+        
 		DetourTransactionBegin();
         DetourUpdateThread(GetCurrentThread()); 
         DetourAttach(&(PVOID&)sub_7FF76F282760, sub_7FF76F282760H); 
@@ -434,7 +407,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
         //DetourAttach(&(PVOID&)pathfileexits,PathFileExistsWH); 
         //DetourAttach(&(PVOID&)CreateFile_save, CreateFileWh); 
         DetourAttach(&(PVOID&)ReadFiles, ReadFileH); 
-
+        DetourAttach(&(PVOID&)OriginalGetUserDefaultUILanguage, HookGetUserDefaultUILanguage);
         DetourTransactionCommit(); 
         MH_Initialize();
         MH_CreateHook(CreateFileW, &CreateFileWh, reinterpret_cast<LPVOID*>(&CreateFile_save));
