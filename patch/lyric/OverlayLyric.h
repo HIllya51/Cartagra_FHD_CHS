@@ -1,6 +1,6 @@
 #pragma once
 #include "Wnd.h"
-#define GDIPVER 0x0110    //¶¨Òå¸ß°æ±¾µÄGDI+(1.1)
+#define GDIPVER 0x0110    //ï¿½ï¿½ï¿½ï¿½ß°æ±¾ï¿½ï¿½GDI+(1.1)
 #include <gdiplus.h>
 #include <gdipluseffects.h>
 
@@ -28,7 +28,7 @@ enum class DefaultColorStyle{
 class OverlayLyric : public Wnd
 {
 public:
-	OverlayLyric(HINSTANCE hInst = NULL);
+	OverlayLyric(int ,HINSTANCE hInst = NULL);
 	~OverlayLyric();
 protected:
 	BOOL InitializeGdiplus();
@@ -43,14 +43,15 @@ public:
 	void SetFont(LPCWCHAR fontName, const REAL& fontSize);
 	void SetDefaultStyle(DefaultColorStyle colorStyle);
 	void SetWndPos(INT x, INT y, INT width, INT height);
-	BOOL Update();
+	BOOL Update(int alpha);
 	void SetLock(BOOL lock);
 	void ShowWnd();
 	void HideWnd();
 private:
+	int type;
 	POINT mMouseXY = { 0 };
 	BOOL mIsMousePrees = FALSE;
-	ULONG_PTR mGdiplusToken = NULL;  // GDI+¾ä±ú
+	ULONG_PTR mGdiplusToken = NULL;  // GDI+ï¿½ï¿½ï¿½
 	FontInfo mFontInfo = { 0 };
 	REAL mScale = 0.f;
 	WCHAR mText[256] = { 0 };

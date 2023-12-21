@@ -32,7 +32,7 @@
 3FF598|      No Stops      
 
 3FF5B0|　　 停止しない 　　
-3FF5B0|　　 不停止　　
+3FF5B0|　　　不停止　　　
 
 3FF5D0|Voice
 3FF5D0|Voice

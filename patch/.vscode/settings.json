@@ -82,6 +82,7 @@
         "codecvt": "cpp",
         "string_view": "cpp",
         "xthread": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "variant": "cpp"
     }
 }

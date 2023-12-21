@@ -1,9 +1,9 @@
 #include "lyric.h"
 #include "OverlayLyric.h"
 
-HLRC CreateLyric()
+HLRC CreateLyric(int type)
 {
-	OverlayLyric* pLrc = new OverlayLyric();
+	OverlayLyric* pLrc = new OverlayLyric(type);
 	return pLrc;
 }
 
@@ -51,10 +51,10 @@ EXPORT_API void LyricHide(HLRC lrc)
 	pLrc->HideWnd();
 }
 
- bool LyricUpdate(HLRC lrc)
+ bool LyricUpdate(HLRC lrc,int alpha)
 {
 	 OverlayLyric* pLrc = (OverlayLyric*)lrc;
-	 return pLrc->Update();
+	 return pLrc->Update(alpha);
 }
 
 void FreeLyric(HLRC lrc)

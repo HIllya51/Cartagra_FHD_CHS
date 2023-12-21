@@ -22,9 +22,10 @@ void OverlayLyric::ReleaseGdiplus() {
 	}
 }
 
-OverlayLyric::OverlayLyric(HINSTANCE hInst) : Wnd(hInst) {
-	// ³õÊ¼»¯Ä¬ÈÏ²ÎÊý
-	wcscpy_s(mFontInfo.FontName, L"ºÚÌå");
+OverlayLyric::OverlayLyric(int _type,HINSTANCE hInst) : Wnd(hInst) {
+	type = _type;
+	// ï¿½ï¿½Ê¼ï¿½ï¿½Ä¬ï¿½Ï²ï¿½ï¿½ï¿½
+	wcscpy_s(mFontInfo.FontName, L"ï¿½ï¿½ï¿½ï¿½");
 	mFontInfo.FontSize = 42;
 	mFontInfo.ForeColor1 = 0xFF013C8F;
 	mFontInfo.ForeColor2 = 0xFF0198D4;
@@ -32,14 +33,14 @@ OverlayLyric::OverlayLyric(HINSTANCE hInst) : Wnd(hInst) {
 	mFontInfo.OkColor1 = 0xFFBCF9FC;
 	mFontInfo.OkColor2 = 0xFF67F0FC;
 
-	this->InitializeGdiplus();  // ³õÊ¼»¯GDI+
+	this->InitializeGdiplus();  // ï¿½ï¿½Ê¼ï¿½ï¿½GDI+
 	this->Init();
 }
 
 OverlayLyric::~OverlayLyric() {
 	HWND hWnd = GetHandle();
 	KillTimer(hWnd, IDT_MOUSETRAP);
-	this->ReleaseGdiplus(); // ÊÍ·ÅGDI+
+	this->ReleaseGdiplus(); // ï¿½Í·ï¿½GDI+
 }
 
 BOOL OverlayLyric::DrawBackground(::Graphics* const graphics, const SIZE& size) {
@@ -68,13 +69,13 @@ BOOL OverlayLyric::DrawText(::Graphics* const graphics, const SIZE& size)
 {
 	int textLen = lstrlenW(mText);
 	if (textLen == 0) {
-		// Èç¹û×Ö·û´®³¤¶ÈÎª0Ôò²»»æÖÆ
+		// ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ò²»»ï¿½ï¿½ï¿½
 		return TRUE;
 	}
-	// ¸ù¾ÝÎÄ×Ö³¤¶ÈºÍÎÄ×ÖsizeÀ´¹À¼ÆÒ»¸öÕâÐ©ÎÄ×Ö¿ÉÄÜÐèÒªµÄsize
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö³ï¿½ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½sizeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ð©ï¿½ï¿½ï¿½Ö¿ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½size
 	INT boardWidth = INT(ceil(mFontInfo.FontSize * textLen + mFontInfo.FontSize * 2.f));
 	INT boardHeight = INT(ceil(mFontInfo.FontSize * 2.f));
-	// ´´½¨ÁÙÊ±Î»Í¼
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±Î»Í¼
 	::Bitmap bitmap(boardWidth, boardHeight, PixelFormat32bppARGB);
 	::Graphics bitmapGraphics(&bitmap);
 	bitmapGraphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeHighQuality);
@@ -86,9 +87,9 @@ BOOL OverlayLyric::DrawText(::Graphics* const graphics, const SIZE& size)
 	::GraphicsPath path;
 	::RectF rclayout(0.f, 0.f, REAL(boardWidth), REAL(boardHeight));
 
-	// »æÖÆÎÄ×ÖÒõÓ°£¬Ôö¼ÓÁ¢Ìå¸Ð
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	const REAL offset[6] = { 1.f, 1.5f, 2.f, 2.2f, -1.f, -1.5f };
-	const DWORD colors[6] = { 0x90000000, 0x30000000, 0x20000000, 0x10000000, 0x40000000, 0x30000000 };
+	const DWORD colors[6] = { 0xFF000000,0xFF000000,0xFF000000,0xFF000000,0xFF000000,0xFF000000 };
 	const int layerNum = 6;
 	for (int i = 0; i < layerNum; i++) {
 		rclayout.X = offset[i];
@@ -102,42 +103,36 @@ BOOL OverlayLyric::DrawText(::Graphics* const graphics, const SIZE& size)
 	rclayout.X = 0.f;
 	rclayout.Y = 0.f;
 	path.AddString(mText, -1, &fontFamily, ::FontStyleBold, mFontInfo.FontSize, rclayout, &format);
-	// Ìî³äÒ»¸ö½¥±ä±ÊË¢
+	// ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¢
 	::RectF brushRect(0, 0, mFontInfo.FontSize, mFontInfo.FontSize);
-	::LinearGradientBrush brush(brushRect, ::Color(mFontInfo.ForeColor1), ::Color(mFontInfo.ForeColor2), ::LinearGradientModeVertical);
+	::LinearGradientBrush brush(brushRect, ::Color(0xFFFFFFFF), ::Color(0xFFFFFFFF), ::LinearGradientModeVertical);
 	bitmapGraphics.FillPath(&brush, &path);
 	
-	// ¼ÆËã»æÖÆµÄÎÄ×Ö·¶Î§
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½Ö·ï¿½Î§
 	::RectF rcBound;
 	path.GetBounds(&rcBound);
-	// ¿ªÊ¼»æÖÆ¿¨À­OK
-	if (mScale > 0.f) {
-		::Bitmap okBitmap(boardWidth, boardHeight, PixelFormat32bppARGB);
-		::Graphics okGraphics(&okBitmap);
-		okGraphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeHighQuality);
-		okGraphics.SetInterpolationMode(Gdiplus::InterpolationMode::InterpolationModeBilinear);
-		::LinearGradientBrush okBrush(brushRect, ::Color(mFontInfo.OkColor1), ::Color(mFontInfo.OkColor2), ::LinearGradientModeVertical);
-		okGraphics.FillPath(&okBrush, &path);
-		okGraphics.Flush();
-		bitmapGraphics.DrawImage(&okBitmap, 0.f, 0.f, 0.f, 0.f, rcBound.GetRight() * mScale, rcBound.GetBottom(), ::UnitPixel);  // ½«¿¨À­OK»æÖÆµ½Ö÷Î»Í¼ÉÏ
-	}
-	// ´´½¨Ò»¸öÃè±ßµÄ±ÊË¢
+	 
+	// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ßµÄ±ï¿½Ë¢
 	::Pen pen(::Color(mFontInfo.LineColor));
 	bitmapGraphics.DrawPath(&pen, &path);
 	bitmapGraphics.Flush();
 
-	// ²Ã¼ôÎÄ×ÖÇøÓò
+	// ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	rcBound.X = rcBound.X - 1.5f;
 	//rcBound.Y = rcBound.Y - 1.5f;
 	rcBound.Width = rcBound.Width + 3.7f;
 	rcBound.Height = rcBound.Height + 3.f;
-	Bitmap* clone = bitmap.Clone(rcBound, PixelFormat32bppARGB);
-	// »æÖÆµ½Ö÷graphicsÉÏ
-	graphics->DrawImage(clone, size.cx / 2 - rcBound.Width / 2, size.cy / 2 - rcBound.Height / 2);
-	delete clone; // ÊÍ·ÅÄÚ´æ
-
-	// graphics->DrawImage(&bitmap, size.cx / 2 - boardWidth / 2, size.cy / 2 - boardHeight / 2);
-
+ 
+	// ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½graphicsï¿½ï¿½
+	if(type==3){
+		graphics->DrawImage(&bitmap, size.cx-rcBound.Width-5, size.cy / 2 - rcBound.Height / 2);
+	}
+	else if(type==4){
+		graphics->DrawImage(&bitmap, (REAL)0, size.cy / 2 - rcBound.Height / 2);
+	}
+	else if(type==1){
+		graphics->DrawImage(&bitmap, size.cx / 2 - rcBound.Width / 2, size.cy / 2 - rcBound.Height / 2);
+	} 
 	return TRUE;
 }
 
@@ -211,7 +206,7 @@ void OverlayLyric::SetWndPos(INT x, INT y, INT width, INT height)
 	MoveWindow(hWnd, x, y, width, height, FALSE);
 }
 
-BOOL OverlayLyric::Update()
+BOOL OverlayLyric::Update(int alpha)
 {
 	HWND hWnd = GetHandle();
 
@@ -233,12 +228,12 @@ BOOL OverlayLyric::Update()
 	PVOID pBmpData = NULL;
 	HBITMAP hBitmap = CreateDIBSection(hMemDC, &tempBI, DIB_RGB_COLORS, &pBmpData, NULL, NULL);
 	if (hBitmap == NULL) {
-		// ´´½¨Éè±¸ÎÞ¹ØÎ»Í¼Ê§°ÜÔò·µ»ØFALSE
+		// ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½Þ¹ï¿½Î»Í¼Ê§ï¿½ï¿½ï¿½ò·µ»ï¿½FALSE
 		DeleteDC(hMemDC);
 		ReleaseDC(hWnd, hDC);
 		return FALSE;
 	}
-	HBITMAP hBitmapOld = (HBITMAP)SelectObject(hMemDC, hBitmap);  // ÐÂµÄ¶ÔÏó´úÌæÍ¬Ò»ÀàÐÍµÄÀÏ¶ÔÏó£¬·µ»ØÀÏ¶ÔÏó
+	HBITMAP hBitmapOld = (HBITMAP)SelectObject(hMemDC, hBitmap);  // ï¿½ÂµÄ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬Ò»ï¿½ï¿½ï¿½Íµï¿½ï¿½Ï¶ï¿½ï¿½ó£¬·ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ï¿½ï¿½
 
 	::Graphics graphics(hMemDC);
 	graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeHighQuality);
@@ -247,23 +242,18 @@ BOOL OverlayLyric::Update()
 	if (mShowBackground) {
 		DrawBackground(&graphics, winSize);
 	}
-	//DrawText(&graphics, winSize);
-	/*Bitmap bitmap1(LR"(.\\CHSPAK\\THANKS.png)");
-	int originalWidth = bitmap1.GetWidth();
-	int originalHeight = bitmap1.GetHeight();
-
-	Bitmap scaledBitmap1(newWidth, newHeight, bitmap.GetPixelFormat());
-	Graphics graphics(&scaledBitmap1);
-	graphics.SetInterpolationMode(InterpolationModeHighQualityBicubic);
-	graphics.DrawImage(&bitmap, 0, 0, newWidth, newHeight);*/
-	 
-	graphics.DrawImage(Bitmap::FromFile(LR"(.\\CHSPAK\\THANKS.png)"),0,0, winSize.cx, winSize.cy);
+	if (type != 2) {
+		DrawText(&graphics, winSize);  
+	}
+	else {
+		graphics.DrawImage(Bitmap::FromFile(LR"(.\\CHSPAK\\THANKS.png)"), 0, 0, winSize.cx, winSize.cy);
+	}
 
 	::POINT srcPoint = { 0, 0 };
 	BLENDFUNCTION blendFunc32bpp = { 0 };
 	blendFunc32bpp.BlendOp = AC_SRC_OVER;
 	blendFunc32bpp.BlendFlags = 0;
-	blendFunc32bpp.SourceConstantAlpha = 255;
+	blendFunc32bpp.SourceConstantAlpha = alpha;
 	blendFunc32bpp.AlphaFormat = AC_SRC_ALPHA;
 	UpdateLayeredWindow(hWnd, hDC, NULL, &winSize, hMemDC, &srcPoint, 0, &blendFunc32bpp, ULW_ALPHA);
 
@@ -322,9 +312,9 @@ LRESULT OverlayLyric::HandleMessage(UINT message, WPARAM wParam, LPARAM lParam) 
 	case WM_CREATE:
 	{
 		/// | WS_EX_TRANSPARENT
-		SetWindowLong(hWnd, GWL_EXSTYLE,WS_EX_NOACTIVATE| WS_EX_LAYERED | WS_EX_TOOLWINDOW | WS_EX_TOPMOST);  // ÉèÖÃ´°¿ÚÀ©Õ¹ÑùÊ½
+		SetWindowLong(hWnd, GWL_EXSTYLE,WS_EX_NOACTIVATE| WS_EX_LAYERED | WS_EX_TOOLWINDOW | WS_EX_TOPMOST);  // ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½Õ¹ï¿½ï¿½Ê½
 
-		/* ³õÊ¼»¯´°¿ÚÄ¬ÈÏÎ»ÖÃ */
+		/* ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½Î»ï¿½ï¿½ */
 		int screenWidth = GetSystemMetrics(SM_CXSCREEN);
 		int screenHeight = GetSystemMetrics(SM_CYFULLSCREEN);
 		int cx = int(float(screenWidth) * 0.8f);
@@ -350,26 +340,26 @@ LRESULT OverlayLyric::HandleMessage(UINT message, WPARAM wParam, LPARAM lParam) 
 		break;
 	}
 
-	case WM_RBUTTONDOWN:  //Êó±ê°´ÏÂ
-	case WM_LBUTTONDOWN:  //Êó±ê°´ÏÂ
+	case WM_RBUTTONDOWN:  //ï¿½ï¿½ê°´ï¿½ï¿½
+	case WM_LBUTTONDOWN:  //ï¿½ï¿½ê°´ï¿½ï¿½
 	{
-		SetCapture(hWnd);	//¶ÀÕ¼Êó±êÏûÏ¢
+		SetCapture(hWnd);	//ï¿½ï¿½Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 		mMouseXY.y = HIWORD(lParam);
 		mMouseXY.x = LOWORD(lParam);
 		mIsMousePrees = TRUE;
 		hideandnotify();
 	}
 	break;
-	case WM_LBUTTONUP:   //Êó±êËÉ¿ª
+	case WM_LBUTTONUP:   //ï¿½ï¿½ï¿½ï¿½É¿ï¿½
 	{
-		ReleaseCapture();  //ÊÍ·Å¶ÀÕ¼Êó±êÏûÏ¢
+		ReleaseCapture();  //ï¿½Í·Å¶ï¿½Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 		mIsMousePrees = FALSE;
 	}
 	break;
 	 
 	case WM_ACTIVATE: 
 	{
-		// ´°¿Ú¼¤»îÊ±½øÐÐÖÃÇ°²Ù×÷
+		// ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
 		SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
 	}
 	break;
@@ -377,7 +367,7 @@ LRESULT OverlayLyric::HandleMessage(UINT message, WPARAM wParam, LPARAM lParam) 
 	{
 		int width = LOWORD(lParam);    // p & 0xFFFF;
 		int height = HIWORD(lParam);   // >> 16;
-		// TODO ¼àÌý·Ö±æÂÊ¸Ä±äÊÂ¼þ
+		// TODO ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½Ê¸Ä±ï¿½ï¿½Â¼ï¿½
 	}
 	break;
 	case WM_CLOSE: {
