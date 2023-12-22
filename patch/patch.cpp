@@ -227,7 +227,7 @@ void slowshowhidelyric(HLRC lrc,const wchar_t* text,float duration){
         LyricShow(lrc);
         SetLyricTextW(lrc,text);  
         bool alpha255=false;
-        while(1){
+        while(started){
             auto current=GetTickCount64()-start;
             if(current<=512){
                 LyricUpdate(lrc,current/2);
