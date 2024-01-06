@@ -2,7 +2,7 @@
 #include "GraphicsRoundRectPath.hpp"
 #include "Utils.hpp"
 #include <cmath>
-
+#include<filesystem>
 #define IDT_MOUSETRAP 100001
 
 BOOL OverlayLyric::InitializeGdiplus() {
@@ -205,7 +205,32 @@ void OverlayLyric::SetWndPos(INT x, INT y, INT width, INT height)
 	HWND hWnd = GetHandle();
 	MoveWindow(hWnd, x, y, width, height, FALSE);
 }
-
+extern HMODULE g_hm;
+Bitmap* LoadResImage(LPCWSTR pszResID) 
+{ 
+	HMODULE hModule=g_hm;
+	HRSRC hRsrc = ::FindResource (hModule, pszResID,L"PNG"); // type   
+	if (!hRsrc)  
+		return 0;  
+	// load resource into memory   
+	DWORD len = SizeofResource(hModule, hRsrc);  
+	BYTE* lpRsrc = (BYTE*)LoadResource(hModule, hRsrc);  
+	if (!lpRsrc)  
+		return 0;  
+	// Allocate global memory on which to create stream   
+	HGLOBAL m_hMem = GlobalAlloc(GMEM_FIXED, len);  
+	BYTE* pmem = (BYTE*)GlobalLock(m_hMem);  
+	memcpy(pmem,lpRsrc,len);  
+	IStream* pstm;  
+	CreateStreamOnHGlobal(m_hMem,FALSE,&pstm);  
+	// load from stream   
+	 Bitmap * lpImage=Gdiplus::Bitmap::FromStream(pstm);  
+	// free/release stuff   
+	GlobalUnlock(m_hMem);  
+	pstm->Release();  
+	FreeResource(lpRsrc); 
+	return lpImage;
+} 
 BOOL OverlayLyric::Update(int alpha)
 {
 	HWND hWnd = GetHandle();
@@ -246,7 +271,11 @@ BOOL OverlayLyric::Update(int alpha)
 		DrawText(&graphics, winSize);  
 	}
 	else {
-		graphics.DrawImage(Bitmap::FromFile(LR"(.\\CHSPAK\\THANKS.png)"), 0, 0, winSize.cx, winSize.cy);
+		//graphics.DrawImage(Bitmap::FromFile(LR"(.\\CHSPAK\\THANKS.png)"), 0, 0, winSize.cx, winSize.cy);
+		if(std::filesystem::exists(L".\\CHSPAK\\THANKS.png"))
+			graphics.DrawImage(Bitmap::FromFile(LR"(.\\CHSPAK\\THANKS.png)"), 0, 0, winSize.cx, winSize.cy);
+		else
+			graphics.DrawImage(LoadResImage(L"THANKSPNG"), 0, 0, winSize.cx, winSize.cy);
 	}
 
 	::POINT srcPoint = { 0, 0 };

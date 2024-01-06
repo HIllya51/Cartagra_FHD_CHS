@@ -3,8 +3,7 @@ for _dir in ['OTHCG']:
     
     path=rf'C:\InnocentGrey\カルタグラ FHD\files\image\{_dir}.PAK'
     packPAKpath=rf'C:\InnocentGrey\カルタグラ FHD\files\image\{_dir}_NEW'
-    packPAKpathdefault=rf'C:\InnocentGrey\カルタグラ FHD\files\image\{_dir}'
-    newPAKpath=rf'C:\InnocentGrey\カルタグラ FHD\CHSPAK\{_dir}.PAK'
+    packPAKpathdefault=rf'C:\InnocentGrey\カルタグラ FHD\files\image\{_dir}' 
      
 
     with open(path,'rb') as ff:
@@ -74,7 +73,7 @@ for _dir in ['OTHCG']:
         index_offset+=8  
     
     memnewothcgbs=bytes(bslist) 
-with open(r'C:\InnocentGrey\カルタグラ FHD\CHSPAK\OTHCG.DAT','wb') as ff:
+with open(r'..\patch\res\OTHCG.DAT','wb') as ff:
     ff.write(memnewothcgbs[:0x3800])  
 pf=open('../patch/othcg.cpp','w',encoding='utf-8-sig')
 print('''
@@ -133,11 +132,11 @@ def getdatas(bs):
                 newczdata+=_data
                 break            
     return offsets,offset2size,newcz,newczdata
-with open(r'C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG.PAK','rb') as ff:
+with open(r'..\patch\res\OTHCG.PAK','rb') as ff:
     othcgbs=ff.read()  
 oldfileoffset,oldfilesize,_,_=getdatas(othcgbs)        
 newfileoffset,newfilesize,newcz,newczdata=getdatas(memnewothcgbs)  
-with open(r'C:\InnocentGrey\カルタグラ FHD\CHSPAK\OTHCG.IMG','wb')  as ff:
+with open(r'..\patch\res\OTHCG.IMG','wb')  as ff:
     ff.write(newczdata)
 pakoffsetnew2old={}
 for i in range(len(newfileoffset)):

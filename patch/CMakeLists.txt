@@ -24,7 +24,7 @@ add_subdirectory(lib/minhook)
 
 add_library(lyric lyric/lyric.cpp lyric/OverlayLyric.cpp lyric/Wnd.cpp)
 
-add_library(CHSpatch MODULE patch.cpp uitext.cpp tolongtexts.cpp othcg.cpp)  
+add_library(CHSpatch MODULE patch.cpp uitext.cpp tolongtexts.cpp othcg.cpp patch.rc)  
 
 target_link_libraries(CHSpatch Gdiplus Shlwapi minhook lyric ${CMAKE_CURRENT_SOURCE_DIR}/lib/Detours-4.0.1/lib.X64/detours.lib)
 

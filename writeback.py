@@ -12,13 +12,14 @@ cnt=0
 for f in os.listdir('SCRIPT_FHD/text'):
     #if f!='0206-05-03':continue
     #if f!='0000-op0_HD':continue
-    
+    #print(f)
     with open('SCRIPT_FHD/text/'+f,'r',encoding='utf8') as ff:
         lines=ff.read().split('\n')
     with open('SCRIPT_FHD/SCRIPT_FHD/'+f,'rb') as ff:
         cankao=ff.read()
-    for _i in range(len(lines)-1):
-        i=len(lines)-1-_i
+    for i in range(len(lines)-1):
+        if len(lines[i])==0:continue
+        #i=len(lines)-1-_i
         if i%3!=1:continue
         idx=int(lines[i][:4],16)
         originlength=ctypes.c_ushort.from_buffer_copy(cankao[idx:idx+2]).value
@@ -61,11 +62,13 @@ for f in os.listdir('SCRIPT_FHD/text'):
         else:
             _1=origin.split("$d")
             _2=text.split("$d")
+            if len(_1)!=len(_2):
+                raise Exception(f,origin,text)
             for i in range(len(_1)):
                 if _1[i] in mymap:
                     if mymap[_1[i]]==_2[i]:
                         continue
-                 
+                
                 mymap[_1[i]]=_2[i]
                 cnt+=1
                 print('{L"'+_1[i].replace('\n','\\n')+'",L"'+_2[i].replace('\\','\\\\').replace('\n','\\n')+'"},',file=pf)

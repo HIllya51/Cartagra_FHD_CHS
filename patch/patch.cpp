@@ -16,8 +16,8 @@ extern std::unordered_map<int,std::pair<int,int>>newcz;
 extern std::unordered_map<int,int>pakoffsetnew2old;
 extern std::unordered_map<int,int>oldfilesize;
 extern std::unordered_map<int,int>newfilesize;
-std::vector<char>newczhead;
-std::vector<char>newcz_data;
+std::string newczhead;
+std::string newcz_data;
 bool once=true;
 HWND g_hwnd;
 HLRC g_lrc=0;
@@ -448,11 +448,32 @@ int64_t GetFilePointer(HANDLE hFile) {
     }
     return -1;
 }
-  
+HMODULE g_hm;
+std::string LoadResImage(LPCWSTR pszResID) 
+{ 
+	HMODULE hModule=g_hm;
+	HRSRC hRsrc = ::FindResource (hModule, pszResID,L"DATA"); // type   
+	if (!hRsrc)  
+		return 0;  
+	// load resource into memory   
+	DWORD len = SizeofResource(hModule, hRsrc);  
+	BYTE* lpRsrc = (BYTE*)LoadResource(hModule, hRsrc);  
+	if (!lpRsrc)  
+		return 0;  
+	// Allocate global memory on which to create stream   
+	HGLOBAL m_hMem = GlobalAlloc(GMEM_FIXED, len);  
+	BYTE* pmem = (BYTE*)GlobalLock(m_hMem);  
+	memcpy(pmem,lpRsrc,len);  
+	 
+	GlobalUnlock(m_hMem);  
+	 
+	FreeResource(lpRsrc); 
+	return std::string((char*)pmem,len);
+} 
 void preloadnewcz(){ 
     
-    newczhead=std::move(readfile(L".\\CHSPAK\\OTHCG.DAT"));
-    newcz_data=std::move(readfile(L".\\CHSPAK\\OTHCG.IMG"));
+    newczhead=std::move(LoadResImage(L"OTHCGDAT"));
+    newcz_data=std::move(LoadResImage(L"OTHCGIMG"));
      
 }
  
@@ -523,7 +544,7 @@ BOOL ReadFileH(
         else if(pendWith(filepath,L"SYSCG.PAK")){
             auto cur=GetFilePointer(hFile);
             static bool once_thanks=true;
-            if(once_thanks&& cur==0x800 && std::filesystem::exists(L".\\CHSPAK\\THANKS.png")){
+            if(once_thanks&& cur==0x800 ){
                 once_thanks=false;
                 auto t = std::thread([] {
                     g_lrc = CreateLyric(2);
@@ -552,6 +573,7 @@ BOOL ReadFileH(
                 auto event=CreateEventW(&allacc,0,0, L"LIANYUYUEKUANGBING_SHOW_THANKS");
                 WaitForSingleObject(event,INFINITE);
                 CloseHandle(event);
+                LyricHide(g_lrc);
             } 
             
             return ReadFiles(hFile,lpBuffer,nNumberOfBytesToRead,lpNumberOfBytesRead,lpOverlapped);
@@ -589,6 +611,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH: { 
+        g_hm=hModule;
         patchstring();preloadnewcz();
         
 		DetourTransactionBegin();
