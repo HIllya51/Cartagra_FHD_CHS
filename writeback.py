@@ -12,13 +12,14 @@ cnt=0
 for f in os.listdir('SCRIPT_FHD/text'):
     #if f!='0206-05-03':continue
     #if f!='0000-op0_HD':continue
-    
+    #print(f)
     with open('SCRIPT_FHD/text/'+f,'r',encoding='utf8') as ff:
         lines=ff.read().split('\n')
     with open('SCRIPT_FHD/SCRIPT_FHD/'+f,'rb') as ff:
         cankao=ff.read()
-    for _i in range(len(lines)-1):
-        i=len(lines)-1-_i
+    for i in range(len(lines)-1):
+        if len(lines[i])==0:continue
+        #i=len(lines)-1-_i
         if i%3!=1:continue
         idx=int(lines[i][:4],16)
         originlength=ctypes.c_ushort.from_buffer_copy(cankao[idx:idx+2]).value
@@ -61,11 +62,13 @@ for f in os.listdir('SCRIPT_FHD/text'):
         else:
             _1=origin.split("$d")
             _2=text.split("$d")
+            if len(_1)!=len(_2):
+                raise Exception(f,origin,text)
             for i in range(len(_1)):
                 if _1[i] in mymap:
                     if mymap[_1[i]]==_2[i]:
                         continue
-                 
+                
                 mymap[_1[i]]=_2[i]
                 cnt+=1
                 print('{L"'+_1[i].replace('\n','\\n')+'",L"'+_2[i].replace('\\','\\\\').replace('\n','\\n')+'"},',file=pf)
@@ -76,3 +79,43 @@ for f in os.listdir('SCRIPT_FHD/text'):
 
 print('};',file=pf)
 print(cnt,len(mymap))
+
+with open('SCRIPT_FHD/text/_varstr','r',encoding='utf8') as ff:
+    lines=ff.read().split('\n')
+with open('SCRIPT_FHD/SCRIPT_FHD/_varstr','rb') as ff:
+    bs=ff.read()
+import ctypes 
+idx=0
+target=b''
+textidx=0
+while idx<len(bs):
+    blocklength=ctypes.c_short.from_buffer_copy(bs[idx:idx+2]).value
+    #print(hex(blocklength))
+    idx+=2
+    mid=bs[idx:idx+6]
+    #print(bs[idx:idx+6].hex())
+    idx+=6
+    length=ctypes.c_ushort.from_buffer_copy(bs[idx:idx+2]).value
+    #print(hex(length))
+    idx+=2
+    if length:
+        text=bs[idx:idx+length*2]
+       # print(1,text.decode('utf-16-le'),1)
+        
+        idx+=length*2+2
+        
+        text=lines[textidx*3+1][5:]
+        text=list(text)
+        for ii in range(len(text)):
+            text[ii]=remap_charset2.get(text[ii],text[ii])
+        text=''.join(text) 
+        blocklength=2+6+2+2+len(text)*2
+        target=target+blocklength.to_bytes(2,'little')+mid+len(text).to_bytes(2,'little')+text.encode('utf-16-le')+b'\x00\x00' 
+        textidx+=1
+    else:
+        target=target+blocklength.to_bytes(2,'little')+mid+b'\x00\x00\x00\x00' 
+    if textidx==2:
+        target=target+bs[idx:]
+        break
+with open('SCRIPT_FHD/SCRIPT_FHD_transed/_varstr','wb') as ff:
+    ff.write(target)

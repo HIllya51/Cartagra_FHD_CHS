@@ -13,10 +13,10 @@ for _dir in ['OTHCG','PARTS','SYSCG']:
         if magic=='CZ4':
             
             print(czimagepath,magic )
-            os.system(rf'.\CZXImage-main\ConsoleApplication1\x64\Release\CZXImage.exe "{czimagepath}" "{pngimagepath}" "{outputczpath}"')
+            os.system(rf'.\czximage\build\Release\image2cz.exe "{czimagepath}" "{pngimagepath}" "{outputczpath}"')
             print(czimagepath,magic ,'ok')
         else: #测试可以全都打成CZ4格式的
             print(czimagepath,magic )
-            os.system(rf'.\CZXImage-main\ConsoleApplication1\x64\Release\CZXImage.exe "C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG\03b" "{pngimagepath}" "{outputczpath}"')
+            os.system(rf'.\czximage\build\Release\image2cz.exe "C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG\03b" "{pngimagepath}" "{outputczpath}"')
         # if _dir=='OTHCG':
         #     shutil.copy(outputczpath, os.path.join(r'C:\InnocentGrey\カルタグラ FHD\CHSPAK\OTHCG', imagepath[:-4]))

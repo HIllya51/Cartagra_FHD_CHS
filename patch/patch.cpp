@@ -5,35 +5,45 @@
 #include<unordered_map>
 #include<Shlwapi.h>
 #include<regex>
-#include<nlohmann/json.hpp>
 #include"lib/minhook/include/MinHook.h"
-#include<fstream>
+#include<filesystem>
+#include<thread>
 #include"lib/Detours-4.0.1/include/detours.h"
-#pragma comment(lib,"Shlwapi.lib")
-#pragma comment(lib,"Gdiplus.lib")
-#pragma comment(lib,"C:/Users/wcy/Documents/GitHub/Cartagra_FHD_CHS/patch/lib/Detours-4.0.1/lib.X64/detours.lib")
-#include"../desktop-overlay-lyric-f2e45f0bc335c9bb30cd24640d0539d002b51833/lyric/lyric.h"
-#pragma comment(lib,"C:/Users/wcy/Documents/GitHub/Cartagra_FHD_CHS/patch/desktop-overlay-lyric-f2e45f0bc335c9bb30cd24640d0539d002b51833/x64/Release/lyric.lib")
+#include"lyric/lyric.h"
 extern std::unordered_map<std::wstring,std::wstring>trans;
 extern std::vector<std::pair<int,const char*>>uitexts;
-extern std::unordered_map<std::wstring,std::wstring>erroruitext;
-auto CreateWindowExW_s=CreateWindowExW;
-typedef HWND (*CreateWindowExWt)(
-    _In_ DWORD dwExStyle,
-    _In_opt_ LPCWSTR lpClassName,
-    _In_opt_ LPCWSTR lpWindowName,
-    _In_ DWORD dwStyle,
-    _In_ int X,
-    _In_ int Y,
-    _In_ int nWidth,
-    _In_ int nHeight,
-    _In_opt_ HWND hWndParent,
-    _In_opt_ HMENU hMenu,
-    _In_opt_ HINSTANCE hInstance,
-    _In_opt_ LPVOID lpParam);
-#include<thread>
+extern std::unordered_map<int,std::pair<int,int>>newcz;
+extern std::unordered_map<int,int>pakoffsetnew2old;
+extern std::unordered_map<int,int>oldfilesize;
+extern std::unordered_map<int,int>newfilesize;
+std::string newczhead;
+std::string newcz_data;
 bool once=true;
 HWND g_hwnd;
+HLRC g_lrc=0;
+HLRC g_lrc_movie_1=0;
+HLRC g_lrc_movie_2=0;
+void createmovielrc(){
+    auto t = std::thread([] {
+        g_lrc_movie_1 = CreateLyric(3);
+        g_lrc_movie_2 = CreateLyric(4);
+        SetWindowLong(getlyrichwnd(g_lrc_movie_1),GWL_EXSTYLE, GetWindowLong(getlyrichwnd(g_lrc_movie_1),GWL_EXSTYLE) | WS_EX_TRANSPARENT);
+        SetLyricParent(g_lrc_movie_1, g_hwnd);
+        SetWindowLong(getlyrichwnd(g_lrc_movie_2),GWL_EXSTYLE, GetWindowLong(getlyrichwnd(g_lrc_movie_2),GWL_EXSTYLE) | WS_EX_TRANSPARENT);
+        SetLyricParent(g_lrc_movie_2, g_hwnd);
+        
+        MSG msg;
+        while (GetMessage(&msg, nullptr, 0, 0))
+        {
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+        }
+        });
+
+    t.detach();
+}
+
+auto CreateWindowExW_s=CreateWindowExW;
 HWND CreateWindowExWh(
     _In_ DWORD dwExStyle,
     _In_opt_ LPCWSTR lpClassName,
@@ -51,6 +61,7 @@ HWND CreateWindowExWh(
             once=false;
             g_hwnd=CreateWindowExW_s(dwExStyle,lpClassName,lpWindowName,dwStyle,X,Y,nWidth,nHeight,hWndParent,hMenu,hInstance,lpParam);
             SetWindowTextW(g_hwnd,L"恋狱～月狂病～《REBIRTH FHD SIZE EDITION》");
+            createmovielrc();
             return g_hwnd;
         }
         else{
@@ -133,11 +144,12 @@ HANDLE  WINAPI   CreateFileWh(
         __in     DWORD dwCreationDisposition,
         __in     DWORD dwFlagsAndAttributes,
         __in_opt HANDLE hTemplateFile
-    ) { 
+    ) {  
         wchar_t current[MAX_PATH*2]={0};
         GetCurrentDirectoryW(MAX_PATH,current);
         auto redirects={
             //L"OTHCG.PAK",
+            //L"PARAM.PAK",
             L"PARTS.PAK",L"SYSCG.PAK",
             L"FONT.PAK",L"FONT_V.PAK",L"SYSFONT.PAK",L"SCRIPT.PAK" 
         }; 
@@ -166,9 +178,6 @@ __int64 __fastcall sub_1401012C0(__int64 a1, __int64 a2, int a3){
         if(trans.find(s)!=trans.end()){
             s=trans[s];
         }
-        else if(erroruitext.find(s)!=erroruitext.end()){ 
-            s=erroruitext[s];
-        }
         else{
             auto _s=std::regex_replace(s, std::wregex(L"@【(.+?)】@"), L"@$1@");
             
@@ -184,35 +193,197 @@ __int64 __fastcall sub_1401012C0(__int64 a1, __int64 a2, int a3){
         _+=sps[i];
     } 
     return sub_1401012C0_s(a1,(__int64)_.c_str(),a3);
+} 
+std::wstring currentplayingmovie;
+bool started=false;
+auto addr_movie_stop=0x263232+(uint64_t)GetModuleHandle(0);
+void hidehide(HLRC lrc){
+    SetLyricTextW(lrc,L""); 
+    LyricUpdate(lrc,0);
+    LyricHide(lrc);
 }
-struct LRProfile
-{
-	UINT CodePage;
-	UINT LCID;
-	long Bias;
-	int HookIME;
-	int HookLCID;
-};
-int WrtieConfigFileMap(LRProfile* profile)
-{
-	SetEnvironmentVariableW(L"LRCodePage", (LPCWSTR)&profile->CodePage);
-	SetEnvironmentVariableW(L"LRLCID", (LPCWSTR)&profile->LCID);
-	SetEnvironmentVariableW(L"LRBIAS", (LPCWSTR)&profile->Bias);
-	SetEnvironmentVariableW(L"LRHookIME", (LPCWSTR)&profile->HookIME);
-	SetEnvironmentVariableW(L"LRHookLCID", (LPCWSTR)&profile->HookLCID);
-	return 0;
-}
-void loadlr(){
-    LRProfile beta;
-	beta.CodePage = 932;
-	beta.LCID = 0x0411;
-	beta.Bias = 540; // Bias will become negative in HookGetTimeZoneInformation
-	beta.HookIME = false;
-	beta.HookLCID = true;
-
-	WrtieConfigFileMap(&beta);
+void notifymovie_stop(){
+    //MessageBoxW(0,currentplayingmovie.c_str(),L"stop",0);
+    started=false; 
+    hidehide(g_lrc_movie_1);
+    hidehide(g_lrc_movie_2);
+} 
+std::vector<char> readfile(const wchar_t* fname) {
+    FILE* f;
+    _wfopen_s(&f, fname, L"rb");
+    if (f == 0)return {};
+    fseek(f, 0, SEEK_END);
+    auto len = ftell(f);
+    fseek(f, 0, SEEK_SET);
+    auto buff = std::vector<char>(len);
+    fread(buff.data(), 1, len, f);
+    fclose(f);
+    return buff;
+} 
+void slowshowhidelyric(HLRC lrc,const wchar_t* text,float duration){
+   
+        int msd=duration*1000.0;
+        auto start=GetTickCount64();
+        LyricShow(lrc);
+        SetLyricTextW(lrc,text);  
+        bool alpha255=false;
+        while(started){
+            auto current=GetTickCount64()-start;
+            if(current<=512){
+                LyricUpdate(lrc,current/2);
+                
+            }
+            else if(msd-current<=512){
+                LyricUpdate(lrc,(msd-current)/2);
+            }
+            else if(alpha255==false){
+                alpha255=true;
+                LyricUpdate(lrc,255);
+            }
+            else if(current>msd)break;
+            Sleep(8);
+        } 
+        hidehide(lrc);
      
-    LoadLibraryW(L".\\LRHookx64.dll");
+}
+struct _struct{
+        float t1,t2;
+        std::wstring s;
+};
+ULONGLONG timems;
+void showlrc(std::vector<_struct>& data,HLRC lrc){
+    std::thread([data,lrc](){
+        auto iter=data.begin();
+        while (started && iter<data.end())
+        {
+            auto runedtime=GetTickCount64()-timems;
+            auto runeds=runedtime/1000.0;
+            if(runeds>= iter->t1 && runeds<=iter->t2){ 
+                auto duration= iter->t2- runeds ;
+                char xx[1000];
+                sprintf(xx,"%I64d %f %f",runedtime,runeds,iter->t2);
+                AppendLog(LR"(C:\InnocentGrey\カルタグラ FHD\1.txt)",xx);
+                slowshowhidelyric(lrc,(iter->s).c_str(),duration); 
+                iter++;
+            }
+            Sleep(100);
+        }
+        
+    }).detach();
+}
+void startshowlrc(){
+    timems=GetTickCount64();
+    started=true; 
+    
+    auto fn=L".\\CHSPAK\\LRC\\"+currentplayingmovie+L".txt";
+    if(std::filesystem::exists(fn)==false)return; 
+     
+    
+    std::vector<_struct>data1,data2;
+    auto fdata=readfile(fn.c_str());
+    fdata.push_back(0);
+    for(auto && line:strSplit(StringToWideString(fdata.data(),65001),L"\n")){
+         
+        auto && ss=strSplit(line,L"|");
+        if(ss.size()!=2)break;
+        float t1,t2;wchar_t s1[1000];
+        if(swscanf(ss[0].c_str(),L"[%f-%f]%s",&t1,&t2,s1)!=3)break;
+        auto s11=wcschr(ss[0].c_str(),L']')+1;
+        data1.push_back({t1,t2,s11});
+        data2.push_back({t1,t2,ss[1]});
+    }
+    RECT rect;
+    GetClientRect(g_hwnd,&rect);
+    float scale=rect.bottom/1080.0; 
+    
+    SetLyricPosition(g_lrc_movie_1,-50.0*scale, rect.bottom-150.0*scale, rect.right,100.0*scale);
+
+    SetLyricFontW(g_lrc_movie_1, L"宋体", 40.0*scale);
+    SetLyricColorStyle(g_lrc_movie_1, 4);
+       
+    SetLyricPosition(g_lrc_movie_2,50.0*scale, 0.0*scale, rect.right,100.0*scale);
+
+    SetLyricFontW(g_lrc_movie_2, L"Yu Mincho", 40.0*scale);
+    SetLyricColorStyle(g_lrc_movie_2, 4);
+    
+    showlrc(data1,g_lrc_movie_1);
+    showlrc(data2,g_lrc_movie_2);
+    
+}
+bool hookaddress(uintptr_t address,uintptr_t newfunction){
+    BYTE common_hook[] = {
+		0x9c, // push rflags
+		0x50, // push rax
+		0x53, // push rbx
+		0x51, // push rcx
+		0x52, // push rdx
+		0x54, // push rsp
+		0x55, // push rbp
+		0x56, // push rsi
+		0x57, // push rdi
+		0x41, 0x50, // push r8
+		0x41, 0x51, // push r9
+		0x41, 0x52, // push r10
+		0x41, 0x53, // push r11
+		0x41, 0x54, // push r12
+		0x41, 0x55, // push r13
+		0x41, 0x56, // push r14
+		0x41, 0x57, // push r15
+		// https://docs.microsoft.com/en-us/cpp/build/x64-calling-convention
+		// https://stackoverflow.com/questions/43358429/save-value-of-xmm-registers
+		0x48, 0x83, 0xec, 0x20, // sub rsp,0x20
+		0xf3, 0x0f, 0x7f, 0x24, 0x24, // movdqu [rsp],xmm4
+		0xf3, 0x0f, 0x7f, 0x6c, 0x24, 0x10, // movdqu [rsp+0x10],xmm5
+		0x48, 0x8d, 0x94, 0x24, 0xa8, 0x00, 0x00, 0x00, // lea rdx,[rsp+0xa8] 
+		0x48, 0xb8, 0,0,0,0,0,0,0,0, // mov rax,@TextHook::Send
+		0x48, 0x89, 0xe3, // mov rbx,rsp
+		0x48, 0x83, 0xe4, 0xf0, // and rsp,0xfffffffffffffff0 ; align stack
+		0xff, 0xd0, // call rax
+		0x48, 0x89, 0xdc, // mov rsp,rbx
+		0xf3, 0x0f, 0x6f, 0x6c, 0x24, 0x10, // movdqu xmm5,XMMWORD PTR[rsp + 0x10]
+		0xf3, 0x0f, 0x6f, 0x24, 0x24, // movdqu xmm4,XMMWORD PTR[rsp]
+		0x48, 0x83, 0xc4, 0x20, // add rsp,0x20
+		0x41, 0x5f, // pop r15
+		0x41, 0x5e, // pop r14
+		0x41, 0x5d, // pop r13
+		0x41, 0x5c, // pop r12
+		0x41, 0x5b, // pop r11
+		0x41, 0x5a, // pop r10
+		0x41, 0x59, // pop r9
+		0x41, 0x58, // pop r8
+		0x5f, // pop rdi
+		0x5e, // pop rsi
+		0x5d, // pop rbp
+		0x5c, // pop rsp
+		0x5a, // pop rdx
+		0x59, // pop rcx
+		0x5b, // pop rbx
+		0x58, // pop rax
+		0x9d, // pop rflags
+		0xff, 0x25, 0x00, 0x00, 0x00, 0x00, // jmp qword ptr [rip]
+		0,0,0,0,0,0,0,0 // @original
+	};
+	int send_offset = 50, original_offset = 116;
+
+    auto trampoline=new char[sizeof(common_hook)];
+    DWORD DUMMY;
+    //VirtualProtect((LPVOID)address, 10, PAGE_EXECUTE_READWRITE, &DUMMY);
+    VirtualProtect((LPVOID)trampoline, sizeof(common_hook), PAGE_EXECUTE_READWRITE, &DUMMY);
+	void* original;
+	MH_STATUS error;
+    if((error = MH_CreateHook((LPVOID)address, trampoline, &original)) != MH_OK) { 
+        //MessageBoxW(0,StringToWideString(MH_StatusToString(error),65001).c_str(),L"1",0);
+		 return false;
+    }
+	*(uintptr_t*)(common_hook + send_offset) =newfunction;
+	*(void**)(common_hook + original_offset) = original;
+	memcpy(trampoline, common_hook, sizeof(common_hook));
+	if((error=MH_EnableHook((LPVOID)address)) != MH_OK){
+        //MessageBoxW(0,StringToWideString(MH_StatusToString(error),65001).c_str(),L"2",0);
+        return false;
+    }
+    
+    return true;
 }
 auto modulebase=(uint64_t)GetModuleHandle(0); 
 void patchstring(){
@@ -233,6 +404,35 @@ void patchstring(){
             strcpy((char*)addr, _pair.second);
         
     }
+ 
+    auto addr=0x1AB66+modulebase;  //なし
+    DWORD old,_;
+    VirtualProtect( (LPVOID) addr, 7, PAGE_EXECUTE_READWRITE, &old);
+    *(int*)(addr+3)=*(int*)(addr+3)+4;
+    addr=0x2A2770+modulebase;
+    VirtualProtect( (LPVOID) addr, 7, PAGE_EXECUTE_READWRITE, &old);
+    *(int*)(addr+3)=*(int*)(addr+3)+4;
+
+    
+    addr=0x29EA13+modulebase;   //下部
+    VirtualProtect( (LPVOID) addr, 7, PAGE_EXECUTE_READWRITE, &old);
+    *(int*)(addr+3)=*(int*)(addr+3)+0x3FF4D4-0x3FF4C8;
+
+    addr=0x2A0B92+modulebase;   //既読の色表示
+    VirtualProtect( (LPVOID) addr, 7, PAGE_EXECUTE_READWRITE, &old);
+    *(int*)(addr+3)=*(int*)(addr+3)+0x3FFEC8-0x3FFEB0;
+
+    addr=0x29E82F+modulebase;   //既読のみ
+    VirtualProtect( (LPVOID) addr, 7, PAGE_EXECUTE_READWRITE, &old);
+    *(int*)(addr+3)=*(int*)(addr+3)+0x3FF490-0x3FF470;
+    
+    addr=0x2A1261+modulebase;   //既読色
+    VirtualProtect( (LPVOID) addr, 7, PAGE_EXECUTE_READWRITE, &old);
+    *(int*)(addr+3)=*(int*)(addr+3)+0x400030-0x3FFF20;
+
+    addr=0x3370A+modulebase;   //最新へ
+    VirtualProtect( (LPVOID) addr, 7, PAGE_EXECUTE_READWRITE, &old);
+    *(int*)(addr+3)=*(int*)(addr+3)+0x3D5C90-0x3D5C78;
 }
 
 
@@ -248,38 +448,35 @@ int64_t GetFilePointer(HANDLE hFile) {
     }
     return -1;
 }
-std::vector<char> readfile(const wchar_t* fname) {
-    FILE* f;
-    _wfopen_s(&f, fname, L"rb");
-    if (f == 0)return {};
-    fseek(f, 0, SEEK_END);
-    auto len = ftell(f);
-    fseek(f, 0, SEEK_SET);
-    auto buff = std::vector<char>(len);
-    fread(buff.data(), 1, len, f);
-    fclose(f);
-    return buff;
-}
-  
-std::vector<char>newczhead;
-extern std::unordered_map<int,std::pair<int,int>>newcz;
-std::vector<char>newcz_data;
-extern std::unordered_map<int,int>pakoffsetnew2old;
-extern std::unordered_map<int,int>oldfilesize;
-extern std::unordered_map<int,int>newfilesize;
+HMODULE g_hm;
+std::string LoadResImage(LPCWSTR pszResID) 
+{ 
+	HMODULE hModule=g_hm;
+	HRSRC hRsrc = ::FindResource (hModule, pszResID,L"DATA"); // type   
+	if (!hRsrc)  
+		return 0;  
+	// load resource into memory   
+	DWORD len = SizeofResource(hModule, hRsrc);  
+	BYTE* lpRsrc = (BYTE*)LoadResource(hModule, hRsrc);  
+	if (!lpRsrc)  
+		return 0;  
+	// Allocate global memory on which to create stream   
+	HGLOBAL m_hMem = GlobalAlloc(GMEM_FIXED, len);  
+	BYTE* pmem = (BYTE*)GlobalLock(m_hMem);  
+	memcpy(pmem,lpRsrc,len);  
+	 
+	GlobalUnlock(m_hMem);  
+	 
+	FreeResource(lpRsrc); 
+	return std::string((char*)pmem,len);
+} 
 void preloadnewcz(){ 
     
-    newczhead=std::move(readfile(L".\\CHSPAK\\OTHCG.DAT"));
-    newcz_data=std::move(readfile(L".\\CHSPAK\\OTHCG.IMG"));
+    newczhead=std::move(LoadResImage(L"OTHCGDAT"));
+    newcz_data=std::move(LoadResImage(L"OTHCGIMG"));
      
 }
-
-bool FileExists(const std::wstring& filename)
-{
-    std::ifstream file(filename);
-    return file.good();
-}
-HLRC g_lrc=0;
+ 
 auto ReadFiles=ReadFile;
 BOOL ReadFileH(
     _In_ HANDLE hFile,
@@ -291,8 +488,15 @@ BOOL ReadFileH(
         wchar_t output[10000];
         wchar_t filepath[MAX_PATH];
         GetFinalPathNameByHandleW(hFile,filepath,MAX_PATH,0);
+        auto cur=GetFilePointer(hFile);
+
+        if(endWith(filepath,L".webm")&&cur==0&&nNumberOfBytesToRead==2048){
+            currentplayingmovie=std::wstring(filepath);
+            currentplayingmovie=currentplayingmovie.substr(currentplayingmovie.size()+1-sizeof("cartagra_movie_06.webm"));
+            startshowlrc();
+        }
+
         if(pendWith(filepath,L"OTHCG.PAK")){ 
-            auto cur=GetFilePointer(hFile);
             //wsprintf(output,L"%s %x %x %x\n",filepath,GetFilePointer(hFile),cur,  nNumberOfBytesToRead  );
             //AppendLog(LR"(C:\InnocentGrey\カルタグラ FHD\1.txt)",WideStringToString(output,65001));
             if(cur==0){ 
@@ -339,16 +543,17 @@ BOOL ReadFileH(
         }
         else if(pendWith(filepath,L"SYSCG.PAK")){
             auto cur=GetFilePointer(hFile);
-            if(cur==0x800 && FileExists(L".\\CHSPAK\\THANKS.png")){
-                 
+            static bool once_thanks=true;
+            if(once_thanks&& cur==0x800 ){
+                once_thanks=false;
                 auto t = std::thread([] {
-                    g_lrc = CreateLyric();
+                    g_lrc = CreateLyric(2);
                     SetLyricParent(g_lrc, g_hwnd);
                     LyricShow(g_lrc);
                     RECT rect;
                     GetClientRect(g_hwnd,&rect);
                     SetLyricPosition(g_lrc,0, 0, rect.right, rect.bottom);
-                    LyricUpdate(g_lrc);
+                    LyricUpdate(g_lrc,255);
                     MSG msg;
                     while (GetMessage(&msg, nullptr, 0, 0))
                     {
@@ -368,6 +573,7 @@ BOOL ReadFileH(
                 auto event=CreateEventW(&allacc,0,0, L"LIANYUYUEKUANGBING_SHOW_THANKS");
                 WaitForSingleObject(event,INFINITE);
                 CloseHandle(event);
+                LyricHide(g_lrc);
             } 
             
             return ReadFiles(hFile,lpBuffer,nNumberOfBytesToRead,lpNumberOfBytesRead,lpOverlapped);
@@ -389,6 +595,14 @@ LRESULT sub_7FF76F282760H(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
     }
     return sub_7FF76F282760(hwnd,uMsg,wParam,lParam);
 } 
+auto OriginalGetUserDefaultUILanguage=GetUserDefaultUILanguage;
+LANGID WINAPI HookGetUserDefaultUILanguage(void) { 
+    //void __fastcall sub_7FF741994040(__int64 a1)
+    //……
+    //*(_DWORD *)(a1 + 160) = GetUserDefaultUILanguage() != 1041;
+    return 1041 ;
+}
+
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
                        LPVOID lpReserved
@@ -397,21 +611,24 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH: { 
+        g_hm=hModule;
         patchstring();preloadnewcz();
-        //loadlr();
+        
 		DetourTransactionBegin();
         DetourUpdateThread(GetCurrentThread()); 
         DetourAttach(&(PVOID&)sub_7FF76F282760, sub_7FF76F282760H); 
         DetourAttach(&(PVOID&)CreateWindowExW_s, CreateWindowExWh); 
         DetourAttach(&(PVOID&)sub_1401012C0_s, sub_1401012C0);
+
         //DetourAttach(&(PVOID&)pathfileexits,PathFileExistsWH); 
         //DetourAttach(&(PVOID&)CreateFile_save, CreateFileWh); 
         DetourAttach(&(PVOID&)ReadFiles, ReadFileH); 
-
+        DetourAttach(&(PVOID&)OriginalGetUserDefaultUILanguage, HookGetUserDefaultUILanguage);
         DetourTransactionCommit(); 
         MH_Initialize();
         MH_CreateHook(CreateFileW, &CreateFileWh, reinterpret_cast<LPVOID*>(&CreateFile_save));
         MH_EnableHook(CreateFileW);
+        hookaddress(addr_movie_stop,(uintptr_t)notifymovie_stop);
         break;
    	}
     case DLL_THREAD_ATTACH:
