@@ -23,7 +23,7 @@ for f in os.listdir('SCRIPT_FHD/text'):
         if i%3!=1:continue
         idx=int(lines[i][:4],16)
         originlength=ctypes.c_ushort.from_buffer_copy(cankao[idx:idx+2]).value
-        text=lines[i][5:].replace('＄','\n')
+        text=lines[i][5:].replace('＄','\n').replace('―','—')
         origin=lines[i-1][5:].replace('＄','\n')
         #print(text)
         

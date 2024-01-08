@@ -6,7 +6,7 @@ for _dir in ['OTHCG','PARTS','SYSCG']:
         #pngimagepath=os.path.join(_path,imagepath)
         czimagepath=os.path.join(_path, imagepath[:-4])
         outputczpath=os.path.join(_path+'_NEW', imagepath[:-4])
-        if os.path.exists(outputczpath) and  os.path.getmtime(outputczpath)>os.path.getmtime(pngimagepath):
+        if os.path.exists(outputczpath) and  os.path.getmtime(outputczpath)>max(os.path.getmtime(pngimagepath),os.path.getctime(pngimagepath)):
             continue
         with open(czimagepath,'rb') as ff:
             magic=ff.read(3).decode()
