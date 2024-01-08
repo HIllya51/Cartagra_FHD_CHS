@@ -22,20 +22,20 @@ for _font_file,_fontname in [('simsun.ttc','ゴシック'),('simhei.ttf','明朝
             for f in sizes:
                 size=int(f)+1
                 
-                # _addition={
-                #     13:4,
-                #     17:4,
-                #     34:0,
-                #     41:4,
-                #     42:0,
-                #     16:0,
-                #     26:0,
-                #     28:0,
-                #     31:4,
-                #     33:4,
-                #     37:4
-                # }
-                imageW=size*100#+_addition[size]
+                _addition={
+                    13:4,
+                    17:4,
+                    34:0,
+                    41:4,
+                    42:0,
+                    16:0,
+                    26:0,
+                    28:0,
+                    31:4,
+                    33:4,
+                    37:4
+                }
+                imageW=size*100+_addition[size]
 
                 imageH=size * int(math.ceil((len(chars))/100.0))
                 print(imageW,imageH)
@@ -77,15 +77,23 @@ for _font_file,_fontname in [('simsun.ttc','ゴシック'),('simhei.ttf','明朝
                 # h,w,c=img.shape
                 # cv2.imwrite('2.png',img )
             
+                # if _type==1: 
+                #     os.system(rf'..\image\CZXImage-main\ConsoleApplication1\x64\Release\CZXImage.exe "C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG\03b" {fontname}.png  "C:\InnocentGrey\カルタグラ FHD\files\FONT_NEW\{fontname}{f}"')
+                # elif _type==2:
+                #     os.system(rf'..\image\CZXImage-main\ConsoleApplication1\x64\Release\CZXImage.exe "C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG\03b" {fontname}.png  "C:\InnocentGrey\カルタグラ FHD\files\SYSFONT_NEW\システム_明朝{f}"')
+                # elif _type==3:
+                #     os.system(rf'..\image\CZXImage-main\ConsoleApplication1\x64\Release\CZXImage.exe "C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG\03b" {fontname}.png  "C:\InnocentGrey\カルタグラ FHD\files\FONT_V_NEW\{fontname}{f}v"')
+                # elif _type==4:
+                #     os.system(rf'..\image\CZXImage-main\ConsoleApplication1\x64\Release\CZXImage.exe "C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG\03b" {fontname}.png  "C:\InnocentGrey\カルタグラ FHD\files\SYSFONT_NEW\システム_ゴシック{f}"')
+                #奇怪了，之前很正常，这次莫名其妙cz4格式字体读取不对了
                 if _type==1: 
-                    os.system(rf'..\image\CZXImage-main\ConsoleApplication1\x64\Release\CZXImage.exe "C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG\03b" {fontname}.png  "C:\InnocentGrey\カルタグラ FHD\files\FONT_NEW\{fontname}{f}"')
+                    os.system(rf'.\LuckSystem.exe image import -i {fontname}.png -s "C:\InnocentGrey\カルタグラ FHD\files\FONT\明朝{f}" -o "C:\InnocentGrey\カルタグラ FHD\files\FONT_NEW\{fontname}{f}"')
                 elif _type==2:
-                    os.system(rf'..\image\CZXImage-main\ConsoleApplication1\x64\Release\CZXImage.exe "C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG\03b" {fontname}.png  "C:\InnocentGrey\カルタグラ FHD\files\SYSFONT_NEW\システム_明朝{f}"')
+                    os.system(rf'.\LuckSystem.exe image import -i {fontname}.png -s "C:\InnocentGrey\カルタグラ FHD\files\SYSFONT\システム_明朝{f}" -o "C:\InnocentGrey\カルタグラ FHD\files\SYSFONT_NEW\システム_明朝{f}"')
                 elif _type==3:
-                    os.system(rf'..\image\CZXImage-main\ConsoleApplication1\x64\Release\CZXImage.exe "C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG\03b" {fontname}.png  "C:\InnocentGrey\カルタグラ FHD\files\FONT_V_NEW\{fontname}{f}v"')
+                    os.system(rf'.\LuckSystem.exe image import -i {fontname}.png -s "C:\InnocentGrey\カルタグラ FHD\files\FONT_V\明朝{f}v" -o "C:\InnocentGrey\カルタグラ FHD\files\FONT_V_NEW\{fontname}{f}v"')
                 elif _type==4:
-                    os.system(rf'..\image\CZXImage-main\ConsoleApplication1\x64\Release\CZXImage.exe "C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG\03b" {fontname}.png  "C:\InnocentGrey\カルタグラ FHD\files\SYSFONT_NEW\システム_ゴシック{f}"')
-                
+                    os.system(rf'.\LuckSystem.exe image import -i {fontname}.png -s "C:\InnocentGrey\カルタグラ FHD\files\SYSFONT\システム_ゴシック{f}" -o "C:\InnocentGrey\カルタグラ FHD\files\SYSFONT_NEW\システム_ゴシック{f}"')
     t=threading.Thread(target=xx,args=(_font_file,_fontname))
     ts.append(t)
 for t in ts:

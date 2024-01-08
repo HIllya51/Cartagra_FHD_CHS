@@ -1,1 +1,0 @@
-基于[LucaSystemTools](https://github.com/wetor/LucaSystemTools)，由于其对カルタグラ FHD提取图片错误，故作此。
