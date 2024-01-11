@@ -1,5 +1,5 @@
 #__type=3
-for __type in [1,2,3,4,5]:
+for __type in [1,2,3,5]:
     if __type==1:
         path=r'C:\InnocentGrey\カルタグラ FHD\files\SCRIPT.PAK'
         packPAKpath=r'C:\Users\wcy\Documents\GitHub\Cartagra_FHD_CHS\SCRIPT_FHD/SCRIPT_FHD_transed'

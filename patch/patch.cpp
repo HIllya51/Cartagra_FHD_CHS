@@ -151,7 +151,8 @@ HANDLE  WINAPI   CreateFileWh(
             //L"OTHCG.PAK",
             //L"PARAM.PAK",
             L"PARTS.PAK",L"SYSCG.PAK",
-            L"FONT.PAK",L"FONT_V.PAK",L"SYSFONT.PAK",L"SCRIPT.PAK" 
+            L"FONT.PAK",//L"FONT_V.PAK",
+            L"SYSFONT.PAK",L"SCRIPT.PAK" 
         }; 
         for(auto _:redirects){
             if(pendWith(lpFileName,_)){

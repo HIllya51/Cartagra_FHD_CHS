@@ -13,6 +13,7 @@ for f in os.listdir('SCRIPT_FHD/text'):
     #if f!='0206-05-03':continue
     #if f!='0000-op0_HD':continue
     #print(f)
+     
     with open('SCRIPT_FHD/text/'+f,'r',encoding='utf8') as ff:
         lines=ff.read().split('\n')
     with open('SCRIPT_FHD/SCRIPT_FHD/'+f,'rb') as ff:
@@ -39,18 +40,13 @@ for f in os.listdir('SCRIPT_FHD/text'):
         text=''.join(text) 
         length=len(text)  
         #text=text[:originlength]
-        if originlength!=length and (('$d' in text_save ) or (f=='0206-10-00' and  text_save[-1]=='\n')):
+        if originlength!=length and (('$d' in text_save ) ):
             #print(text)
             length+=999
-            if text_save[-1]=='\n' :
-                text=text[:-1]+' \n'
         
-        if originlength>=length:
+        if text[-1]!='\n' and originlength>=length:
             while length<originlength:
-                if text[-1]=='\n':
-                    text=text[:-1]+' '+'\n'
-                else:
-                    text+=' '
+                text+=' '
                 length+=1
             
             saveend=cankao[idx+2+originlength*2+2:]  
@@ -71,13 +67,13 @@ for f in os.listdir('SCRIPT_FHD/text'):
                 
                 mymap[_1[i]]=_2[i]
                 cnt+=1
-                print('{L"'+_1[i].replace('\n','\\n')+'",L"'+_2[i].replace('\\','\\\\').replace('\n','\\n')+'"},',file=pf)
+                print('{L"'+_1[i].replace('\n','\\n')+'",L"'+_2[i].replace('\\','\\\\').replace('\n','\\n').replace('"','\\"')+'"},',file=pf)
                  
                 if len(_1[i]) and _1[i][0]=='　':
                     _1[i]=_1[i][1:]
                     if len(_2[i]) and _2[i][0]=='　':
                         _2[i]=_2[i][1:]
-                    print('{L"'+_1[i].replace('\n','\\n')+'",L"'+_2[i].replace('\\','\\\\').replace('\n','\\n')+'"},',file=pf)
+                    print('{L"'+_1[i].replace('\n','\\n')+'",L"'+_2[i].replace('\\','\\\\').replace('\n','\\n').replace('"','\\"')+'"},',file=pf)
     with open('SCRIPT_FHD/SCRIPT_FHD_transed/'+f,'wb') as ff:
         ff.write(bytes(cankao))
 # with open(r'C:\InnocentGrey\カルタグラ FHD\trans.json','w',encoding='utf8') as ff:

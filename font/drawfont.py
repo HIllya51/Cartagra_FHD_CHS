@@ -5,7 +5,7 @@ import threading
 ts=[]
 for _font_file,_fontname in [('simsun.ttc','ゴシック'),('simhei.ttf','明朝'),('SIMYOU.TTF','モダン'),('msyh.ttc','丸ゴシック'),('SourceHanSansCN-Regular.ttf','太丸ゴシック')]:
     def xx(font_file,fontname):
-        for _type in [2,1,3,4]:
+        for _type in [2,1,4]:
             if fontname!='明朝' and _type in [2,4]:continue
             charsetfile=f'newcharset{_type}.txt' #必须保持行高不变。 
             with open(charsetfile,'r',encoding='utf-8-sig') as ff:
