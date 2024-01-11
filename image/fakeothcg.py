@@ -132,7 +132,7 @@ def getdatas(bs):
                 newczdata+=_data
                 break            
     return offsets,offset2size,newcz,newczdata
-with open(r'..\patch\res\OTHCG.PAK','rb') as ff:
+with open(r'C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG.PAK','rb') as ff:
     othcgbs=ff.read()  
 oldfileoffset,oldfilesize,_,_=getdatas(othcgbs)        
 newfileoffset,newfilesize,newcz,newczdata=getdatas(memnewothcgbs)  
