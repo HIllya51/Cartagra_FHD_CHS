@@ -2,6 +2,8 @@ import cv2,math ,os,json
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 import threading
+basic=''' !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~'''
+
 ts=[]
 for _font_file,_fontname in [('simsun.ttc','ゴシック'),('simhei.ttf','明朝'),('SIMYOU.TTF','モダン'),('msyh.ttc','丸ゴシック'),('SourceHanSansCN-Regular.ttf','太丸ゴシック')]:
     def xx(font_file,fontname):
@@ -21,7 +23,24 @@ for _font_file,_fontname in [('simsun.ttc','ゴシック'),('simhei.ttf','明朝
                 sizes=['15','25','27','30','32','33','36']
             for f in sizes:
                 size=int(f)+1
-                
+                if 0:
+                    if _type==1: 
+                        os.system(rf'.\LuckSystem.exe image export -i  "C:\InnocentGrey\カルタグラ FHD\files\FONT\{fontname}{f}" -o "C:\InnocentGrey\カルタグラ FHD\files\FONT\{fontname}{f}.png"')
+                    elif _type==2:
+                        os.system(rf'.\LuckSystem.exe image export -i  "C:\InnocentGrey\カルタグラ FHD\files\SYSFONT\システム_明朝{f}" -o "C:\InnocentGrey\カルタグラ FHD\files\SYSFONT\システム_明朝{f}.png"')
+                    elif _type==3:
+                        os.system(rf'.\LuckSystem.exe image export -i  "C:\InnocentGrey\カルタグラ FHD\files\FONT_V\{fontname}{f}v" -o "C:\InnocentGrey\カルタグラ FHD\files\FONT_V\{fontname}{f}v.png"')
+                    elif _type==4:
+                        os.system(rf'.\LuckSystem.exe image export -i  "C:\InnocentGrey\カルタグラ FHD\files\SYSFONT\システム_ゴシック{f}" -o "C:\InnocentGrey\カルタグラ FHD\files\SYSFONT\システム_ゴシック{f}.png"')
+                if _type==1: 
+                    originpng=rf"C:\InnocentGrey\カルタグラ FHD\files\FONT\{fontname}{f}.png"
+                elif _type==2:
+                    originpng=rf"C:\InnocentGrey\カルタグラ FHD\files\SYSFONT\システム_明朝{f}.png"
+                elif _type==3:
+                    originpng=rf"C:\InnocentGrey\カルタグラ FHD\files\FONT_V\{fontname}{f}v.png"
+                elif _type==4:
+                    originpng=rf"C:\InnocentGrey\カルタグラ FHD\files\SYSFONT\システム_ゴシック{f}.png"
+                originimg=Image.open(originpng)
                 _addition={
                     13:4,
                     17:4,
@@ -63,11 +82,14 @@ for _font_file,_fontname in [('simsun.ttc','ゴシック'),('simhei.ttf','明朝
                         char=' '
                     else:
                         char = chars[i] 
-                    
-                # draw.text((x * size, y * size-14), char, (255, 255, 255), font=fontStyle)
-                    #一些中文字体会有14个像素的向下偏移
-                    draw.text((0,0+diff), char, (255, 255, 255), font=fontStyle)
-                    img.paste(charimg,(x * size, y * size ))
+                    if char in basic:
+                        crop=originimg.crop([x * size, y * size,x * size+size,y * size+size ])
+                        img.paste(crop,(x * size, y * size ))
+                    else:
+                    # draw.text((x * size, y * size-14), char, (255, 255, 255), font=fontStyle)
+                        #一些中文字体会有14个像素的向下偏移
+                        draw.text((0,0+diff), char, (255, 255, 255), font=fontStyle)
+                        img.paste(charimg,(x * size, y * size ))
                 img.save(f'{fontname}.png') 
 
                 # img=Image.open('1.png') 

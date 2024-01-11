@@ -92,6 +92,7 @@ for _type in  [2,4,1]:
         newtexts=[newtexts[i] if i%3==1 else '' for i in range(len(newtexts))]
 
         chars=chars.union(set(''.join(newtexts)))
+        chars.add('年')
     origin=list(origin)
     chars=sorted(chars)
 
