@@ -2,7 +2,7 @@ import cv2,math ,os,json
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 import threading
-basic=''' !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~'''
+basic='''!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~'''
 
 ts=[]
 for _font_file,_fontname in [('simsun.ttc','ゴシック'),('simhei.ttf','明朝'),('SIMYOU.TTF','モダン'),('msyh.ttc','丸ゴシック'),('SourceHanSansCN-Regular.ttf','太丸ゴシック')]:
