@@ -59,6 +59,11 @@ for _type in  [2,4,1,3]:
             newtexts=newtexts.split('\n')
             newtexts=[newtexts[i] if i%3==1 else '' for i in range(len(newtexts))]
             chars=chars.union(set(''.join(newtexts))) 
+        
+        with open('../uitext.txt','r',encoding='utf8') as ff:
+            newtexts=ff.read().split('\n')  
+        newtexts=[newtexts[i] if i%3==1 else '' for i in range(len(newtexts))]
+        chars=chars.union(set(''.join(newtexts)))  
     elif _type==2:
             chars=set()
             with open(r'infosys41_string_sort_utf-8.txt','r',encoding='utf-8-sig') as ff:

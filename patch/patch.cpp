@@ -172,26 +172,31 @@ __int64 __fastcall sub_1401012C0(__int64 a1, __int64 a2, int a3){
     //     MessageBoxW(0,(LPCWSTR)a2,L"",0);
     if(all_ascii((LPCWSTR)a2,wcslen((LPCWSTR)a2)))
         return sub_1401012C0_s(a1,a2,a3);
-    auto sps=strSplit(std::wstring((LPCWSTR)a2),L"$d");
-    for(auto &s:sps){
-         
-        if(trans.find(s)!=trans.end()){
-            s=trans[s];
-        }
-        else{
-            auto _s=std::regex_replace(s, std::wregex(L"@【(.+?)】@"), L"@$1@");
+    std::wstring _=std::wstring((LPCWSTR)a2);
+     
+    for(auto spliter:{L"$d",L"$n"}){
+        auto sps=strSplit(_,spliter);
+        for(auto &s:sps){
             
-            if(trans.find(_s)!=trans.end()){
-                s=trans[_s];
-            } 
+            if(trans.find(s)!=trans.end()){
+                s=trans[s];
+            }
+            else{
+                auto _s=std::regex_replace(s, std::wregex(L"@【(.+?)】@"), L"@$1@");
+                
+                if(trans.find(_s)!=trans.end()){
+                    s=trans[_s];
+                } 
+            }
         }
+        std::wstring __;
+        for(int i=0;i<sps.size();i++){
+            if(i)
+                __+=spliter;
+            __+=sps[i];
+        } 
+        _=__;
     }
-    std::wstring _;
-    for(int i=0;i<sps.size();i++){
-        if(i)
-            _+=L"$d";
-        _+=sps[i];
-    } 
     return sub_1401012C0_s(a1,(__int64)_.c_str(),a3);
 } 
 std::wstring currentplayingmovie;
@@ -260,9 +265,9 @@ void showlrc(std::vector<_struct>& data,HLRC lrc){
             auto runeds=runedtime/1000.0;
             if(runeds>= iter->t1 && runeds<=iter->t2){ 
                 auto duration= iter->t2- runeds ;
-                char xx[1000];
-                sprintf(xx,"%I64d %f %f",runedtime,runeds,iter->t2);
-                AppendLog(LR"(C:\InnocentGrey\カルタグラ FHD\1.txt)",xx);
+                // char xx[1000];
+                // sprintf(xx,"%I64d %f %f",runedtime,runeds,iter->t2);
+                // AppendLog(LR"(C:\InnocentGrey\カルタグラ FHD\1.txt)",xx);
                 slowshowhidelyric(lrc,(iter->s).c_str(),duration); 
                 iter++;
             }
