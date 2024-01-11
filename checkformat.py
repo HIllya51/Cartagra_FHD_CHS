@@ -28,7 +28,12 @@ for f in os.listdir('SCRIPT_FHD/text'):
             print(list(lines2[i]))
             raise Exception(i,f)
         elif i%3==1 :
+            
             if lines2[i].endswith('＄') and not lines[i].endswith('＄'):
                 print( lines[i])
-                print( lines2[i])
-             
+                print( lines2[i])  
+            lines[i]=lines[i].replace('―。','―')
+            lines[i]=lines[i].replace('—。','—')
+            lines[i]=lines[i].replace('。」','」')
+    with open('SCRIPT_FHD/text/'+f,'w',encoding='utf8') as ff:
+        ff.write('\n'.join(lines))
