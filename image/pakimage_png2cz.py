@@ -1,11 +1,18 @@
-import os,sys,shutil
+import os,sys,shutil,cv2
+from PIL import Image
 for _dir in ['OTHCG','PARTS','SYSCG']:
     _path=r'C:\InnocentGrey\カルタグラ FHD\files\image\\'+_dir
     for imagepath in os.listdir(_path+'_PNG'):
         pngimagepath=os.path.join(_path+'_PNG',imagepath)
         #pngimagepath=os.path.join(_path,imagepath)
         czimagepath=os.path.join(_path, imagepath[:-4])
+        czimagepng=os.path.join(_path, imagepath)
         outputczpath=os.path.join(_path+'_NEW', imagepath[:-4])
+        origin=Image.open(czimagepng)
+        newimg=Image.open(pngimagepath)
+        if origin.size!=newimg.size:
+            print(pngimagepath,origin.size,newimg.size)
+            raise Exception()
         if os.path.exists(outputczpath) and  os.path.getmtime(outputczpath)>max(os.path.getmtime(pngimagepath),os.path.getctime(pngimagepath)):
             continue
         with open(czimagepath,'rb') as ff:
