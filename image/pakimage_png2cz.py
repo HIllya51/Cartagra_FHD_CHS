@@ -17,7 +17,7 @@ for _dir in ['OTHCG','PARTS','SYSCG']:
             continue
         with open(czimagepath,'rb') as ff:
             magic=ff.read(3).decode()
-        if magic=='CZ4':
+        if magic=='CZ4' or magic=='CZ3':
             
             print(czimagepath,magic )
             os.system(rf'.\czximage\build\Release\image2cz.exe "{czimagepath}" "{pngimagepath}" "{outputczpath}"')

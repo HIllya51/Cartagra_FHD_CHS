@@ -202,6 +202,14 @@ void bitmap2data(Bitmap* Picture, WORD Colorblock, int PixelByteCount, std::stri
 
                 //ss += std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(curr_line[x]) + "\n";
             }
+            else if(PixelByteCount==4){
+                Gdiplus::Color _c;
+                Picture->GetPixel(x, y, &_c);
+                curr_line[x * PixelByteCount + 3] = _c.GetA();
+                curr_line[x * PixelByteCount + 0] = _c.GetR();
+                curr_line[x * PixelByteCount + 1] = _c.GetG();
+                curr_line[x * PixelByteCount + 2] = _c.GetB();
+            }
          
         }
         auto savecurr_line = curr_line;
@@ -296,9 +304,14 @@ int wmain(int argc, wchar_t* argv[]) {
     _czxheader->Heigth = bitmap->GetHeight();
     _czxheader->Width = bitmap->GetWidth();
     std::string data;
-    bitmap2data(bitmap, _czxheader->Colorblock, 3, data);
-    bitmap2data(bitmap, _czxheader->Colorblock, 1, data); 
-     
+    if(memcmp(_czxheader->magic,"CZ4\x00",4)==0){
+        bitmap2data(bitmap, _czxheader->Colorblock, 3, data);
+        bitmap2data(bitmap, _czxheader->Colorblock, 1, data); 
+    }
+    else if(memcmp(_czxheader->magic,"CZ3\x00",4)==0){
+        bitmap2data(bitmap, _czxheader->Colorblock, 4, data);
+
+    }
     auto compres = Compress(data); 
     auto lzwcompressdata = new char[cz4bs.size() * 10];
     auto savestartlzwdata = lzwcompressdata;
