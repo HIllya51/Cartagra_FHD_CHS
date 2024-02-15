@@ -60,9 +60,9 @@ for _font_file,_fontname in [('simsun.ttc','ゴシック'),('simhei.ttf','明朝
                 print(imageW,imageH)
                 pic = np.zeros((imageH, imageW, 4), dtype=np.uint8)
                 if font_file =='SourceHanSansCN-Regular.ttf':
-                    diff=-0.30*size
+                    diff=-0.29*size
                 elif font_file=='msyh.ttc':
-                    diff=-0.23*size
+                    diff=-0.21*size
                 # elif font_file=='simhei.ttf':
                 #     diff=-0.05*size
                 else:
