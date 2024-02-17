@@ -68,12 +68,58 @@ for f in os.listdir('SCRIPT_FHD/text'):
                 mymap[_1[i]]=_2[i]
                 cnt+=1
                 print('{L"'+_1[i].replace('\n','\\n')+'",L"'+_2[i].replace('\\','\\\\').replace('\n','\\n').replace('"','\\"')+'"},',file=pf)
-                 
-                if len(_1[i]) and _1[i][0]=='　':
-                    _1[i]=_1[i][1:]
-                    if len(_2[i]) and _2[i][0]=='　':
-                        _2[i]=_2[i][1:]
-                    print('{L"'+_1[i].replace('\n','\\n')+'",L"'+_2[i].replace('\\','\\\\').replace('\n','\\n').replace('"','\\"')+'"},',file=pf)
+                
+                if len(_1[i]):
+                    __1=_1[i]
+                    __2=_2[i]
+                    while len(__1):
+                        if __1[0] in ' 　\n':
+                            __1=__1[1:]
+                        else:break
+                    while len(__2):
+                        if __2[0] in ' 　\n':
+                            __2=__2[1:]
+                        else:break
+                        
+                    if len(__1) and len(__2):
+                        if __1!=_1[i]:
+                            print('{L"'+__1.replace('\n','\\n')+'",L"'+__2.replace('\\','\\\\').replace('\n','\\n').replace('"','\\"')+'"},',file=pf)
+                if len(_1[i]):
+                    __1=_1[i]
+                    __2=_2[i]
+                    while len(__1):
+                        if __1[0] in ' 　':
+                            __1=__1[1:]
+                        else:break
+                    while len(__2):
+                        if __2[0] in ' 　':
+                            __2=__2[1:]
+                        else:break
+                        
+                    if len(__1) and len(__2):
+                        if __1!=_1[i]:
+                            print('{L"'+__1.replace('\n','\\n')+'",L"'+__2.replace('\\','\\\\').replace('\n','\\n').replace('"','\\"')+'"},',file=pf)
+                if len(_1[i]):
+                    __1=_1[i]
+                    __2=_2[i]
+                    while len(__1):
+                        if __1[0] in ' 　':
+                            __1=__1[1:]
+                        elif __1[0]=='\n':
+                            __1=__1[1:]
+                            break
+                        else:break
+                    while len(__2):
+                        if __2[0] in ' 　':
+                            __2=__2[1:]
+                        elif __2[0]=='\n':
+                            __2=__2[1:]
+                            break
+                        else:break
+                        
+                    if len(__1) and len(__2):
+                        if __1!=_1[i]:
+                            print('{L"'+__1.replace('\n','\\n')+'",L"'+__2.replace('\\','\\\\').replace('\n','\\n').replace('"','\\"')+'"},',file=pf)
     with open('SCRIPT_FHD/SCRIPT_FHD_transed/'+f,'wb') as ff:
         ff.write(bytes(cankao))
 # with open(r'C:\InnocentGrey\カルタグラ FHD\trans.json','w',encoding='utf8') as ff:
