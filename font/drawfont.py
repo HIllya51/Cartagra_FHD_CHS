@@ -1,7 +1,7 @@
 import cv2,math ,os,threading
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
-basic=r'''!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~♪—'''
+basic=r'''!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~；♪—'''
 
 ts=[]
 for _font_file,_fontname in [('simsun.ttc','ゴシック'),('SourceHanSansCN-Regular.ttf','明朝'),('SIMKAI.TTF','モダン'),('SIMLI.ttf','丸ゴシック'),('simhei.ttf','太丸ゴシック')]:
