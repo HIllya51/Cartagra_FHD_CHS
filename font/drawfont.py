@@ -1,11 +1,10 @@
-import cv2,math ,os,json
+import cv2,math ,os,threading
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
-import threading
-basic=r'''!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~'''
+basic=r'''!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~♪—'''
 
 ts=[]
-for _font_file,_fontname in [('simsun.ttc','ゴシック'),('simhei.ttf','明朝'),('SIMYOU.TTF','モダン'),('msyh.ttc','丸ゴシック'),('SourceHanSansCN-Regular.ttf','太丸ゴシック')]:
+for _font_file,_fontname in [('simsun.ttc','ゴシック'),('SourceHanSansCN-Regular.ttf','明朝'),('SIMKAI.TTF','モダン'),('SIMLI.ttf','丸ゴシック'),('simhei.ttf','太丸ゴシック')]:
     def xx(font_file,fontname):
         for _type in [2,1,4]:
             if fontname!='明朝' and _type in [2,4]:continue
@@ -54,22 +53,41 @@ for _font_file,_fontname in [('simsun.ttc','ゴシック'),('simhei.ttf','明朝
                     33:4,
                     37:4
                 }
-                imageW=size*100#+_addition[size]
+                imageW=size*100+_addition[size]
 
                 imageH=size * int(math.ceil((len(chars))/100.0))
                 print(imageW,imageH)
                 pic = np.zeros((imageH, imageW, 4), dtype=np.uint8)
                 if font_file =='SourceHanSansCN-Regular.ttf':
-                    diff=-0.3*(size-1)
+                    #diff=-0.23*(size)
+                    diff={
+                        42:-13,
+                        41:-12,
+                        37:-11,
+                        34:-10,
+                        33:-10,
+                        31:-9,
+                        28:-8,
+                        26:-7,
+                        17:-5,
+                        16:-4,
+                        13:-3
+                    }[size]
                 elif font_file=='msyh.ttc':
-                    diff=-0.205*(size-1)
+                    diff=-0.2*(size)
                 # elif font_file=='simhei.ttf':
                 #     diff=-0.05*size
                 else:
                     diff=0
-                fontStyle = ImageFont.truetype(
-                        font_file, size-1, encoding="utf-8")
-
+                originfile=['info12_string_sort_utf-8.txt','infosys41_string_sort_utf-8.txt','info40v_string_sort_utf-8.txt','infosys36_string_sort_utf-8.txt'][_type-1]
+                with open(originfile,'r',encoding='utf8') as ff:
+                    origin=ff.read()
+                try:
+                    fontStyle = ImageFont.truetype(
+                       rf'C:\Windows\Fonts\{font_file}', size-1, encoding="utf-8")
+                except:
+                    fontStyle = ImageFont.truetype(
+                       rf'{os.environ['LOCALAPPDATA']}\Microsoft\Windows\Fonts\{font_file}', size-1, encoding="utf-8")
                 img = Image.fromarray(cv2.cvtColor( pic, cv2.COLOR_BGRA2RGBA))
                 draw = ImageDraw.Draw(img)
                 for i in range(len(chars)):
@@ -82,8 +100,11 @@ for _font_file,_fontname in [('simsun.ttc','ゴシック'),('simhei.ttf','明朝
                         char=' '
                     else:
                         char = chars[i] 
-                    if char in basic:
-                        crop=originimg.crop([x * size, y * size,x * size+size,y * size+size ])
+                    if char in basic and char in origin:
+                        __i=origin.index(char)-1
+                        __y=__i//100
+                        __x=__i%100
+                        crop=originimg.crop([__x * size, __y * size,__x * size+size,__y * size+size ])
                         img.paste(crop,(x * size, y * size ))
                     else:
                     # draw.text((x * size, y * size-14), char, (255, 255, 255), font=fontStyle)
@@ -91,7 +112,10 @@ for _font_file,_fontname in [('simsun.ttc','ゴシック'),('simhei.ttf','明朝
                         draw.text((0,0+diff), char, (255, 255, 255), font=fontStyle)
                         img.paste(charimg,(x * size, y * size ))
                 img.save(f'{fontname}.png') 
-
+                if 0:
+                    r,g,b,_=img.split()
+                    Image.merge('RGB',(r,g,b)).save(f'{fontname}_{size}.png') 
+                    continue
                 # img=Image.open('1.png') 
                 # img=np.array(img)  
                 # img[img[:,:,-1]==0]=0
@@ -99,6 +123,7 @@ for _font_file,_fontname in [('simsun.ttc','ゴシック'),('simhei.ttf','明朝
                 # h,w,c=img.shape
                 # cv2.imwrite('2.png',img )
                 if 1:   #cz2字体部分字下半部分莫名向右偏移
+                        #LuckSystem确实有问题，部分字体导入后闪退，cz4就没问题。
                     if _type==1: 
                         os.system(rf'..\image\czximage\build\Release\image2cz.exe "C:\InnocentGrey\カルタグラ FHD\files\image\OTHCG\03b" {fontname}.png  "C:\InnocentGrey\カルタグラ FHD\files\FONT_NEW\{fontname}{f}"')
                     elif _type==2:

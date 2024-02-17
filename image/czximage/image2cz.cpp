@@ -313,9 +313,10 @@ int wmain(int argc, wchar_t* argv[]) {
 
     }
     auto compres = Compress(data); 
-    auto lzwcompressdata = new char[cz4bs.size() * 10];
+    auto cachesize=cz4bs.size() * 10+ _czxheader->Heigth*_czxheader->Width*32;//cz4bs只是用来作为参考获取header的东西，size不够大会爆。。。
+    auto lzwcompressdata = new char[cachesize];
     auto savestartlzwdata = lzwcompressdata;
-    ZeroMemory(lzwcompressdata, cz4bs.size() * 10); 
+    ZeroMemory(lzwcompressdata, cachesize); 
     writebuff<UINT>(&lzwcompressdata, compres.size());
     for (int i = 0; i < compres.size(); i++) {
         writebuff<UINT>(&lzwcompressdata, compres[i].size());

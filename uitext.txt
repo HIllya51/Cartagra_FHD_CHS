@@ -80,7 +80,7 @@
 3FFB78|Mincho
 
 3FFB80|　明朝　
-3FFB80|　黑体　
+3FFB80|思源黑体
 
 3FFB90|Gothic1
 3FFB90|Gothic1
@@ -92,19 +92,19 @@
 3FFBB0|Gothic2
 
 3FFBB8|　丸ゴシック　
-3FFBB8|　微软雅黑　
+3FFBB8|　　隶书　　
 
 3FFBD0|Gothic3
 3FFBD0|Gothic3
 
 3FFBD8|　太丸ゴシック　
-3FFBD8|　思源黑体　
+3FFBD8|　　黑体　　
 
 3FFBF4|Modern
 3FFBF4|Modern
 
 3FFC00|　モダン　
-3FFC00|　幼圆　
+3FFC00|　楷体　
 
 3FFC10|Font
 3FFC10|Font
