@@ -92,13 +92,13 @@
 3FFBB0|Gothic2
 
 3FFBB8|　丸ゴシック　
-3FFBB8|　　隶书　　
+3FFBB8|　隶书　
 
 3FFBD0|Gothic3
 3FFBD0|Gothic3
 
 3FFBD8|　太丸ゴシック　
-3FFBD8|　　黑体　　
+3FFBD8|　黑体　
 
 3FFBF4|Modern
 3FFBF4|Modern
