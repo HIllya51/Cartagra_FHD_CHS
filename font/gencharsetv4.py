@@ -1,5 +1,5 @@
 import os,shutil,json,ctypes
-basic=r''' !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~；♪—'''
+basic=r''' !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~'''
 remap_charset2={}
 r_remap_charset2={}
 
@@ -26,7 +26,7 @@ with open('infosys36_string_sort_utf-8.txt','r',encoding='utf-8-sig' ) as ff:
 with open(r'info12_string_sort_utf-8.txt','r',encoding='utf-8-sig') as ff:
     originset=originset.union(set(ff.read()))#[len(basic):]
 
-onlyinoriginset=sorted(list(((set(originset)-set(bigchars)-set(basic)))),reverse=True)
+onlyinoriginset=sorted(list(((set(originset)-set(bigchars)-set(basic)-set('；')))),reverse=True)    #搞不懂为啥；的宽度不对
 for c in bigchars:
     
     if c in originset:
