@@ -187,6 +187,7 @@ __int64 __fastcall sub_1401012C0(__int64 a1, __int64 a2, int a3){
                 
                 if(trans.find(_s)!=trans.end()){
                     s=trans[_s];
+                    s=std::regex_replace(s, std::wregex(L"@(.+?)@"), L"@【$1】@");
                 } 
             }
         }
