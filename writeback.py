@@ -18,7 +18,7 @@ for f in os.listdir('SCRIPT_FHD/text'):
         lines=ff.read().split('\n')
     with open('SCRIPT_FHD/SCRIPT_FHD/'+f,'rb') as ff:
         cankao=ff.read()
-    for i in range(len(lines)-1):
+    for i in range(len(lines)):
         if len(lines[i])==0:continue
         #i=len(lines)-1-_i
         if i%3!=1:continue
