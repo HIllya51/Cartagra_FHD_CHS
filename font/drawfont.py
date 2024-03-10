@@ -4,7 +4,7 @@ import numpy as np
 basic=r'''!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~；♪—'''
 
 ts=[]
-for _font_file,_fontname in [('simsun.ttc','ゴシック'),('SourceHanSansCN-Regular.ttf','明朝'),('SIMKAI.TTF','モダン'),('SIMLI.ttf','丸ゴシック'),('simhei.ttf','太丸ゴシック')]:
+for _font_file,_fontname in [('simsun.ttc','ゴシック'),('SourceHanSansCN-Regular.otf','明朝'),('SIMKAI.TTF','モダン'),('SIMLI.ttf','丸ゴシック'),('simhei.ttf','太丸ゴシック')]:
     def xx(font_file,fontname):
         for _type in [2,1,4]:
             if fontname!='明朝' and _type in [2,4]:continue
@@ -87,7 +87,7 @@ for _font_file,_fontname in [('simsun.ttc','ゴシック'),('SourceHanSansCN-Reg
                        rf'C:\Windows\Fonts\{font_file}', size-1, encoding="utf-8")
                 except:
                     fontStyle = ImageFont.truetype(
-                       rf'{os.environ['LOCALAPPDATA']}\Microsoft\Windows\Fonts\{font_file}', size-1, encoding="utf-8")
+                       rf'{os.environ["LOCALAPPDATA"]}\Microsoft\Windows\Fonts\{font_file}', size-1, encoding="utf-8")
                 img = Image.fromarray(cv2.cvtColor( pic, cv2.COLOR_BGRA2RGBA))
                 draw = ImageDraw.Draw(img)
                 for i in range(len(chars)):
