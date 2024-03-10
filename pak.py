@@ -1,8 +1,8 @@
-#__type=3
+import os
 for __type in [1,2,3,5]:
     if __type==1:
         path=r'C:\InnocentGrey\カルタグラ FHD\files\SCRIPT.PAK'
-        packPAKpath=r'C:\Users\wcy\Documents\GitHub\Cartagra_FHD_CHS\SCRIPT_FHD/SCRIPT_FHD_transed'
+        packPAKpath=os.environ['USERPROFILE']+r'\Documents\GitHub\Cartagra_FHD_CHS\SCRIPT_FHD/SCRIPT_FHD_transed'
         newPAKpath=r'C:\InnocentGrey\カルタグラ FHD\CHSPAK\SCRIPT.PAK'
     elif __type==2:
         path=r'C:\InnocentGrey\カルタグラ FHD\files\FONT.PAK'

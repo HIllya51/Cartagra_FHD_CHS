@@ -6,7 +6,6 @@ trans.json
 font/*.png
 *.ttc
 *.ttf
-font/*.txt
 patch/desktop-overlay-lyric-f2e45f0bc335c9bb30cd24640d0539d002b51833/.vs
 patch/desktop-overlay-lyric-f2e45f0bc335c9bb30cd24640d0539d002b51833/app
 patch/desktop-overlay-lyric-f2e45f0bc335c9bb30cd24640d0539d002b51833/lyric/x64
@@ -18,3 +17,10 @@ image/czximage/build
 patch/res
 SCRIPT_FHD/text2
 kouryaku/攻略.mhtml
+font/newcharset1.txt
+font/newcharset2.txt
+font/newcharset4.txt
+font/newinfo1.txt
+font/newinfo2.txt
+font/newinfo4.txt
+font/remap_charset2.txt

@@ -58,7 +58,7 @@ for _font_file,_fontname in [('simsun.ttc','ゴシック'),('SourceHanSansCN-Reg
                 imageH=size * int(math.ceil((len(chars))/100.0))
                 print(imageW,imageH)
                 pic = np.zeros((imageH, imageW, 4), dtype=np.uint8)
-                if font_file =='SourceHanSansCN-Regular.ttf':
+                if font_file =='SourceHanSansCN-Regular.otf':
                     #diff=-0.23*(size)
                     diff={
                         42:-13,
