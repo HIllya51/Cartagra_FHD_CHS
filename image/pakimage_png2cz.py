@@ -1,6 +1,6 @@
 import os,sys,shutil,cv2
 from PIL import Image
-for _dir in ['OTHCG','PARTS','SYSCG']:
+for _dir in ['OTHCG','PARTS','SYSCG','BGCG']:
     _path=r'C:\InnocentGrey\カルタグラ FHD\files\image\\'+_dir
     for imagepath in os.listdir(_path+'_PNG'):
         pngimagepath=os.path.join(_path+'_PNG',imagepath)

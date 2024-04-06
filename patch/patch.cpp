@@ -12,12 +12,12 @@
 #include"lyric/lyric.h"
 extern std::unordered_map<std::wstring,std::wstring>trans;
 extern std::vector<std::pair<int,const char*>>uitexts;
-extern std::unordered_map<int,std::pair<int,int>>newcz;
-extern std::unordered_map<int,int>pakoffsetnew2old;
-extern std::unordered_map<int,int>oldfilesize;
-extern std::unordered_map<int,int>newfilesize;
-std::string newczhead;
-std::string newcz_data;
+extern std::unordered_map<int,std::pair<int,int>>newczOTHCG,newczBGCG;
+extern std::unordered_map<int,int>pakoffsetnew2oldOTHCG,pakoffsetnew2oldBGCG;
+extern std::unordered_map<int,int>oldfilesizeOTHCG,oldfilesizeBGCG;
+extern std::unordered_map<int,int>newfilesizeOTHCG,newfilesizeBGCG;
+std::string newczheadOTHCG,newczheadBGCG;
+std::string newcz_dataOTHCG,newcz_dataBGCG;
 bool once=true;
 HWND g_hwnd;
 HLRC g_lrc=0;
@@ -60,7 +60,7 @@ HWND CreateWindowExWh(
         if(once){
             once=false;
             g_hwnd=CreateWindowExW_s(dwExStyle,lpClassName,lpWindowName,dwStyle,X,Y,nWidth,nHeight,hWndParent,hMenu,hInstance,lpParam);
-            SetWindowTextW(g_hwnd,L"恋狱～月狂病～《REBIRTH FHD SIZE EDITION》");
+            SetWindowTextW(g_hwnd,L"恋狱～月狂病～《REBIRTH FHD SIZE EDITION》  内部测试版");
             createmovielrc();
             return g_hwnd;
         }
@@ -479,8 +479,10 @@ std::string LoadResImage(LPCWSTR pszResID)
 } 
 void preloadnewcz(){ 
     
-    newczhead=std::move(LoadResImage(L"OTHCGDAT"));
-    newcz_data=std::move(LoadResImage(L"OTHCGIMG"));
+    newczheadOTHCG=std::move(LoadResImage(L"OTHCGDAT"));
+    newcz_dataOTHCG=std::move(LoadResImage(L"OTHCGIMG"));
+    newczheadBGCG=std::move(LoadResImage(L"BGCGDAT"));
+    newcz_dataBGCG=std::move(LoadResImage(L"BGCGIMG"));
      
 }
  
@@ -503,7 +505,14 @@ BOOL ReadFileH(
             startshowlrc();
         }
 
-        if(pendWith(filepath,L"OTHCG.PAK")){ 
+        if(pendWith(filepath,L"OTHCG.PAK")||pendWith(filepath,L"BGCG.PAK")){ 
+            auto& newczhead=pendWith(filepath,L"OTHCG.PAK")?newczheadOTHCG:newczheadBGCG;
+            auto& newcz_data=pendWith(filepath,L"OTHCG.PAK")?newcz_dataOTHCG:newcz_dataBGCG;
+            auto& newcz=pendWith(filepath,L"OTHCG.PAK")?newczOTHCG:newczBGCG;
+            auto& pakoffsetnew2old=pendWith(filepath,L"OTHCG.PAK")?pakoffsetnew2oldOTHCG:pakoffsetnew2oldBGCG;
+            auto& oldfilesize=pendWith(filepath,L"OTHCG.PAK")?oldfilesizeOTHCG:oldfilesizeBGCG;
+            auto& newfilesize=pendWith(filepath,L"OTHCG.PAK")?newfilesizeOTHCG:newfilesizeBGCG;
+            
             //wsprintf(output,L"%s %x %x %x\n",filepath,GetFilePointer(hFile),cur,  nNumberOfBytesToRead  );
             //AppendLog(LR"(C:\InnocentGrey\カルタグラ FHD\1.txt)",WideStringToString(output,65001));
             if(cur==0){ 
