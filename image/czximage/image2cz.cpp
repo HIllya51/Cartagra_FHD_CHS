@@ -278,6 +278,14 @@ void writebuff(char** data,T _t) {
     *(reinterpret_cast<T*>(*data))=_t;
     *data += sizeof(T); 
 }
+ 
+struct Pixel32_RGBA
+{
+    byte R, G, B, A;
+    bool operator==(Pixel32_RGBA& x){
+        return memcpy(this,&x,sizeof(Pixel32_RGBA));
+    }
+};
 int wmain(int argc, wchar_t* argv[]) {
     GdiplusStartupInput gdiplusStartupInput;
     ULONG_PTR gdiplusToken;
@@ -304,6 +312,45 @@ int wmain(int argc, wchar_t* argv[]) {
     _czxheader->Heigth = bitmap->GetHeight();
     _czxheader->Width = bitmap->GetWidth();
     std::string data;
+    std::string extra;
+    if(memcmp(_czxheader->magic,"CZ1\x00",4)==0)
+    {
+        //printf("%d %d %d %d\n",(int)_czxheader->Colorbits,_czxheader->Heigth,_czxheader->Width,_czxheader->Heigth*_czxheader->Width);
+        auto buff=cz4bs.data()+_czxheader->HeaderLength;
+        std::vector<Pixel32_RGBA> ColorPanel(256);
+        for (int i = 0; i < ColorPanel.size(); i++)
+        {
+            auto Pixel = readbuff<Pixel32_RGBA>(&buff);
+            ColorPanel[i] = Pixel;
+            //printf("%x\n",ColorPanel[i]);
+        }
+        extra=std::string(cz4bs.data()+_czxheader->HeaderLength,buff-cz4bs.data()-_czxheader->HeaderLength);
+        data.resize(_czxheader->Heigth*_czxheader->Width);
+        int idx=0;
+        for (int y = 0; y < _czxheader->Heigth; y++)
+            {
+                for (int x = 0; x < _czxheader->Width; x++)
+                {
+                    Gdiplus::Color c;
+                    Pixel32_RGBA p;
+                    bitmap->GetPixel(x,y,&c);
+                    p.A=c.GetA();p.B=c.GetB();p.G=c.GetG();p.R=c.GetR();
+                    
+                    data[idx]=p.A;
+                    idx+=1;
+                    //printf("%x\n",p);
+                    // for(int i=0;i<256;i++){
+                    //     if(ColorPanel[i]==p){
+                    //          dataidx[dataidx.size()-1-idx]=i;
+                    //          idx+=1;
+                    //          break;
+                    //     }
+                    // }
+                }
+            }
+         
+    }
+     
     if(memcmp(_czxheader->magic,"CZ4\x00",4)==0){
         bitmap2data(bitmap, _czxheader->Colorblock, 3, data);
         bitmap2data(bitmap, _czxheader->Colorblock, 1, data); 
@@ -331,6 +378,7 @@ int wmain(int argc, wchar_t* argv[]) {
     FILE* pf;
     _wfopen_s(&pf,targetcz4path, L"wb");
     fwrite(cz4bs.data(), 1, _czxheader->HeaderLength, pf);
+    fwrite(extra.data(), 1, extra.size(), pf);
     fwrite(savestartlzwdata, 1, lzwcompressdata- savestartlzwdata, pf);
     fclose(pf);
 } 
