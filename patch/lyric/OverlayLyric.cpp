@@ -4,7 +4,6 @@
 #include <cmath>
 #include<filesystem>
 #define IDT_MOUSETRAP 100001
-
 BOOL OverlayLyric::InitializeGdiplus() {
 	if (mGdiplusToken == NULL) {
 		::GdiplusStartupInput GpInput;
@@ -231,6 +230,7 @@ Bitmap* LoadResImage(LPCWSTR pszResID)
 	FreeResource(lpRsrc); 
 	return lpImage;
 } 
+#include<string>
 BOOL OverlayLyric::Update(int alpha)
 {
 	HWND hWnd = GetHandle();
@@ -252,8 +252,9 @@ BOOL OverlayLyric::Update(int alpha)
 	HDC hMemDC = CreateCompatibleDC(hDC);
 	PVOID pBmpData = NULL;
 	HBITMAP hBitmap = CreateDIBSection(hMemDC, &tempBI, DIB_RGB_COLORS, &pBmpData, NULL, NULL);
+	
 	if (hBitmap == NULL) {
-		// �����豸�޹�λͼʧ���򷵻�FALSE
+		
 		DeleteDC(hMemDC);
 		ReleaseDC(hWnd, hDC);
 		return FALSE;
@@ -267,15 +268,17 @@ BOOL OverlayLyric::Update(int alpha)
 	if (mShowBackground) {
 		DrawBackground(&graphics, winSize);
 	}
+	
 	if (type != 2) {
 		DrawText(&graphics, winSize);  
 	}
 	else {
-		//graphics.DrawImage(Bitmap::FromFile(LR"(.\\CHSPAK\\THANKS.png)"), 0, 0, winSize.cx, winSize.cy);
-		if(std::filesystem::exists(L".\\CHSPAK\\THANKS.png"))
-			graphics.DrawImage(Bitmap::FromFile(LR"(.\\CHSPAK\\THANKS.png)"), 0, 0, winSize.cx, winSize.cy);
-		else
+		if(visimagebefore_ix==0)
+			graphics.DrawImage(LoadResImage(L"ANNOUNCE"), 0, 0, winSize.cx, winSize.cy);
+		else{
 			graphics.DrawImage(LoadResImage(L"THANKSPNG"), 0, 0, winSize.cx, winSize.cy);
+		
+		}
 	}
 
 	::POINT srcPoint = { 0, 0 };
@@ -315,27 +318,33 @@ void OverlayLyric::HideWnd()
 {
 	this->Hide();
 }
-#include<mutex>
+void OverlayLyric::hideandnotify(){
+		std::lock_guard<std::mutex> _(_m);
+		visimagebefore_ix+=1;
+		sleeptime=5000;
+		if(visimagebefore_ix>=2){
+			if(hided)return;
+			hided=true;
+			HideWnd();
+			SECURITY_DESCRIPTOR sd;
+			InitializeSecurityDescriptor(&(sd), 1);
+			SetSecurityDescriptorDacl(&(sd), 1, 0, 0);
+			SECURITY_ATTRIBUTES allacc;
+			allacc.nLength = sizeof(allacc);
+			allacc.bInheritHandle = 0;
+			allacc.lpSecurityDescriptor = &(sd);
+			auto event=CreateEventW(&allacc, 0, 0, L"LIANYUYUEKUANGBING_SHOW_THANKS");
+			SetEvent(event);
+			CloseHandle(event);
+		}
+		else{
+			Update(255);
+		}
+		
+		
+}
 LRESULT OverlayLyric::HandleMessage(UINT message, WPARAM wParam, LPARAM lParam) {
 	HWND hWnd = GetHandle();
-	static std::mutex _m;
-	static bool hided = false;
-	auto hideandnotify = [this]() {
-		std::lock_guard<std::mutex> _(_m);
-		if (hided)return;
-		hided = true;
-		HideWnd();
-		SECURITY_DESCRIPTOR sd;
-		InitializeSecurityDescriptor(&(sd), 1);
-		SetSecurityDescriptorDacl(&(sd), 1, 0, 0);
-		SECURITY_ATTRIBUTES allacc;
-		allacc.nLength = sizeof(allacc);
-		allacc.bInheritHandle = 0;
-		allacc.lpSecurityDescriptor = &(sd);
-		auto event=CreateEventW(&allacc, 0, 0, L"LIANYUYUEKUANGBING_SHOW_THANKS");
-		SetEvent(event);
-		CloseHandle(event);
-	};
 	switch (message)
 	{
 	case WM_CREATE:
@@ -354,12 +363,23 @@ LRESULT OverlayLyric::HandleMessage(UINT message, WPARAM wParam, LPARAM lParam) 
 		SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
 
 		SetTimer(hWnd, IDT_MOUSETRAP, 100, NULL);
-		std::thread([hideandnotify]() {
-			
-			Sleep(10000);
-			hideandnotify();
-
+		
+		if(type==2){
+			std::thread([this](){
+				while(sleeptime>0)
+				{
+					sleeptime-=100;
+					Sleep(100);
+				}
+				hideandnotify();
+				while(sleeptime>0)
+				{
+					sleeptime-=100;
+					Sleep(100);
+				}
+				hideandnotify();
 			}).detach();
+		}
 	}
 	break;
 	case WM_KEYDOWN: {
@@ -372,6 +392,7 @@ LRESULT OverlayLyric::HandleMessage(UINT message, WPARAM wParam, LPARAM lParam) 
 	case WM_RBUTTONDOWN:  //��갴��
 	case WM_LBUTTONDOWN:  //��갴��
 	{
+		
 		SetCapture(hWnd);	//��ռ�����Ϣ
 		mMouseXY.y = HIWORD(lParam);
 		mMouseXY.x = LOWORD(lParam);
@@ -400,6 +421,7 @@ LRESULT OverlayLyric::HandleMessage(UINT message, WPARAM wParam, LPARAM lParam) 
 	}
 	break;
 	case WM_CLOSE: {
+		visimagebefore_ix=999;
 		hideandnotify();
 	}
 	break;

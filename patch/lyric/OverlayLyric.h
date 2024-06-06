@@ -4,6 +4,7 @@
 #include <gdiplus.h>
 #include <gdipluseffects.h>
 
+#include<mutex>
 using namespace Gdiplus;
 
 typedef struct tagFontInfo {
@@ -56,4 +57,11 @@ private:
 	REAL mScale = 0.f;
 	WCHAR mText[256] = { 0 };
 	BOOL mShowBackground = FALSE;
+
+	void hideandnotify();
+	
+	std::mutex _m;
+	bool hided = false;
+	int sleeptime=5000;
+	int visimagebefore_ix=0;
 };
