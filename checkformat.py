@@ -1,4 +1,4 @@
-import os
+import os, re
 for f in os.listdir('SCRIPT_FHD/text'):
     #if f!='0206-05-03':continue
     #if f!='a2-7-1ED02':continue
@@ -35,5 +35,8 @@ for f in os.listdir('SCRIPT_FHD/text'):
             lines[i]=lines[i].replace('―。','―')
             lines[i]=lines[i].replace('—。','—')
             lines[i]=lines[i].replace('。」','」')
+            if '—' in lines[i]:
+                lines[i] = re.sub(r'(?<!—)(—)(?!—)', '——', lines[i])
+                
     with open('SCRIPT_FHD/text/'+f,'w',encoding='utf8') as ff:
         ff.write('\n'.join(lines))
