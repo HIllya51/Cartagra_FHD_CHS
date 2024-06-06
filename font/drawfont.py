@@ -6,7 +6,7 @@ basic=r'''!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
 ts=[]
 for _font_file,_fontname in [('simsun.ttc','ゴシック'),('SourceHanSansCN-Regular.otf','明朝'),('SIMKAI.TTF','モダン'),('SIMLI.ttf','丸ゴシック'),('simhei.ttf','太丸ゴシック')]:
     def xx(font_file,fontname):
-        for _type in [2,1,4]:
+        for _type in [2,1,4,3]:
             if fontname!='明朝' and _type in [2,4]:continue
             charsetfile=f'newcharset{_type}.txt' #必须保持行高不变。 
             with open(charsetfile,'r',encoding='utf-8-sig') as ff:
