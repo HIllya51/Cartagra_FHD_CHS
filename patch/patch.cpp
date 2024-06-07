@@ -304,14 +304,28 @@ void startshowlrc(){
     }
     RECT rect;
     GetClientRect(g_hwnd,&rect);
-    float scale=rect.bottom/1080.0; 
+    auto yc=rect.bottom+rect.top;
+    yc/=2;
+    auto xc=rect.left+rect.right;
+    xc/=2;
+    auto w=rect.right-rect.left;
+    auto wdiff=0;
+    auto h=rect.bottom-rect.top;
+    if(1.0f*w/h>1920.0f/1080.f){
+        wdiff=h*1920.0f/1080.f-w;
+    }
+    else{
+        h=w/(1920.0f/1080.f);
+    }
+
+    float scale=h/1080.0; 
     
-    SetLyricPosition(g_lrc_movie_1,-50.0*scale, rect.bottom-150.0*scale, rect.right,100.0*scale);
+    SetLyricPosition(g_lrc_movie_1,-50.0*scale-wdiff/2, yc+h*0.4, w,0.1*h);
 
     SetLyricFontW(g_lrc_movie_1, L"宋体", 40.0*scale);
     SetLyricColorStyle(g_lrc_movie_1, 4);
        
-    SetLyricPosition(g_lrc_movie_2,50.0*scale, 0.0*scale, rect.right,100.0*scale);
+    SetLyricPosition(g_lrc_movie_2,50.0*scale+wdiff/2, yc-h*0.5, w,0.1*h);
 
     SetLyricFontW(g_lrc_movie_2, L"Yu Mincho", 40.0*scale);
     SetLyricColorStyle(g_lrc_movie_2, 4);
