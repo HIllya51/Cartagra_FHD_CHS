@@ -124,7 +124,7 @@ BOOL OverlayLyric::DrawText(::Graphics* const graphics, const SIZE& size)
  
 	// ���Ƶ���graphics��
 	if(type==3){
-		graphics->DrawImage(&bitmap, size.cx-rcBound.Width-5, size.cy / 2 - rcBound.Height / 2);
+		graphics->DrawImage(&bitmap, size.cx-rcBound.Width-10, size.cy / 2 - rcBound.Height / 2);
 	}
 	else if(type==4){
 		graphics->DrawImage(&bitmap, (REAL)0, size.cy / 2 - rcBound.Height / 2);
