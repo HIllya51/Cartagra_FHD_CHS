@@ -234,21 +234,24 @@ void slowshowhidelyric(HLRC lrc,const wchar_t* text,float duration){
         LyricShow(lrc);
         SetLyricTextW(lrc,text);  
         bool alpha255=false;
+        float jianbian=512.0f;
+        if(duration<=2.5)
+            jianbian=256.0f;
         while(started){
             auto current=GetTickCount64()-start;
-            if(current<=512){
-                LyricUpdate(lrc,current/2);
+            if(current<=jianbian){
+                LyricUpdate(lrc,current*256.0f/jianbian);
                 
             }
-            else if(msd-current<=512){
-                LyricUpdate(lrc,(msd-current)/2);
+            else if(msd-current<=jianbian){
+                LyricUpdate(lrc,(msd-current)*256.0f/jianbian);
             }
             else if(alpha255==false){
                 alpha255=true;
                 LyricUpdate(lrc,255);
             }
             else if(current>msd)break;
-            Sleep(8);
+            Sleep(16);
         } 
         hidehide(lrc);
      
