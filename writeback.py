@@ -44,9 +44,12 @@ for f in os.listdir('SCRIPT_FHD/text'):
             #print(text)
             length+=999
         
-        if text[-1]!='\n' and originlength>=length:
+        if (text[-1]!='\n' or (text[-1]=='\n' and f=='a2-7-1ED02')) and originlength>=length:
             while length<originlength:
-                text+=' '
+                if text[-1]=='\n' and f=='a2-7-1ED02':
+                    text=text[:-1]+' '+'\n'
+                else:
+                    text+=' '
                 length+=1
             
             saveend=cankao[idx+2+originlength*2+2:]  
