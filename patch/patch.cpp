@@ -582,11 +582,11 @@ BOOL ReadFileH(
                 auto t = std::thread([] {
                     g_lrc = CreateLyric(2);
                     SetLyricParent(g_lrc, g_hwnd);
-                    LyricShow(g_lrc);
                     RECT rect;
                     GetClientRect(g_hwnd,&rect);
                     SetLyricPosition(g_lrc,0, 0, rect.right, rect.bottom);
-                    LyricUpdate(g_lrc,255);
+                    LyricShow(g_lrc);
+                    //LyricUpdate(g_lrc,255);
                     MSG msg;
                     while (GetMessage(&msg, nullptr, 0, 0))
                     {

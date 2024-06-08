@@ -262,9 +262,10 @@ BOOL OverlayLyric::Update(int alpha)
 	HBITMAP hBitmapOld = (HBITMAP)SelectObject(hMemDC, hBitmap);  // �µĶ������ͬһ���͵��϶��󣬷����϶���
 
 	::Graphics graphics(hMemDC);
+	
 	graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeHighQuality);
 	graphics.SetInterpolationMode(Gdiplus::InterpolationMode::InterpolationModeBilinear);
-
+	
 	if (mShowBackground) {
 		DrawBackground(&graphics, winSize);
 	}
@@ -273,10 +274,28 @@ BOOL OverlayLyric::Update(int alpha)
 		DrawText(&graphics, winSize);  
 	}
 	else {
-		if(visimagebefore_ix==0)
-			graphics.DrawImage(LoadResImage(L"ANNOUNCE"), 0, 0, winSize.cx, winSize.cy);
+		auto onceloadimage=[](wchar_t* wc,int w,int h){
+			auto image= LoadResImage(wc);
+			auto bitmap=new Gdiplus::Bitmap(w,h, PixelFormat32bppARGB);
+			//Gdiplus::Bitmap bitmap(w,h, PixelFormat32bppARGB);
+
+			Gdiplus::Graphics graphics(bitmap);
+			graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeHighQuality);
+			graphics.SetInterpolationMode(Gdiplus::InterpolationMode::InterpolationModeBilinear);
+			graphics.DrawImage(image, 0, 0, w,h);
+			return bitmap;
+		};
+		
+		if(visimagebefore_ix==0){
+			//放大时会有点卡，用InterpolationModeNearestNeighbor不卡但是花了
+			static auto __=onceloadimage(L"ANNOUNCE",winSize.cx, winSize.cy);
+			graphics.DrawImage(__, 0, 0, winSize.cx, winSize.cy);
+			//graphics.DrawImage(LoadResImage(L"ANNOUNCE"), 0, 0, winSize.cx, winSize.cy);
+		}
 		else{
-			graphics.DrawImage(LoadResImage(L"THANKSPNG"), 0, 0, winSize.cx, winSize.cy);
+			static auto __=onceloadimage(L"THANKSPNG",winSize.cx, winSize.cy);
+			graphics.DrawImage(__, 0, 0, winSize.cx, winSize.cy);
+			//graphics.DrawImage(LoadResImage(L"THANKSPNG"), 0, 0, winSize.cx, winSize.cy);
 		
 		}
 	}
@@ -319,9 +338,19 @@ void OverlayLyric::HideWnd()
 	this->Hide();
 }
 void OverlayLyric::hideandnotify(){
-		std::lock_guard<std::mutex> _(_m);
-		visimagebefore_ix+=1;
+		if(type!=2)return;
 		sleeptime=5000;
+	std::thread([this](){
+		std::lock_guard<std::mutex> _(_m);
+		if(visimagebefore_ix>=0)
+			if(visimagebefore_ix<2){
+				for(int i=0;i<255;i+=32){
+					Update(255-i);
+					Sleep(4);
+				}
+				Update(0);
+			}
+		visimagebefore_ix+=1;
 		if(visimagebefore_ix>=2){
 			if(hided)return;
 			hided=true;
@@ -338,9 +367,13 @@ void OverlayLyric::hideandnotify(){
 			CloseHandle(event);
 		}
 		else{
+			for(int i=0;i<255;i+=32){
+				Update(i);
+				Sleep(4);
+			}
 			Update(255);
 		}
-		
+	}).detach();
 		
 }
 LRESULT OverlayLyric::HandleMessage(UINT message, WPARAM wParam, LPARAM lParam) {
@@ -363,9 +396,14 @@ LRESULT OverlayLyric::HandleMessage(UINT message, WPARAM wParam, LPARAM lParam) 
 		SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
 
 		SetTimer(hWnd, IDT_MOUSETRAP, 100, NULL);
-		
-		if(type==2){
+	}
+	break;
+	case WM_SHOWWINDOW:
+	{
+		if(type==2 && onceshow==0){
+			onceshow=1;
 			std::thread([this](){
+				hideandnotify();
 				while(sleeptime>0)
 				{
 					sleeptime-=100;

@@ -63,5 +63,6 @@ private:
 	std::mutex _m;
 	bool hided = false;
 	int sleeptime=5000;
-	int visimagebefore_ix=0;
+	int visimagebefore_ix=-1;
+	int onceshow=0;
 };
