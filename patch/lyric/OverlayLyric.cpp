@@ -274,6 +274,9 @@ BOOL OverlayLyric::Update(int alpha)
 		DrawText(&graphics, winSize);  
 	}
 	else {
+		static Gdiplus::Bitmap* __1=0,*__2=0;
+		static auto h=CreateSemaphore(0,0,10,NULL);
+		static auto _=[winSize](){std::thread([winSize](){
 		auto onceloadimage=[](wchar_t* wc,int w,int h){
 			auto image= LoadResImage(wc);
 			auto bitmap=new Gdiplus::Bitmap(w,h, PixelFormat32bppARGB);
@@ -285,16 +288,26 @@ BOOL OverlayLyric::Update(int alpha)
 			graphics.DrawImage(image, 0, 0, w,h);
 			return bitmap;
 		};
+		__1=onceloadimage(L"ANNOUNCE",winSize.cx, winSize.cy);
+		ReleaseSemaphore(h,1,NULL);
+		__2=onceloadimage(L"THANKSPNG",winSize.cx, winSize.cy);
+		ReleaseSemaphore(h,1,NULL);
+		}).detach();
+		return 0;
+		}();
 		
 		if(visimagebefore_ix==0){
 			//放大时会有点卡，用InterpolationModeNearestNeighbor不卡但是花了
-			static auto __=onceloadimage(L"ANNOUNCE",winSize.cx, winSize.cy);
-			graphics.DrawImage(__, 0, 0, winSize.cx, winSize.cy);
+			if(__1==0)
+				WaitForSingleObject(h,INFINITE);
+
+			graphics.DrawImage(__1, 0, 0, winSize.cx, winSize.cy);
 			//graphics.DrawImage(LoadResImage(L"ANNOUNCE"), 0, 0, winSize.cx, winSize.cy);
 		}
 		else{
-			static auto __=onceloadimage(L"THANKSPNG",winSize.cx, winSize.cy);
-			graphics.DrawImage(__, 0, 0, winSize.cx, winSize.cy);
+			if(__2==0)
+				WaitForSingleObject(h,INFINITE);
+			graphics.DrawImage(__2, 0, 0, winSize.cx, winSize.cy);
 			//graphics.DrawImage(LoadResImage(L"THANKSPNG"), 0, 0, winSize.cx, winSize.cy);
 		
 		}
@@ -367,6 +380,7 @@ void OverlayLyric::hideandnotify(){
 			CloseHandle(event);
 		}
 		else{
+			if(visimagebefore_ix>=1)
 			for(int i=0;i<255;i+=32){
 				Update(i);
 				Sleep(4);
