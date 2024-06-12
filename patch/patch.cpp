@@ -457,6 +457,13 @@ void patchstring(){
     addr=0x3370A+modulebase;   //最新へ
     VirtualProtect( (LPVOID) addr, 7, PAGE_EXECUTE_READWRITE, &old);
     *(int*)(addr+3)=*(int*)(addr+3)+0x3D5C90-0x3D5C78;
+
+    addr=0x2A3062+modulebase;   // １つ戻し 
+    VirtualProtect( (LPVOID) addr, 7, PAGE_EXECUTE_READWRITE, &old);
+    *(int*)(addr+3)=*(int*)(addr+3)+0x3FFE80-0x4005D0;
+    addr=0x2A315E+modulebase;   // １つ送り
+    VirtualProtect( (LPVOID) addr, 7, PAGE_EXECUTE_READWRITE, &old);
+    *(int*)(addr+3)=*(int*)(addr+3)+0x400270-0x4005F8;
 }
 
 
