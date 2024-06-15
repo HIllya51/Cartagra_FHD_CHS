@@ -19,7 +19,8 @@ for f in os.listdir(r'..\SCRIPT_FHD\text'):
                     maps[oris[j].replace('…','').replace('、','').replace('─','―').replace('？','')]=tss[j]
 #print(maps)
 maps.update({
-    '答えれない':maps.get('答えられない')
+    '答えれない':maps.get('答えられない'),
+    '怪しげな宗教の幹部':maps.get('妖しげな宗教の幹部')
 })
 
 maps.update({
@@ -101,7 +102,8 @@ maps.update({
     'END17【海の影】由良BAD':'END17【海之影】由良BE',
     'END16【逃避行】':'END16【私奔】',
     'END18【海の光】由良END':'END18【海之光】由良END',
-    'から':'开始'
+    'から':'开始',
+    "END2【七七の悦び】":"END2【七七的喜悦】"
 })
 for i in range(50):
     maps['セーブ%02d'%i]='save%02d'%i
