@@ -1,4 +1,4 @@
-#include "lyric.h"
+﻿#include "lyric.h"
 #include "OverlayLyric.h"
 
 HLRC CreateLyric(int type)
@@ -36,6 +36,10 @@ void SetLyricFontA(HLRC lrc, const char* fontName, float fontSize)
 void SetLyricFontW(HLRC lrc, const wchar_t* fontName, float fontSize)
 {
 	OverlayLyric* pLrc = (OverlayLyric*)lrc;
+	
+	::FontFamily fontFamily(fontName);
+	if(!fontFamily.IsAvailable())
+		fontName=L"宋体";
 	pLrc->SetFont(fontName, fontSize);
 }
 
