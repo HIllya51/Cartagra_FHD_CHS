@@ -60,7 +60,7 @@ HWND CreateWindowExWh(
         if(once){
             once=false;
             g_hwnd=CreateWindowExW_s(dwExStyle,lpClassName,lpWindowName,dwStyle,X,Y,nWidth,nHeight,hWndParent,hMenu,hInstance,lpParam);
-            SetWindowTextW(g_hwnd,L"恋狱～月狂病～《REBIRTH FHD SIZE EDITION》  内部测试版");
+            SetWindowTextW(g_hwnd,L"恋狱～月狂病～《REBIRTH FHD SIZE EDITION》");
             createmovielrc();
             return g_hwnd;
         }
