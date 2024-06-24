@@ -14,7 +14,6 @@ patch/erroruitext.cpp
 patch/uitext.cpp
 patch/othcg.cpp
 image/czximage/build
-patch/res
 SCRIPT_FHD/text2
 kouryaku/攻略.mhtml
 font/newcharset1.txt
@@ -25,3 +24,9 @@ font/newinfo2.txt
 font/newinfo4.txt
 font/remap_charset2.txt
 patch/BGCG.cpp
+font/newinfo3.txt
+font/newcharset3.txt
+patch/res/BGCG.DAT
+patch/res/BGCG.IMG
+patch/res/OTHCG.DAT
+patch/res/OTHCG.IMG

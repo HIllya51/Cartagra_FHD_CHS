@@ -8,13 +8,14 @@ for _dir in ['OTHCG','PARTS','SYSCG','BGCG']:
         czimagepath=os.path.join(_path, imagepath[:-4])
         czimagepng=os.path.join(_path, imagepath)
         outputczpath=os.path.join(_path+'_NEW', imagepath[:-4])
-        origin=Image.open(czimagepng)
         newimg=Image.open(pngimagepath)
-        if origin.size!=newimg.size:
-            print(pngimagepath,origin.size,newimg.size)
-            raise Exception()
-        if os.path.exists(outputczpath) and  os.path.getmtime(outputczpath)>max(os.path.getmtime(pngimagepath),os.path.getctime(pngimagepath)):
-            continue
+        if os.path.exists(czimagepng):
+            origin=Image.open(czimagepng)
+            if origin.size!=newimg.size:
+                print(pngimagepath,origin.size,newimg.size)
+                raise Exception()
+            if os.path.exists(outputczpath) and  os.path.getmtime(outputczpath)>max(os.path.getmtime(pngimagepath),os.path.getctime(pngimagepath)):
+                continue
         with open(czimagepath,'rb') as ff:
             magic=ff.read(3).decode()
         if magic=='CZ4' or magic=='CZ3' or 'DATE_LOGO' in czimagepath:
